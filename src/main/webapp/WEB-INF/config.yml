@@ -1,0 +1,13 @@
+## YAML Template.
+---
+driverDB: com.mysql.jdbc.Driver
+urlDB: jdbc:mysql://db4free.net:3306/proyectodaw?useSSL=false
+userDB: daw2
+passDB: nohay2sin3
+##passDB: clasesdaw
+mailFrom: falso@gmail.com
+smtpServer: smtp.gmail.com
+smtpPort: 587
+mailPass: password
+##1hora
+timeToValidate: 1
