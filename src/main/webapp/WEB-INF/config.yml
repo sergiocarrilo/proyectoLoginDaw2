@@ -1,10 +1,9 @@
 ## YAML Template.
 ---
 driverDB: com.mysql.jdbc.Driver
-urlDB: jdbc:mysql://db4free.net:3306/proyectodaw?useSSL=false
-userDB: daw2
+urlDB: jdbc:mysql://discutivo.com:3306/discu351_proyectodaw?useSSL=false
+userDB: discu351_daw
 passDB: nohay2sin3
-##passDB: clasesdaw
 mailFrom: falso@gmail.com
 smtpServer: smtp.gmail.com
 smtpPort: 587
