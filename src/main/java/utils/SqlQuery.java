@@ -11,5 +11,5 @@ package utils;
  */
 public class SqlQuery {
 
-   
+    public static final String QUERYGETALLUSERS = "SELECT * FROM USERS";
 }
