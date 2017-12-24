@@ -11,5 +11,5 @@ package utils;
  */
 public class SqlQuery {
 
-    public static final String QUERYGETALLUSERS = "SELECT * FROM USERS";
+    public static final String QUERYGETALLUSERS = "SELECT * FROM USERS JOIN USER_PERMISOS WHERE USERS.ID = USER_PERMISOS.ID_USER;";
 }

@@ -20,13 +20,13 @@ public class Superuser {
     private Boolean activo;
     private Date fecha_activacion;
     private String codigo_activacion;
-    private String permiso;
+    private Long permiso;
 
-    public String getPermiso() {
+    public Long getPermiso() {
         return permiso;
     }
 
-    public void setPermiso(String permiso) {
+    public void setPermiso(Long permiso) {
         this.permiso = permiso;
     }
 

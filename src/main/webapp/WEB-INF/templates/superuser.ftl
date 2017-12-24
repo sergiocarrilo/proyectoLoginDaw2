@@ -55,7 +55,12 @@
                 <td>
                     ${usuario.fecha_activacion?string["dd-MM-yyyy"]}
                 </td>
-                <td>swdsd</td>
+                <td>
+                       <input type="checkbox" id="id_permiso" name="id_permiso"  <#if usuario.id_permiso == 2> checked <#else>
+                        
+                    </#if>/>
+                    
+                </td>
             </tr>
             </#list>	
         </table>

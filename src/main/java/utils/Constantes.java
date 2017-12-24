@@ -38,6 +38,17 @@ public class Constantes {
     public static final String EMAIL = "EMAIL";
 
     
+    //Columnas USER_PERMISOS
+    public static final String ID_USER_PERMISO = "ID_USER_PERMISO";
+    public static final String ID_USER = "ID_USER";
+    public static final String ID_PERMISO = "ID_PERMISO";
+   
+    //Columnas PERMISOS
+    //public static final String ID = "ID";
+    public static final String DESCRIPCION = "DESCRIPCION";
+
+    
+    
     public static String LOGIN_ON = "loginOnFromServer";
     
   

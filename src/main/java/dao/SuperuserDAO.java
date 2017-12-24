@@ -43,11 +43,13 @@ public class SuperuserDAO {
                 String nombre = rs.getString(Constantes.NOMBRE);
                 String email = rs.getString(Constantes.EMAIL);
                 Date fecha = rs.getDate(Constantes.FECHA_ACTIVACION);
+                int id_permiso = rs.getInt(Constantes.ID_PERMISO);
                 supuser = new Superuser();
                 supuser.setId((long)id);
                 supuser.setNombre(nombre);
                 supuser.setEmail(email);
                 supuser.setFecha_activacion(fecha);
+                supuser.setPermiso((long)id_permiso);
 
                 lista.add(supuser);
             }
