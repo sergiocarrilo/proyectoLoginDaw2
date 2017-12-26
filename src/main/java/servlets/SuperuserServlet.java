@@ -4,12 +4,16 @@
  * and open the template in the editor.
  */
 package servlets;
+
 import config.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -19,13 +23,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Superuser;
 import utils.Constantes;
 import servicios.SuperuserService;
+
 /**
  *
  * @author DAW
  */
-@WebServlet(name = "SuperuserServlet", urlPatterns = {"/SuperuserServlet"})
+@WebServlet(name = "SuperuserServlet", urlPatterns = {"/superuserservlet"})
 public class SuperuserServlet extends HttpServlet {
 
     /**
@@ -47,19 +53,37 @@ public class SuperuserServlet extends HttpServlet {
         } else {
             op = request.getParameter("op");
         }
-        
-        switch(op){
+        Superuser superuser;
+        switch (op) {
             case Constantes.VIEW:
-                try{  
-                   root.put("usuarios", service.getAllUsers());
-                   Template temp = Configuration.getInstance().getFreeMarker().getTemplate("superuser.ftl");
-                   temp.process(root, response.getWriter());
-                } catch (TemplateException ex) {
-                    Logger.getLogger(SuperuserServlet.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                break;
                 
+                break;
+            case Constantes.HACERADMIN:
+                superuser = this.crearSuperUsuario(request, response);
+                int filas = service.cambiarPermiso(superuser);
+                break;
         }
+        try{
+        root.put("usuarios", service.getAllUsers());
+        Template temp = Configuration.getInstance().getFreeMarker().getTemplate("superuser.ftl");
+        temp.process(root, response.getWriter());
+        }catch(TemplateException ex){
+            Logger.getLogger(Superuser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+    public Superuser crearSuperUsuario(HttpServletRequest request, HttpServletResponse response) {
+        Superuser superuser = new Superuser();
+
+        if (!"".equals(request.getParameter("iduser")) && request.getParameter("iduser") != null) {
+            superuser.setId(Long.parseLong(request.getParameter("iduser")));
+        }
+        if (!"".equals(request.getParameter("idpermiso")) && request.getParameter("idpermiso") != null) {
+            superuser.setPermiso(Long.parseLong(request.getParameter("idpermiso")));
+        }
+
+        return superuser;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

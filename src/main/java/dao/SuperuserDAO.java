@@ -8,6 +8,7 @@ package dao;
 import dao.AlumnosDAO;
 import dao.DBConnection;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -72,5 +73,36 @@ public class SuperuserDAO {
         }
         return lista;
     }
+
+    public int cambiarPermisoJDBCTemplate(Superuser sup) {
+       
+         Connection con = null;
+        int filas = 0;
+        try {
+            con = DBConnection.getInstance().getConnection();
+
+            PreparedStatement stmt = con.prepareStatement(SqlQuery.QUERYHACERADMIN, Statement.RETURN_GENERATED_KEYS);
+            
+                stmt.setLong(1, sup.getPermiso());
+                stmt.setLong(2, sup.getId());
+           
+            
+            
+
+            filas = stmt.executeUpdate();
+
+        } catch (Exception ex) {
+            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBConnection.getInstance().cerrarConexion(con);
+        }
+
+        return filas;
+    }
+
+    public Superuser cambiarPermisoJDBCTemplate() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     
 }

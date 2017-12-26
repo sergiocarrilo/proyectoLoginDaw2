@@ -41,7 +41,7 @@ public class Constantes {
     //Columnas USER_PERMISOS
     public static final String ID_USER_PERMISO = "ID_USER_PERMISO";
     public static final String ID_USER = "ID_USER";
-    public static final String ID_PERMISO = "ID_PERMISO";
+    public static final String ID_PERMISO = "ID_PERMISOS";
    
     //Columnas PERMISOS
     //public static final String ID = "ID";
@@ -51,7 +51,11 @@ public class Constantes {
     
     public static String LOGIN_ON = "loginOnFromServer";
     
-  
+    //SuperUser servlet case
+    public static final String HACERADMIN = "HACERADMIN";
+    
+
+    
     
 
   

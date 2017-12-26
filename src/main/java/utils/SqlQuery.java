@@ -12,4 +12,5 @@ package utils;
 public class SqlQuery {
 
     public static final String QUERYGETALLUSERS = "SELECT * FROM USERS JOIN USER_PERMISOS WHERE USERS.ID = USER_PERMISOS.ID_USER;";
+    public static final  String QUERYHACERADMIN = "UPDATE USER_PERMISOS SET ID_PERMISOS = ? WHERE ID_USER = ?";
 }

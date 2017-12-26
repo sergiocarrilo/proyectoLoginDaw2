@@ -10,18 +10,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script>
 
-        function hacerAdmin() {
-
-                document.getElementById("op").value = "HACERADMIN";
-            }
-
-            function cargarUsuario(id, nombre) {
-                document.getElementById("nombre").value = nombre;
+        function cambiarAdmin(id,idpermiso) {
                 document.getElementById("iduser").value = id;
-                
-               
-
+                document.getElementById("idpermiso").value = idpermiso;
+                document.getElementById("op").value = "HACERADMIN";
+                document.getElementById("formsupuser").submit();
             }
+
+            
         </script>
     </head>
     
@@ -42,9 +38,7 @@
             <#list usuarios as usuario>
             <tr>
                 <td>
-                    <input type="button" value="cargar ${usuario.id}" 
-                               onclick="cargarUsuario('${usuario.id}',
-                                                   '${usuario.nombre}');"/>
+                    <input type="button" value="${usuario.id}"/>
                 </td> 
                 <td>
                     ${usuario.nombre}
@@ -56,21 +50,18 @@
                     ${usuario.fecha_activacion?string["dd-MM-yyyy"]}
                 </td>
                 <td>
-                       <input type="checkbox" id="id_permiso" name="id_permiso"  <#if usuario.id_permiso == 2> checked <#else>
-                        
-                    </#if>/>
-                    
+                       <input type="checkbox" id="id_permiso" name="id_permiso"  
+                        <#if usuario.permiso == 2> checked <#else>                      
+                        </#if> onchange="cambiarAdmin('${usuario.id}','${usuario.permiso}');"/>
                 </td>
             </tr>
             </#list>	
         </table>
-        <form id="formalum" action="alumnos?">
+        <form id="formsupuser" action="superuserservlet?">
             <input type="hidden" id="iduser" name="iduser"/>
+            <input type="hidden" id="idpermiso" name="idpermiso"/>
             <input type="hidden" id="op"  name="op"/>
-            <label>Nombre</label><input type="text" id="nombre" name="nombre" size="12"/>
-            <label>Admin</label><input type="checkbox" id="admin" name="admin" />
-            <br>
-            <button type="submit" onclick="hacerAdmin();" >Hacer admin.</button>
+            
 
         </form>
     </body>
