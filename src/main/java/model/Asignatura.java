@@ -12,20 +12,29 @@ package model;
  * @author daw
  */
 public class Asignatura {
-    private long id;
+    private long id_asignatura;
+    private long id_curso;
     private String nombre;
     private String curso;
-    private String ciclo;
+    
 
     public Asignatura() {
     }
 
-    public long getId() {
-        return id;
+    public long getId_asignatura() {
+        return id_asignatura;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setId_asignatura(long id_asignatura) {
+        this.id_asignatura = id_asignatura;
+    }
+
+    public long getId_curso() {
+        return id_curso;
+    }
+
+    public void setId_curso(long id_curso) {
+        this.id_curso = id_curso;
     }
 
     public String getNombre() {
@@ -44,14 +53,6 @@ public class Asignatura {
         this.curso = curso;
     }
 
-    public String getCiclo() {
-        return ciclo;
-    }
-
-    public void setCiclo(String ciclo) {
-        this.ciclo = ciclo;
-    }
-    
-    
+       
     
 }

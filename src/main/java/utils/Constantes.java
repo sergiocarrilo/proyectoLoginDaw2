@@ -13,7 +13,7 @@ public class Constantes {
 
    
     public static String registroJSP = "registroJsp.jsp";
-
+public static String actionJSP = "ACTION";
    
 
     public static final String INSERT = "INSERT";
@@ -46,6 +46,26 @@ public class Constantes {
     //Columnas PERMISOS
     //public static final String ID = "ID";
     public static final String DESCRIPCION = "DESCRIPCION";
+    //Columnas Asignaturas - CURSOS
+    public static final String ID_ASIGNATURA = "ID_ASIGNATURA";    
+    public static final String ID_CURSO = "ID_CURSO";
+    
+    //Columnas Cursos
+    public static final String CURSO = "CURSO";    
+    
+    //Mensajes Asignaturas Servlet
+    public static String messageQueryAsignaturaInserted = "Asignatura fue insertado en la lista";
+    public static String messageQueryAsignaturaInsertFailed = "Asignatura no agregada a la base de datos";
+    public static String messageQueryAsignaturaUpdated = "Asignatura actualizada correctamente";
+    public static String messageQueryAsignaturaUpdateFailed = "Error en la actualización de Asignatura";
+    public static String messageQueryAsignaturaDeleted = "Asignatura eliminada correctamente";
+    public static String messageQueryAsignaturaDeletedFail = "Cuidado! Tienes alumnos que estan cursando esta asignatura. Estás Seguro?";
+    public static String messageQueryAsignaturaDeletedFailedAgain = "Problemas graves, no pudimos borrar la Asignatura";
+    public static String asignaturaResult = "asignaturaResult";
+    public static String resultadoQuery = "resultado";
+    public static String asignaturasList = "asignaturasList";
+    public static String asignaturasTemplate = "asignaturasTemplate.ftl";
+    public static String listaAsignaturas = "listaAsignaturas";
 
     
     
@@ -61,4 +81,4 @@ public class Constantes {
   
     
 
-}
+}//fin clase
