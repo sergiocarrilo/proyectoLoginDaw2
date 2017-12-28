@@ -73,6 +73,7 @@ public class SuperuserServlet extends HttpServlet {
         }
         try{
         root.put("usuarios", service.getAllUsers(offset));
+        root.put("offset", offset);
         Template temp = Configuration.getInstance().getFreeMarker().getTemplate("superuser.ftl");
         temp.process(root, response.getWriter());
         }catch(TemplateException ex){

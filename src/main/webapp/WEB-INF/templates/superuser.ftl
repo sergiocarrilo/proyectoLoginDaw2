@@ -21,14 +21,16 @@
             document.getElementById("formsupuser").submit();
         }
         
-        function previoudPage(){
+        function previousPage(){
             var offsetacutal =  document.getElementById("offset").value;
                 
-            if(offsetactual!=0){
+            if(offsetacutal==0){
+
+            }else{
                 document.getElementById("offset").value = offsetacutal - 10;
                 document.getElementById("op").value = "VIEW";
                 document.getElementById("formsupuser").submit();
-            }else{}
+            }
                
         }
             
@@ -77,19 +79,19 @@
                 </tbody>
             </#list>	
             </table>
-<div class="pagination">
-  
-    <button onclick="previosPage();">&larr; Previous</button>
-    
-     <button onclick="nextPage();">Next &rarr;</button>
+        <div class="pagination">
 
-    
-</div>
+            <button onclick="previousPage();">&larr; Previous</button>
+
+            <button onclick="nextPage();">Next &rarr;</button>
+
+
+            </div>
         <form id="formsupuser" action="superuserservlet?">
             <input type="hidden" id="iduser" name="iduser"/>
             <input type="hidden" id="idpermiso" name="idpermiso"/>
             <input type="hidden" id="op"  name="op"/>
-            <input type="hidden" id="offset"  name="offset" value="0"/>
+            <input type="hidden" id="offset"  name="offset" value="${offset}"/>
 
             </form>
         </body>
