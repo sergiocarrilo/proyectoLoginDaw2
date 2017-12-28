@@ -26,18 +26,20 @@ import utils.Constantes;
  */
 public class SuperuserDAO {
 
-    public List<Superuser> getAllUsersJDBCTemplate() {
+    public List<Superuser> getAllUsersJDBCTemplate(int offset) {
         List<Superuser> lista = new ArrayList<>();
         Superuser supuser = null;
         Connection con = null;
-        Statement stmt = null;
+        PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
             con = DBConnection.getInstance().getConnection();
-            stmt = con.createStatement();
-            rs = stmt.executeQuery(SqlQuery.QUERYGETALLUSERS);
+            stmt = con.prepareStatement(SqlQuery.QUERYGETALLUSERS, Statement.RETURN_GENERATED_KEYS);
+            
+            stmt.setLong(1, offset);
+            rs = stmt.executeQuery();
 
-            //STEP 5: Extract data from result set
+
             while (rs.next()) {
                 //Retrieve by column name
                 int id = rs.getInt(Constantes.ID);
@@ -81,15 +83,15 @@ public class SuperuserDAO {
         try {
             con = DBConnection.getInstance().getConnection();
 
-            PreparedStatement stmt = con.prepareStatement(SqlQuery.QUERYHACERADMIN, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmtupdate = con.prepareStatement(SqlQuery.QUERYHACERADMIN, Statement.RETURN_GENERATED_KEYS);
             
-                stmt.setLong(1, sup.getPermiso());
-                stmt.setLong(2, sup.getId());
+                stmtupdate.setLong(1, sup.getPermiso());
+                stmtupdate.setLong(2, sup.getId());
            
             
             
 
-            filas = stmt.executeUpdate();
+            filas = stmtupdate.executeUpdate();
 
         } catch (Exception ex) {
             Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -100,9 +102,7 @@ public class SuperuserDAO {
         return filas;
     }
 
-    public Superuser cambiarPermisoJDBCTemplate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
     
     
 }

@@ -15,13 +15,29 @@
         <script>
 
         function cambiarAdmin(id,idpermiso) {
-                document.getElementById("iduser").value = id;
-                document.getElementById("idpermiso").value = idpermiso;
-                document.getElementById("op").value = "HACERADMIN";
+            document.getElementById("iduser").value = id;
+            document.getElementById("idpermiso").value = idpermiso;
+            document.getElementById("op").value = "HACERADMIN";
+            document.getElementById("formsupuser").submit();
+        }
+        
+        function previoudPage(){
+            var offsetacutal =  document.getElementById("offset").value;
+                
+            if(offsetactual!=0){
+                document.getElementById("offset").value = offsetacutal - 10;
+                document.getElementById("op").value = "VIEW";
                 document.getElementById("formsupuser").submit();
-            }
-
+            }else{}
+               
+        }
             
+        function nextPage(){
+            var offsetacutal =  document.getElementById("offset").value;
+            document.getElementById("offset").value = offsetacutal + 10;
+            document.getElementById("op").value = "VIEW";
+            document.getElementById("formsupuser").submit();
+        }
             </script>
         </head>
 
@@ -61,12 +77,19 @@
                 </tbody>
             </#list>	
             </table>
+<div class="pagination">
+  
+    <button onclick="previosPage();">&larr; Previous</button>
+    
+     <button onclick="nextPage();">Next &rarr;</button>
 
+    
+</div>
         <form id="formsupuser" action="superuserservlet?">
             <input type="hidden" id="iduser" name="iduser"/>
             <input type="hidden" id="idpermiso" name="idpermiso"/>
             <input type="hidden" id="op"  name="op"/>
-
+            <input type="hidden" id="offset"  name="offset" value="0"/>
 
             </form>
         </body>
