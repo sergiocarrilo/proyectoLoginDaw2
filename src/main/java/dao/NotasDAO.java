@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Nota;
+import model.Asignatura;
+import model.Alumno;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
@@ -64,6 +66,26 @@ public class NotasDAO {
             QueryRunner qr = new QueryRunner();
             ResultSetHandler<Nota> h = new BeanHandler<>(Nota.class);
             n = qr.query(con, "SELECT * FROM NOTAS WHERE ID_ALUMNO = ? AND ID_ASIGNATURA = ?", h, idAlu, idAsig);
+
+        } catch (Exception ex) {
+            Logger.getLogger(NotasDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBConnection.getInstance().cerrarConexion(con);
+        }
+        return n;
+    }
+    
+    public Nota getAlumnoAsignatura(Long idAlu) {
+        Connection con = null;
+        Nota n = null;
+        try {
+            con = DBConnection.getInstance().getConnection();
+            QueryRunner qr = new QueryRunner();
+            ResultSetHandler<Nota> h = new BeanHandler<>(Nota.class);
+            n = qr.query(con, "SELECT ALUMNOS.NOMBRE, ASIGNATURAS.NOMBRE, NOTAS.NOTA "
+                    + "FROM ((NOTAS INNER JOIN ALUMNOS ON NOTAS.ID_ALUMNO = ALUMNOS.ID) "
+                    + "INNER JOIN ASIGNATURAS ON NOTAS.ID_ASIGNATURA = ASIGNATURAS.ID) "
+                    + "WHERE ID_ALUMNO = ?", h, idAlu);
 
         } catch (Exception ex) {
             Logger.getLogger(NotasDAO.class.getName()).log(Level.SEVERE, null, ex);
