@@ -15,10 +15,10 @@ import java.util.List;
  * @author DAW
  */
 public class SuperuserService {
-    public List<Superuser> getAllUsers()
+    public List<Superuser> getAllUsers(int offset)
     {
         SuperuserDAO dao = new SuperuserDAO();
-        return dao.getAllUsersJDBCTemplate();
+        return dao.getAllUsersJDBCTemplate(offset);
     }
 
     public int cambiarPermiso(Superuser superuser) {

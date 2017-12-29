@@ -48,12 +48,20 @@ public class SuperuserServlet extends HttpServlet {
         SuperuserService service = new SuperuserService();
         HashMap root = new HashMap();
         String op;
+         Superuser superuser;
         if (request.getParameter("op") == null) {
             op = Constantes.VIEW;
         } else {
             op = request.getParameter("op");
         }
-        Superuser superuser;
+        
+        int offset;
+        if (request.getParameter("offset") == null) {
+            offset = 0;
+        } else {
+            offset = Integer.parseInt(request.getParameter("offset"));
+        }
+       
         switch (op) {
             case Constantes.VIEW:
                 
@@ -64,7 +72,8 @@ public class SuperuserServlet extends HttpServlet {
                 break;
         }
         try{
-        root.put("usuarios", service.getAllUsers());
+        root.put("usuarios", service.getAllUsers(offset));
+        root.put("offset", offset);
         Template temp = Configuration.getInstance().getFreeMarker().getTemplate("superuser.ftl");
         temp.process(root, response.getWriter());
         }catch(TemplateException ex){
