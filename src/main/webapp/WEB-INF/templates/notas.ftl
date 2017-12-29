@@ -4,7 +4,7 @@
 <#import "/libs/mylib.ftl" as my>
 
 <#assign charset="UTF-8">
-<#assign title="Example">
+<#assign title="Notas">
 <#assign content>
 This is content
 </#assign>
@@ -14,32 +14,56 @@ This is content
         <title>${title}</title>
         <meta charset="${charset}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        </head>
+        <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/assets/css/style.css">
+        <script>
+            function cargarAlumno(id, nombre) {
+                document.getElementById("idAlumno").value = id;
+                document.getElementById("nombreAlumno").value = nombre;
+            }
+
+        </script>
+    </head>
     <body><#if content??>
         <div>${content}</div>
 		<#else>
         <div>No content</div>
 		</#if>
-        <table border="1">
-            <tr>
-                <td>Nombre</td>
-                <td>Asignatura</td>
-                <td>Nota</td>
-            </tr>
-            <#list notas as nota>
-            <tr>
-                <td>
-                    ${nota.nombre}
-                </td>
-                <td>
-                    ${nota.asignatura}
-                </td>
-                <td>
-                    ${nota.nota}
-                </td>
-            </tr>
-            </#list>	
-        </table>
-		<@my.function>parameter</@my.function>
+        <table  class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Asignatura</th>
+                    <th>Nota</th>
+                </tr>
+            </thead>
+            <#list usuarios as usuario>
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="button" value="${usuario.id}"/>
+                    </td> 
+                    
+                    <td>
+                        ${usuario.nombre}
+                    </td>
+                    
+                    <td>
+                        ${usuario.email}
+                    </td>
+                    
+                    <td>
+                        ${usuario.fecha_activacion?string["dd-MM-yyyy"]}
+                    </td>
+                    
+                    <td>
+                        <input type="checkbox" id="id_permiso" name="id_permiso"  
+                            <#if usuario.permiso == 2> checked <#else>                      
+                            </#if> onchange="cambiarAdmin('${usuario.id}','${usuario.permiso}');"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </#list>
         </body>
     </html>
