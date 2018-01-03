@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -46,13 +47,19 @@ public class SuperuserServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         SuperuserService service = new SuperuserService();
-        HashMap root = new HashMap();
-        String op;
-         Superuser superuser;
-        if (request.getParameter("op") == null) {
-            op = Constantes.VIEW;
+        
+        
+        String messageToUser = null;
+        Superuser superuser = null;
+        HashMap plantilla = new HashMap();
+        Map<String, String[]> parametros = request.getParameterMap();
+       
+        String action; 
+      
+        if (request.getParameter(Constantes.actionJSP) == null) {
+            action= Constantes.VIEW;
         } else {
-            op = request.getParameter("op");
+             action = request.getParameter(Constantes.actionJSP);
         }
         
         int offset;
@@ -62,38 +69,27 @@ public class SuperuserServlet extends HttpServlet {
             offset = Integer.parseInt(request.getParameter("offset"));
         }
        
-        switch (op) {
+        switch (action) {
             case Constantes.VIEW:
                 
                 break;
             case Constantes.HACERADMIN:
-                superuser = this.crearSuperUsuario(request, response);
+                superuser = service.recogerParametros(parametros);
                 int filas = service.cambiarPermiso(superuser);
                 break;
         }
         try{
-        root.put("usuarios", service.getAllUsers(offset));
-        root.put("offset", offset);
-        Template temp = Configuration.getInstance().getFreeMarker().getTemplate("superuser.ftl");
-        temp.process(root, response.getWriter());
+        plantilla.put("usuarios", service.getAllUsers(offset));
+        plantilla.put("offset", offset);
+        Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.SUPERUSERTEMPLATE);
+        temp.process(plantilla, response.getWriter());
         }catch(TemplateException ex){
             Logger.getLogger(Superuser.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
 
-    public Superuser crearSuperUsuario(HttpServletRequest request, HttpServletResponse response) {
-        Superuser superuser = new Superuser();
-
-        if (!"".equals(request.getParameter("iduser")) && request.getParameter("iduser") != null) {
-            superuser.setId(Long.parseLong(request.getParameter("iduser")));
-        }
-        if (!"".equals(request.getParameter("idpermiso")) && request.getParameter("idpermiso") != null) {
-            superuser.setPermiso(Long.parseLong(request.getParameter("idpermiso")));
-        }
-
-        return superuser;
-    }
+   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
