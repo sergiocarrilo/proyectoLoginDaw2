@@ -6,19 +6,17 @@
 package servlets;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import utils.UrlsPaths;
+import model.Nota;
+import servicios.AlumnosServicios;
+import servicios.AsignaturasServicios;
+import servicios.NotasServicios;
 
-/**
- *
- * @author daw
- */
-@WebServlet(name = "NotasServlet", urlPatterns = {UrlsPaths.NOTAS})
+@WebServlet(name = "Notas", urlPatterns = {"/sesion/notas"})
 public class NotasServlet extends HttpServlet {
 
     /**
@@ -32,8 +30,59 @@ public class NotasServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        NotasServicios ns = new NotasServicios();
+        AlumnosServicios alums = new AlumnosServicios();
+        AsignaturasServicios asigs = new AsignaturasServicios();
+        String op = request.getParameter("accion");
+        String idAlu = request.getParameter("idAlumno");
+        String idAsig = request.getParameter("idAsignatura");
+        String nomAlu = request.getParameter("nombreAlumno");
+        String nomAsig = request.getParameter("nombreAsignatura");
+        String nota = request.getParameter("nota");
+        boolean cargar = false;
 
+        if (op != null) {
+            Nota n = new Nota();
+            n.setIdAlumno(Long.parseLong(idAlu));
+            n.setIdAsignatura(Long.parseLong(idAsig));
+            int filas = 0;
+
+            switch (op) {
+                case "guardar":
+                    n.setNota(Integer.parseInt(nota));
+                    n = ns.guardarNota(n);
+                    if (n != null) {
+                        filas = 1;
+                    }
+                    request.setAttribute("nota", n);
+                    break;
+                case "borrar":
+                    filas = ns.delNota(n);
+                    break;
+                case "cargar":
+                    n = ns.getNota(n.getIdAlumno(), n.getIdAsignatura());
+                    cargar = true;
+                    if (n == null) {
+                        request.setAttribute("mensaje", "No hay notas");
+                    }else{
+                        request.setAttribute("nota", n);
+                    }
+                    break;
+            }
+            if (filas != 0 && cargar == false) {
+                request.setAttribute("mensaje", filas + " filas modificadas correctamente");
+            } else if (filas == 0 && cargar == false) {
+                request.setAttribute("mensaje", "No se han hecho modificaciones");
+            }
+        }
+        // getAll siempre se hace
+        request.setAttribute("asignaturas", asigs.getAllAsignaturasdbUtils());
+        request.setAttribute("alumnos", alums.getAllAlumnos());
+        request.setAttribute("nomAlu", nomAlu);
+        request.setAttribute("idAlu", idAlu);
+        request.setAttribute("nomAsig", nomAsig);
+        request.setAttribute("idAsig", idAsig);
+        request.getRequestDispatcher("/pintarListaNotas.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

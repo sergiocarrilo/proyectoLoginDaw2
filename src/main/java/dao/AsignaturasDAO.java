@@ -358,4 +358,23 @@ public class AsignaturasDAO {
         return borrado;
     }
 
+    public List<AsignaturaCurso> getAllAsignaturasdbUtilsNotas() {
+        List<AsignaturaCurso> lista = null;
+ 
+         Connection con = null;
+         try {
+             con = DBConnection.getInstance().getConnection();
+             QueryRunner qr = new QueryRunner();
+             ResultSetHandler<List<AsignaturaCurso>> handler
+                     = new BeanListHandler<AsignaturaCurso>(AsignaturaCurso.class);
+             lista = qr.query(con, SqlQuery.SELECT_ALL_ASIGNATURAS, handler);
+ 
+         } catch (Exception ex) {
+             Logger.getLogger(AsignaturasDAO.class.getName()).log(Level.SEVERE, null, ex);
+         } finally {
+             DBConnection.getInstance().cerrarConexion(con);
+         }
+         return lista;
+    }
+
 }//Fin clase

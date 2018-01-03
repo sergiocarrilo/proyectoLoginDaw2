@@ -148,4 +148,10 @@ public class AsignaturasServicios {
         return curso;
     }
 
+    //utilizado en notas 
+    public List<AsignaturaCurso> getAllAsignaturasdbUtils() {
+        AsignaturasDAO dao = new AsignaturasDAO();
+        return dao.getAllAsignaturasdbUtilsNotas();
+    }
+
 }//FIN CLASE

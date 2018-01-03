@@ -22,6 +22,8 @@ public class Superuser {
     private String codigo_activacion;
     private Long permiso;
 
+
+
     public Long getPermiso() {
         return permiso;
     }

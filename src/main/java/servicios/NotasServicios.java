@@ -5,17 +5,29 @@
  */
 package servicios;
 
-/**
- *
- * @author daw
- */
+import dao.NotasDAO;
+import model.Nota;
+
 public class NotasServicios {
-
-    
-
-    public NotasServicios() {
-        
+    public Nota guardarNota(Nota n){
+        NotasDAO dao = new NotasDAO();
+        return dao.guardarNota(n);
     }
-
-
-}//fin clase
+    
+    public Nota getNota(Long idalu, Long idasig){
+        NotasDAO dao = new NotasDAO();
+        return dao.getNota(idalu, idasig);
+    }
+    
+    public Nota getAlumnoNota(Long idalu, Long idasig){
+        NotasDAO dao = new NotasDAO();
+        return dao.getNota(idalu, idasig);
+    }
+    
+    public int delNota(Nota n){
+        NotasDAO dao = new NotasDAO();
+        return dao.delNota(n);
+    }
+    
+    
+}

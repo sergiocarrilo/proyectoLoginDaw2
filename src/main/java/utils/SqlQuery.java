@@ -10,8 +10,8 @@ package utils;
  * @author daw
  */
 public class SqlQuery {
-
-    public static final String QUERYGETALLUSERS = "SELECT * FROM USERS JOIN USER_PERMISOS WHERE USERS.ID = USER_PERMISOS.ID_USER;";
+    //SUPERUSER DAO
+    public static final String QUERYGETALLUSERS = "SELECT * FROM USERS JOIN USER_PERMISOS WHERE USERS.ID = USER_PERMISOS.ID_USER LIMIT 10 OFFSET ?";
     public static final  String QUERYHACERADMIN = "UPDATE USER_PERMISOS SET ID_PERMISOS = ? WHERE ID_USER = ?";
     
       //ASIGNATURAS DAO

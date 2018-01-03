@@ -52,8 +52,8 @@ public class DBConnection {
         config.setUsername(Configuration.getInstance().getUserDB());
         config.setPassword(Configuration.getInstance().getPassDB());
         config.setDriverClassName(Configuration.getInstance().getDriverDB());
-        config.setMaximumPoolSize(5);
-
+        config.setMaximumPoolSize(5);//mantengamos esto bajo, para no saturar el número de conexiones
+     
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
