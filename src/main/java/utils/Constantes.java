@@ -74,10 +74,6 @@ public class Constantes {
 
     public static String LOGIN_ON = "loginOnFromServer";
 
-    //SuperUser servlet case
-    public static final String HACERADMIN = "HACERADMIN";
-
-    
     //parametros  plantilla SuperUser 
     public static final String IDUSER = "iduser";
     public static final String IDPERMISO = "idpermiso";
@@ -85,10 +81,12 @@ public class Constantes {
     
     //SuperuserServlet
     public static String SUPERUSERTEMPLATE = "superuser.ftl";
+     public static final String HACERADMIN = "HACERADMIN";
     //mensajes superuser
      public static String MESSAGEPERMISOCAMBIADO = "Se ha cambiado el permiso del usuario correctamente";
 
-  
+  //AdminServlet
+    public static String ADMINTEMPLATE = "admin.ftl";
     
 
 

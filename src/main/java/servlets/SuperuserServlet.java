@@ -32,7 +32,7 @@ import servicios.SuperuserService;
  *
  * @author DAW
  */
-@WebServlet(name = "SuperuserServlet", urlPatterns = {"/superuserservlet"})
+@WebServlet(name = "SuperuserServlet", urlPatterns = {"/superuser"})
 public class SuperuserServlet extends HttpServlet {
 
     /**
@@ -50,7 +50,6 @@ public class SuperuserServlet extends HttpServlet {
         
         
         String messageToUser = null;
-        Superuser superuser = null;
         HashMap plantilla = new HashMap();
         Map<String, String[]> parametros = request.getParameterMap();
        
@@ -74,7 +73,7 @@ public class SuperuserServlet extends HttpServlet {
                 
                 break;
             case Constantes.HACERADMIN:
-                superuser = service.recogerParametros(parametros);
+                 Superuser  superuser = service.recogerParametros(parametros);
                 int filas = service.cambiarPermiso(superuser);
                 break;
         }

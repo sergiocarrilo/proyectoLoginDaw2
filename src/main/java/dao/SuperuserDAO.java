@@ -35,7 +35,6 @@ public class SuperuserDAO {
         try {
             con = DBConnection.getInstance().getConnection();
             stmt = con.prepareStatement(SqlQuery.QUERYGETALLUSERS, Statement.RETURN_GENERATED_KEYS);
-            
             stmt.setLong(1, offset);
             rs = stmt.executeQuery();
 
