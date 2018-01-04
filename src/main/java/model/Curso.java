@@ -9,11 +9,11 @@ package model;
  *
  * @author Gato
  */
-public class Asignatura {
+public class Curso {
     private long id;
-    private String nombre;
+    private String curso;
 
-    public Asignatura() {
+    public Curso() {
     }
 
     public long getId() {
@@ -24,12 +24,12 @@ public class Asignatura {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getCurso() {
+        return curso;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setCurso(String curso) {
+        this.curso = curso;
     }
     
     
