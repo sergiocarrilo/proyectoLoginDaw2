@@ -6,7 +6,6 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -19,10 +18,7 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
-import utils.Constantes;
 import utils.ConstantesError;
 import utils.SqlQuery;
 
@@ -185,7 +181,7 @@ public class AsignaturasDAO {
         });
         if (resultadoQuery != null) {*/
         rowsAffected = jtm.update(SqlQuery.UPDATE_ASIGNATURA_CURSO, asignaturaCurso.getId_asignatura(), asignaturaCurso.getId_curso(), asignaturaCurso.getId());
-
+        
         /*}
 
         if (rowsAffected == 0) {

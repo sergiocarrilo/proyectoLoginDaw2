@@ -1,11 +1,5 @@
 <#ftl strip_whitespace = true>
 
-
-
-
-
-
-
 <#assign charset="UTF-8">
 <#assign title="Asignaturas© ">
 <#assign content>
@@ -79,8 +73,6 @@ This is content
 
 
   </#list>
-
-
 
                     </table>
                 </div>

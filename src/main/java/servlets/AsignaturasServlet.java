@@ -49,7 +49,7 @@ public class AsignaturasServlet extends HttpServlet {
         //request.setCharacterEncoding("UTF-8");
         AsignaturasServicios servicios = new AsignaturasServicios();
 
-        String action = request.getParameter(Constantes.actionJSP);
+        String action = request.getParameter(Constantes.actionTemplate);
         String messageToUser = null;
         AsignaturaCurso asignaturaCurso = null;
         HashMap paramentrosPlantilla = null;
@@ -57,7 +57,7 @@ public class AsignaturasServlet extends HttpServlet {
         if (action != null && !action.isEmpty()) {
 
             switch (action) {
-                case Constantes.UPDATE://pendiente
+                case Constantes.UPDATE:
 
                     asignaturaCurso = servicios.tratarParametros(parametros);
                     int filas  = servicios.updateAsignaturaCursodbUtils(asignaturaCurso);
@@ -188,8 +188,7 @@ public class AsignaturasServlet extends HttpServlet {
         Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.asignaturasTemplate);
         plantilla.process(paramentrosPlantilla, response.getWriter());
 
-        //request.setAttribute(Constantes.asignaturasList, servicios.getAllAsignaturasdbUtils());//envia la lista al jsp
-        //request.getRequestDispatcher("/" + Constantes.asignaturasTemplate).forward(request, response);
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

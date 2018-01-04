@@ -16,6 +16,7 @@ public class UrlsPaths {
     public static final String NOTAS = "/privado/notas";
     public static final String REGISTRO = "/registro";
     public static final String PRIVADO = "/privado-filtro-desactivado/*";
+    public static final String PROFESOR_ASIGNATURAS = "/privado/profesor-asignaturas";
 
     
 

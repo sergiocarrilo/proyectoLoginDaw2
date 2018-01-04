@@ -12,7 +12,7 @@ package utils;
 public class Constantes {
 
     public static String registroJSP = "registroJsp.jsp";
-    public static String actionJSP = "ACTION";
+    public static String actionTemplate = "ACTION";
 
     public static final String INSERT = "INSERT";
     public static final String UPDATE = "UPDATE";
@@ -71,6 +71,21 @@ public class Constantes {
     public static String listaAsignaturaCurso = "listaAsignaturaCurso";
     public static String listaCursos = "listaCursos";
     public static String messageToUser = "messageToUser";
+    
+    //Servlet Profesor - si lo hubiese 
+    public static String listaProfesores = "listaProfesores";
+    
+    //Servlet Asignaturas-Profesor 
+    public static String ProfesorAsignaturaTemplate = "profesorAsignaturaTemplate.ftl";
+    public static String listaProfesoresAsignaturas = "listaProfesoresAsignaturas";
+    public static String messageQueryProfeAsignaturaInsertFailed = "Tenemos problemas agregando esta relación, inténtalo otra vez";
+    public static String messageQueryProfeAsignaturaInserted = "Relación agregada correctamente";
+    public static String messageQueryProfesorAsignaturaDeleted = "Relación borrada correctamente";
+    public static String messageQueryProfesorAsignaturaDeletedFail = "Tenemos problemas borrando esta relación, inténtalo más tarde";
+    
+    //modelo Profesor-Asignatura - PLANTILLA
+    public static String ID_PROFESOR = "id_profesor";
+    
 
     public static String LOGIN_ON = "loginOnFromServer";
 
@@ -87,7 +102,7 @@ public class Constantes {
 
   //AdminServlet
     public static String ADMINTEMPLATE = "admin.ftl";
-    
+            
 
 
 }//fin clase

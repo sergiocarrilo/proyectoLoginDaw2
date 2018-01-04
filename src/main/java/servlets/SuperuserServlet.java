@@ -55,10 +55,10 @@ public class SuperuserServlet extends HttpServlet {
        
         String action; 
       
-        if (request.getParameter(Constantes.actionJSP) == null) {
+        if (request.getParameter(Constantes.actionTemplate) == null) {
             action= Constantes.VIEW;
         } else {
-             action = request.getParameter(Constantes.actionJSP);
+             action = request.getParameter(Constantes.actionTemplate);
         }
         
         int offset;
