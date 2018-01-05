@@ -22,11 +22,11 @@ public class SuperuserService {
     public List<Superuser> getAllUsers(int offset)
     {
         SuperuserDAO dao = new SuperuserDAO();
-        return dao.getAllUsersJDBCTemplate(offset);
+        return dao.getAllUsers(offset);
     }
 
     public int cambiarPermiso(Superuser superuser) {
-         long permisonone = 4;
+        long permisonone = 4;
         long permisoadmin = 2;
         SuperuserDAO dao = new SuperuserDAO();       
          if(superuser.getPermiso() == 2){
@@ -34,7 +34,7 @@ public class SuperuserService {
             }else{
                 superuser.setPermiso(permisoadmin);
             }
-        return dao.cambiarPermisoJDBCTemplate(superuser);
+        return dao.cambiarPermiso(superuser);
     }
     
      public Superuser recogerParametros(Map<String, String[]> parametros) throws UnsupportedEncodingException {

@@ -103,10 +103,18 @@ public class Constantes {
      public static final String HACERADMIN = "HACERADMIN";
     //mensajes superuser
      public static String MESSAGEPERMISOCAMBIADO = "Se ha cambiado el permiso del usuario correctamente";
+     public static String MESSAGEPERMISONOCAMBIADO = "No se ha podido cambiar el permiso del usuario";
 
   //AdminServlet
     public static String ADMINTEMPLATE = "admin.ftl";
-                
 
+     public static final String INSERTARPROFE = "INSERTARPROFE";
+     public static final String INSERTARALUMNO = "INSERTARALUMNO";
+     public static final String INSERTARASIGNATURA = "INSERTARASIGNATURA";
+     public static final String NAME = "name";
+     // public static final String EMAIL = "email";
+     public static final String FECNA = "fecna";
+     public static final String MAYOR = "mayor";
+     
 
 }//fin clase

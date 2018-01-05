@@ -26,7 +26,7 @@ import utils.Constantes;
  */
 public class SuperuserDAO {
 
-    public List<Superuser> getAllUsersJDBCTemplate(int offset) {
+    public List<Superuser> getAllUsers(int offset) {
         List<Superuser> lista = new ArrayList<>();
         Superuser supuser = null;
         Connection con = null;
@@ -75,7 +75,7 @@ public class SuperuserDAO {
         return lista;
     }
 
-    public int cambiarPermisoJDBCTemplate(Superuser sup) {
+    public int cambiarPermiso(Superuser sup) {
        
          Connection con = null;
         int filas = 0;
