@@ -25,7 +25,7 @@ public class AdministradorService {
             admin = new Administrador();
 
             Iterator<String> it = parametros.keySet().iterator();
-
+            admin.setMayor(Boolean.FALSE);
             while (it.hasNext()) {
                 String key = (String) it.next();
                 String[] values = (String[]) parametros.get(key);
@@ -36,7 +36,11 @@ public class AdministradorService {
                         admin.setEmail(String.valueOf(values[0]));
                     } else if (Constantes.FECNA.equalsIgnoreCase(key)) {
                         admin.setFecha_nacimiento(Date.valueOf(values[0]));
-                    } 
+                    } else if(Constantes.MAYOR.equalsIgnoreCase(key)){
+                        admin.setMayor(Boolean.TRUE);
+                    }else if(Constantes.CURSO.equalsIgnoreCase(key)){
+                        admin.setCurso(String.valueOf(values[0]));
+                    }
                 }
             }
 

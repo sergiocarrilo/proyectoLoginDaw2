@@ -108,4 +108,5 @@ public class Constantes {
      public static final String NAME = "name";
      // public static final String EMAIL = "email";
      public static final String FECNA = "fecna";
+     public static final String MAYOR = "mayor";
 }//fin clase

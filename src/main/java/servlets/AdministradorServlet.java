@@ -19,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Administrador;
 import model.Superuser;
 import servicios.AdministradorService;
 import utils.Constantes;
@@ -53,14 +54,22 @@ public class AdministradorServlet extends HttpServlet {
         } else {
             offset = Integer.parseInt(request.getParameter("offset"));
         }
-       
+       Administrador admin = null;
         switch (action) {
             case Constantes.VIEW:
                 
                 break;
             case Constantes.INSERTARPROFE:
-                 Superuser  superuser = service.recogerParametros(parametros);
-                int filas = service.cambiarPermiso(superuser);
+                  admin = service.recogerParametros(parametros);
+                //int filas = service.cambiarPermiso(superuser);
+                break;
+            case Constantes.INSERTARALUMNO:
+                 admin = service.recogerParametros(parametros);
+                //int filas = service.cambiarPermiso(superuser);
+                break;
+            case Constantes.INSERTARASIGNATURA:
+                 admin = service.recogerParametros(parametros);
+                //int filas = service.cambiarPermiso(superuser);
                 break;
         }
         try{

@@ -73,7 +73,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Fecha Nacimiento:</label>
-                                <input type="text" name="fecna" class="form-control" id="alumnofecna">
+                                <input type="date" name="fecna" class="form-control" id="alumnofecna">
+                               
                             </div>
                              <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Mayor de Edad:</label>
@@ -111,7 +112,7 @@
                                 </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Curso:</label>
-                                <input type="text" name="asigcurso" class="form-control" id="asigcurso">
+                                <input type="text" name="curso" class="form-control" id="asigcurso">
                             </div>
                             
                             <div>
