@@ -30,11 +30,11 @@
                         <form>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Nombre:</label>
-                                <input type="text" name="professorname" class="form-control" id="professorname">
+                                <input type="text" name="name" class="form-control" id="professorname">
                                 </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Email:</label>
-                                <input type="text" name="professoremail" class="form-control" id="professoremail">
+                                <input type="text" name="email" class="form-control" id="professoremail">
                             </div>
                             <div>
                                 <input type="hidden" name="action" class="form-control" id="action" value="INSERTARPROFESSOR">   
@@ -65,19 +65,19 @@
                         <form>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Nombre:</label>
-                                <input type="text" name="alumnoname" class="form-control" id="alumnoname">
+                                <input type="text" name="name" class="form-control" id="alumnoname">
                                 </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Email:</label>
-                                <input type="text" name="alumnoemail" class="form-control" id="alumnoemail">
+                                <input type="text" name="email" class="form-control" id="alumnoemail">
                             </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Fecha Nacimiento:</label>
-                                <input type="text" name="alumnofecna" class="form-control" id="alumnofecna">
+                                <input type="text" name="fecna" class="form-control" id="alumnofecna">
                             </div>
                              <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Mayor de Edad:</label>
-                                <input type="checkbox" name="alumnomayor" class="form-control" id="alumnomayor">
+                                <input type="checkbox" name="mayor" class="form-control" id="alumnomayor">
                             </div>
                             <div>
                                 <input type="hidden" name="action" class="form-control" id="action" value="INSERTARALUMNO">   
@@ -107,7 +107,7 @@
                         <form>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Asignatura:</label>
-                                <input type="text" name="asigname" class="form-control" id="asigname">
+                                <input type="text" name="name" class="form-control" id="asigname">
                                 </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Curso:</label>

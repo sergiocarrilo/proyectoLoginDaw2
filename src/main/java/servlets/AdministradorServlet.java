@@ -11,6 +11,7 @@ import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Superuser;
+import servicios.AdministradorService;
 import utils.Constantes;
 
 /**
@@ -31,7 +33,36 @@ public class AdministradorServlet extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        AdministradorService service = new AdministradorService();
         HashMap plantilla = new HashMap();
+        String messageToUser = null;
+ 
+        Map<String, String[]> parametros = request.getParameterMap();
+       
+        String action; 
+      
+        if (request.getParameter(Constantes.actionTemplate) == null) {
+            action= Constantes.VIEW;
+        } else {
+             action = request.getParameter(Constantes.actionTemplate);
+        }
+        
+        int offset;
+        if (request.getParameter("offset") == null) {
+            offset = 0;
+        } else {
+            offset = Integer.parseInt(request.getParameter("offset"));
+        }
+       
+        switch (action) {
+            case Constantes.VIEW:
+                
+                break;
+            case Constantes.INSERTARPROFE:
+                 Superuser  superuser = service.recogerParametros(parametros);
+                int filas = service.cambiarPermiso(superuser);
+                break;
+        }
         try{
        
         Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.ADMINTEMPLATE);

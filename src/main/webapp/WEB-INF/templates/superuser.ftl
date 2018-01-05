@@ -44,7 +44,7 @@
         </head>
 
     <body>  
-
+        <h2>SuperUsuario</h2>
         <table  class="table">
             <thead class="thead-dark">
                 <tr>
