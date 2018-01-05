@@ -85,6 +85,26 @@ public class AsignaturasDAO {
         return lista;
     }
 
+    public List<Asignatura> getAsignaturasByIdCursodbUtils(long id_curso) {
+        List<Asignatura> lista = null;
+
+        Connection con = null;
+        try {
+            con = DBConnection.getInstance().getConnection();
+            QueryRunner qr = new QueryRunner();
+            Object params[] = {id_curso};
+            ResultSetHandler<List<Asignatura>> handler
+                    = new BeanListHandler<Asignatura>(Asignatura.class);
+            lista = qr.query(con, SqlQuery.SELECT_ALL_ASIGNATURAS_BY_ID_CURSO, handler, params);
+
+        } catch (Exception ex) {
+            Logger.getLogger(AsignaturasDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBConnection.getInstance().cerrarConexion(con);
+        }
+        return lista;
+    }
+
     public boolean insertAsignaturaCursodbUtils(AsignaturaCurso asCu) {
 
         Connection con = null;
@@ -181,7 +201,7 @@ public class AsignaturasDAO {
         });
         if (resultadoQuery != null) {*/
         rowsAffected = jtm.update(SqlQuery.UPDATE_ASIGNATURA_CURSO, asignaturaCurso.getId_asignatura(), asignaturaCurso.getId_curso(), asignaturaCurso.getId());
-        
+
         /*}
 
         if (rowsAffected == 0) {
@@ -356,21 +376,21 @@ public class AsignaturasDAO {
 
     public List<AsignaturaCurso> getAllAsignaturasdbUtilsNotas() {
         List<AsignaturaCurso> lista = null;
- 
-         Connection con = null;
-         try {
-             con = DBConnection.getInstance().getConnection();
-             QueryRunner qr = new QueryRunner();
-             ResultSetHandler<List<AsignaturaCurso>> handler
-                     = new BeanListHandler<AsignaturaCurso>(AsignaturaCurso.class);
-             lista = qr.query(con, SqlQuery.SELECT_ALL_ASIGNATURAS, handler);
- 
-         } catch (Exception ex) {
-             Logger.getLogger(AsignaturasDAO.class.getName()).log(Level.SEVERE, null, ex);
-         } finally {
-             DBConnection.getInstance().cerrarConexion(con);
-         }
-         return lista;
+
+        Connection con = null;
+        try {
+            con = DBConnection.getInstance().getConnection();
+            QueryRunner qr = new QueryRunner();
+            ResultSetHandler<List<AsignaturaCurso>> handler
+                    = new BeanListHandler<AsignaturaCurso>(AsignaturaCurso.class);
+            lista = qr.query(con, SqlQuery.SELECT_ALL_ASIGNATURAS, handler);
+
+        } catch (Exception ex) {
+            Logger.getLogger(AsignaturasDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBConnection.getInstance().cerrarConexion(con);
+        }
+        return lista;
     }
 
 }//Fin clase

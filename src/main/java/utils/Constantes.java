@@ -86,7 +86,11 @@ public class Constantes {
     //modelo Profesor-Asignatura - PLANTILLA
     public static String ID_PROFESOR = "id_profesor";
     
-
+    //Servlet Informe Notas - Asignaturas
+    public static String InformeNotasAsignaturas ="informeNotasAsignaturas.ftl";
+    public static String ListadoInformeNotasAsig ="listadoInformeNotasAsig";
+    public static String CursoSeleccionado ="cursoSeleccionado";
+    
     public static String LOGIN_ON = "loginOnFromServer";
 
     //parametros  plantilla SuperUser 
@@ -102,7 +106,7 @@ public class Constantes {
 
   //AdminServlet
     public static String ADMINTEMPLATE = "admin.ftl";
-            
+                
 
 
 }//fin clase
