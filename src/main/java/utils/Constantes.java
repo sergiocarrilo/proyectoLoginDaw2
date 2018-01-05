@@ -99,6 +99,7 @@ public class Constantes {
      public static final String HACERADMIN = "HACERADMIN";
     //mensajes superuser
      public static String MESSAGEPERMISOCAMBIADO = "Se ha cambiado el permiso del usuario correctamente";
+     public static String MESSAGEPERMISONOCAMBIADO = "No se ha podido cambiar el permiso del usuario";
 
   //AdminServlet
     public static String ADMINTEMPLATE = "admin.ftl";
@@ -109,4 +110,5 @@ public class Constantes {
      // public static final String EMAIL = "email";
      public static final String FECNA = "fecna";
      public static final String MAYOR = "mayor";
+     
 }//fin clase

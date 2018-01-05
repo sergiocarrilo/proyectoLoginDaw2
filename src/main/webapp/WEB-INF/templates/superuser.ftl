@@ -83,6 +83,12 @@
             <button onclick="previousPage();">&larr; Previous</button>
             <button onclick="nextPage();">Next &rarr;</button>
         </div>
+        <#if messageToUser??>
+                    <div class="alert alert-primary" role="alert">
+                ${messageToUser?js_string}    
+                        </div>
+
+        </#if>
 
         <form id="formsupuser" action="superuserservlet?">
             <input type="hidden" id="iduser" name="iduser"/>

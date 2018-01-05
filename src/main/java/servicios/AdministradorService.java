@@ -5,6 +5,7 @@
  */
 package servicios;
 
+import dao.AdministradorDAO;
 import java.io.UnsupportedEncodingException;
 import java.sql.Date;
 import java.util.Iterator;
@@ -17,6 +18,11 @@ import utils.Constantes;
  * @author DAW
  */
 public class AdministradorService {
+    
+    public Administrador insertProfesor(Administrador admin) {
+        AdministradorDAO dao = new AdministradorDAO();
+        return dao.insertProfessor(admin);
+    }
     
     public Administrador recogerParametros(Map<String, String[]> parametros) throws UnsupportedEncodingException {
          Administrador admin = null;
@@ -47,5 +53,15 @@ public class AdministradorService {
         }
     return admin;
     }
+
+    public Administrador insertAlumno(Administrador admin) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Administrador insertAsignatura(Administrador admin) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
     
 }

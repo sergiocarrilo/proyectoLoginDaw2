@@ -57,19 +57,21 @@ public class AdministradorServlet extends HttpServlet {
        Administrador admin = null;
         switch (action) {
             case Constantes.VIEW:
-                
                 break;
             case Constantes.INSERTARPROFE:
-                  admin = service.recogerParametros(parametros);
-                //int filas = service.cambiarPermiso(superuser);
+                admin = service.recogerParametros(parametros);
+                Administrador insertprofe = null;
+                insertprofe = service.insertProfesor(admin);
                 break;
             case Constantes.INSERTARALUMNO:
-                 admin = service.recogerParametros(parametros);
-                //int filas = service.cambiarPermiso(superuser);
+                admin = service.recogerParametros(parametros);
+                Administrador insertalumno = null;
+                insertalumno = service.insertAlumno(admin);
                 break;
             case Constantes.INSERTARASIGNATURA:
-                 admin = service.recogerParametros(parametros);
-                //int filas = service.cambiarPermiso(superuser);
+                Administrador insertasignatura = null;
+                insertasignatura = service.insertAsignatura(admin);
+                
                 break;
         }
         try{

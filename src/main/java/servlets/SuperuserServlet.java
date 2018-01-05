@@ -47,48 +47,53 @@ public class SuperuserServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         SuperuserService service = new SuperuserService();
-        
-        
+
         String messageToUser = null;
         HashMap plantilla = new HashMap();
         Map<String, String[]> parametros = request.getParameterMap();
-       
-        String action; 
-      
+
+        String action;
+
         if (request.getParameter(Constantes.actionTemplate) == null) {
-            action= Constantes.VIEW;
+            action = Constantes.VIEW;
         } else {
-             action = request.getParameter(Constantes.actionTemplate);
+            action = request.getParameter(Constantes.actionTemplate);
         }
-        
+
         int offset;
         if (request.getParameter("offset") == null) {
             offset = 0;
         } else {
             offset = Integer.parseInt(request.getParameter("offset"));
         }
-       
+
         switch (action) {
             case Constantes.VIEW:
-                
+
                 break;
             case Constantes.HACERADMIN:
-                 Superuser  superuser = service.recogerParametros(parametros);
+                Superuser superuser = service.recogerParametros(parametros);
                 int filas = service.cambiarPermiso(superuser);
+                if (filas == 0) {
+                    messageToUser = Constantes.MESSAGEPERMISONOCAMBIADO;
+                   
+                }else{
+                    messageToUser = Constantes.MESSAGEPERMISOCAMBIADO;
+                }
                 break;
         }
-        try{
-        plantilla.put("usuarios", service.getAllUsers(offset));
-        plantilla.put("offset", offset);
-        Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.SUPERUSERTEMPLATE);
-        temp.process(plantilla, response.getWriter());
-        }catch(TemplateException ex){
+        try {
+
+            plantilla.put("usuarios", service.getAllUsers(offset));
+            plantilla.put("offset", offset);
+            plantilla.put(Constantes.messageToUser, messageToUser);
+            Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.SUPERUSERTEMPLATE);
+            temp.process(plantilla, response.getWriter());
+        } catch (TemplateException ex) {
             Logger.getLogger(Superuser.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-    }
 
-   
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
