@@ -61,7 +61,7 @@ public class Configuration {
             config.getFreeMarker().setTemplateExceptionHandler(TemplateExceptionHandler.HTML_DEBUG_HANDLER);
 
 // Don't log exceptions inside FreeMarker that it will thrown at you anyway:
-            config.getFreeMarker().setLogTemplateExceptions(false);
+            config.getFreeMarker().setLogTemplateExceptions(false);           
         }
         return config;
     }

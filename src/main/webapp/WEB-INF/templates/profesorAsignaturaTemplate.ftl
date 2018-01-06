@@ -19,6 +19,7 @@
     <body>
         <#escape x as x?html>
         <div class="container">
+            <#include "/menuTemplate.ftl">
             <div class="row justify-content-center">
                 <div class="col-sm-6">
                     <h2>Profesores - Asignaturas</h2>
@@ -94,5 +95,6 @@
                 </div>
             </div>
         </#escape>
+        <#include "/footBootstrap.ftl">
         </body>
     </html>

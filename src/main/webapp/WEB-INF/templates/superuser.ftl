@@ -44,6 +44,7 @@
         </head>
 
     <body>  
+        <#include "/menuTemplate.ftl">
         <h2>SuperUsuario</h2>
         <table  class="table">
             <thead class="thead-dark">
@@ -90,7 +91,7 @@
 
         </#if>
 
-        <form id="formsupuser" action="superuserservlet?">
+        <form id="formsupuser" action="superuser?">
             <input type="hidden" id="iduser" name="iduser"/>
             <input type="hidden" id="idpermiso" name="idpermiso"/>
             <input type="hidden" id="ACTION"  name="ACTION"/>

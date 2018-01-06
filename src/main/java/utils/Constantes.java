@@ -116,5 +116,12 @@ public class Constantes {
     public static final String MAYOR = "mayor";
     public static final String MESSAGEPROFESORNOINSERTADO = "No se ha podido insertar el profesor";
     public static final String MESSAGEPROFESORINSERTADO = "El profesor se ha insertado correctamente";
-     public static String PASSWORDPROFESOR = "nohay2sin3";
+    public static String PASSWORDPROFESOR = "nohay2sin3";
+
+    //URL
+    public static String BaseUrlServer = "baseUrlServer";
+    
+    //servlet Login
+    public static String IndexTemplate = "index.ftl";
+    
 }//fin clase

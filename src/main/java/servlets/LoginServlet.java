@@ -9,9 +9,8 @@ import config.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -19,10 +18,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Curso;
-import model.InformeNotaAsignatura;
-import servicios.AsignaturasServicios;
-import servicios.InformeNotasAsignaturasServicios;
 import servicios.UrlService;
 import utils.Constantes;
 import utils.UrlsPaths;
@@ -31,8 +26,8 @@ import utils.UrlsPaths;
  *
  * @author Gato
  */
-@WebServlet(name = "InformeNotasAsignaturasServlet", urlPatterns = {UrlsPaths.INFORME_NOTAS_ASIGNATURAS})
-public class InformeNotasAsignaturasServlet extends HttpServlet {
+@WebServlet(name = "LoginServlet", urlPatterns = {UrlsPaths.INDEX})
+public class LoginServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,43 +42,18 @@ public class InformeNotasAsignaturasServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            AsignaturasServicios serviciosAsignatura = new AsignaturasServicios();
-            InformeNotasAsignaturasServicios notasAsignaturasServicios = new InformeNotasAsignaturasServicios();
-            List<InformeNotaAsignatura> informe = null;
-            String action = request.getParameter(Constantes.actionTemplate);
-            Map<String, String[]> parametros = request.getParameterMap();
-            String messageToUser = null;
-            Curso curso = null;
-            if (action != null && !action.isEmpty()) {
-                switch (action) {
-                    case Constantes.VIEW:
-
-                        curso = notasAsignaturasServicios.tratarParametros(parametros);
-                        informe = notasAsignaturasServicios.getInformeNotasAsignaturas(curso.getId());
-
-                        break;
-                }//fin switch
-            }//fin if action
             HashMap paramentrosPlantilla = new HashMap();
-            if (messageToUser != null) {
-                paramentrosPlantilla.put(Constantes.messageToUser, messageToUser);
-            }
-            if (informe != null && curso != null) {
-                paramentrosPlantilla.put(Constantes.ListadoInformeNotasAsig, informe);
-                paramentrosPlantilla.put(Constantes.CursoSeleccionado, curso.getCurso());
-
-            }
             UrlService urlServicios = new UrlService();
             paramentrosPlantilla.putAll(urlServicios.addConstantsEndPoints(request));
             
-            paramentrosPlantilla.put(Constantes.listaCursos, serviciosAsignatura.getAllCursosdbUtils());            
-            Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.InformeNotasAsignaturas);                                    
+            
+            Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.IndexTemplate);
             plantilla.process(paramentrosPlantilla, response.getWriter());
         } catch (TemplateException ex) {
-            Logger.getLogger(InformeNotasAsignaturasServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }//fin processRequest
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

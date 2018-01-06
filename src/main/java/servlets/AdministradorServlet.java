@@ -25,39 +25,40 @@ import javax.servlet.http.HttpServletResponse;
 import model.Administrador;
 import model.Superuser;
 import servicios.AdministradorService;
+import servicios.UrlService;
 import utils.Constantes;
+import utils.UrlsPaths;
 
 /**
  *
  * @author DAW
  */
-@WebServlet(name = "AdministradorServlet", urlPatterns = {"/administrador"})
+@WebServlet(name = "AdministradorServlet", urlPatterns = {UrlsPaths.ADMINISTRADOR})
 public class AdministradorServlet extends HttpServlet {
 
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, NoSuchAlgorithmException, InvalidKeySpecException {
         AdministradorService service = new AdministradorService();
         HashMap plantilla = new HashMap();
         String messageToUser = null;
- 
+
         Map<String, String[]> parametros = request.getParameterMap();
-       
-        String action; 
-      
+
+        String action;
+
         if (request.getParameter(Constantes.actionTemplate) == null) {
-            action= Constantes.VIEW;
+            action = Constantes.VIEW;
         } else {
-             action = request.getParameter(Constantes.actionTemplate);
+            action = request.getParameter(Constantes.actionTemplate);
         }
-        
+
         int offset;
         if (request.getParameter("offset") == null) {
             offset = 0;
         } else {
             offset = Integer.parseInt(request.getParameter("offset"));
         }
-       Administrador admin = null;
+        Administrador admin = null;
         switch (action) {
             case Constantes.VIEW:
                 break;
@@ -66,10 +67,10 @@ public class AdministradorServlet extends HttpServlet {
                 Administrador insertprofe = null;
                 admin.setPassword(Constantes.PASSWORDPROFESOR);
                 insertprofe = service.insertProfesor(admin);
-                 if (insertprofe.getId() !=null) {
+                if (insertprofe.getId() != null) {
                     messageToUser = Constantes.MESSAGEPROFESORNOINSERTADO;
-                   
-                }else{
+
+                } else {
                     messageToUser = Constantes.MESSAGEPROFESORINSERTADO;
                 }
                 break;
@@ -81,17 +82,19 @@ public class AdministradorServlet extends HttpServlet {
             case Constantes.INSERTARASIGNATURA:
                 Administrador insertasignatura = null;
                 insertasignatura = service.insertAsignatura(admin);
-                
+
                 break;
         }
-        try{
-       
-        Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.ADMINTEMPLATE);
-        temp.process(plantilla, response.getWriter());
-        }catch(TemplateException ex){
+        try {
+
+            Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.ADMINTEMPLATE);
+            UrlService urlServicios = new UrlService();
+            plantilla.putAll(urlServicios.addConstantsEndPoints(request));
+            temp.process(plantilla, response.getWriter());
+        } catch (TemplateException ex) {
             Logger.getLogger(Superuser.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

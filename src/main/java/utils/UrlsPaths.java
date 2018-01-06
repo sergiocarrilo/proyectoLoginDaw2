@@ -11,12 +11,17 @@ package utils;
  */
 public class UrlsPaths {
 
-    public static final String ALUMNOS = "/privado/alumnos";
-    public static final String ASIGNATURAS = "/privado/asignaturas";
-    public static final String NOTAS = "/privado/notas";
+    public static final String ALUMNOS = "/src/alumnos";
+    public static final String ASIGNATURAS = "/src/asignaturas";
+    public static final String NOTAS = "/src/notas";
     public static final String REGISTRO = "/registro";
-    public static final String PRIVADO = "/privado-filtro-desactivado/*";
-    public static final String PROFESOR_ASIGNATURAS = "/privado/profesor-asignaturas";
+    public static final String SECURE = "/privado-filtro-desactivado/*";
+    public static final String PROFESOR_ASIGNATURAS = "/src/profesor-asignaturas";
+    public static final String INFORME_NOTAS_ASIGNATURAS = "/src/informe-notas-asignaturas";
+    public static final String INDEX = "/index";
+    public static final String ADMINISTRADOR = "/administrador";
+    public static final String SUPERUSER = "/superuser";
+    
 
     
 

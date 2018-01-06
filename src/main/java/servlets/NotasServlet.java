@@ -15,8 +15,9 @@ import model.Nota;
 import servicios.AlumnosServicios;
 import servicios.AsignaturasServicios;
 import servicios.NotasServicios;
+import utils.UrlsPaths;
 
-@WebServlet(name = "Notas", urlPatterns = {"/sesion/notas"})
+@WebServlet(name = "Notas", urlPatterns = {UrlsPaths.NOTAS})
 public class NotasServlet extends HttpServlet {
 
     /**

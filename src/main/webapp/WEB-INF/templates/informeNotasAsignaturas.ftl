@@ -2,13 +2,15 @@
 
 <#assign title="Informe de Notas">
 
+
 <!DOCTYPE html>
 <html>
     <head>
         <title>${title}</title>        
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">        
-        <link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/css/bootstrap.css">
+        
+
         <script>
             
                  function cambiarSelectCurso(){
@@ -23,6 +25,8 @@
     <body>
 <#escape x as x?html>
         <div class="container">
+            <#include "/menuTemplate.ftl">
+
             <div class="row justify-content-center">
                 <div class="col-sm-9">
                     <h2>Informe - Asignaturas de un curso</h2>
@@ -112,5 +116,7 @@
             </div>
         </div>
 </#escape>
+    <#include "/footBootstrap.ftl">
+
     </body>
 </html>

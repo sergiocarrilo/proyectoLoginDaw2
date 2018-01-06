@@ -24,7 +24,7 @@ import utils.UrlsPaths;
  *
  * @author daw
  */
-@WebFilter(filterName = "Login", urlPatterns = {UrlsPaths.PRIVADO})
+@WebFilter(filterName = "Login", urlPatterns = {UrlsPaths.SECURE})
 public class LoginFiltro implements Filter {
 
     private static final boolean debug = true;

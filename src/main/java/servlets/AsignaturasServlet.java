@@ -24,6 +24,7 @@ import model.Asignatura;
 import model.AsignaturaCurso;
 import model.Curso;
 import servicios.AsignaturasServicios;
+import servicios.UrlService;
 import utils.Constantes;
 import utils.ConstantesError;
 import utils.UrlsPaths;
@@ -60,7 +61,7 @@ public class AsignaturasServlet extends HttpServlet {
                 case Constantes.UPDATE:
 
                     asignaturaCurso = servicios.tratarParametros(parametros);
-                    int filas  = servicios.updateAsignaturaCursodbUtils(asignaturaCurso);
+                    int filas = servicios.updateAsignaturaCursodbUtils(asignaturaCurso);
                     messageToUser = (filas > 0) ? Constantes.messageQueryAsignaturaUpdated : Constantes.messageQueryAsignaturaUpdateFailed;
 
                     break;
@@ -82,9 +83,9 @@ public class AsignaturasServlet extends HttpServlet {
                     messageToUser = (filasUp > 0) ? Constantes.messageQueryAsignaturaUpdated : Constantes.messageQueryAsignaturaUpdateFailed;
 
                     break;
-                    case Constantes.INSERT:
+                case Constantes.INSERT:
 
-                    asignaturaCurso = servicios.tratarParametros(parametros);                   
+                    asignaturaCurso = servicios.tratarParametros(parametros);
                     messageToUser = (servicios.insertAsignaturaCursodbUtils(asignaturaCurso))
                             ? Constantes.messageQueryAsignaturaInserted : Constantes.messageQueryAsignaturaInsertFailed;
 
@@ -141,7 +142,7 @@ public class AsignaturasServlet extends HttpServlet {
                         messageToUser = Constantes.messageQueryAsignaturaDeleted;
                     }
                     break;
-                    case Constantes.DELETE_CURSO:
+                case Constantes.DELETE_CURSO:
 
                     String IdCu = request.getParameter(Constantes.ID_CURSO.toLowerCase());
                     int deletedCu = -1;
@@ -181,6 +182,8 @@ public class AsignaturasServlet extends HttpServlet {
         if (messageToUser != null) {
             paramentrosPlantilla.put(Constantes.messageToUser, messageToUser);
         }
+        UrlService urlServicios = new UrlService();
+        paramentrosPlantilla.putAll(urlServicios.addConstantsEndPoints(request));
 
         paramentrosPlantilla.put(Constantes.listaAsignaturaCurso, servicios.getAllAsignaturasCursosdbUtils());
         paramentrosPlantilla.put(Constantes.listaCursos, servicios.getAllCursosdbUtils());
@@ -188,7 +191,6 @@ public class AsignaturasServlet extends HttpServlet {
         Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.asignaturasTemplate);
         plantilla.process(paramentrosPlantilla, response.getWriter());
 
-       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

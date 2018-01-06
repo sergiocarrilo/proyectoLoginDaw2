@@ -27,12 +27,14 @@ import javax.servlet.http.HttpServletResponse;
 import model.Superuser;
 import utils.Constantes;
 import servicios.SuperuserService;
+import servicios.UrlService;
+import utils.UrlsPaths;
 
 /**
  *
  * @author DAW
  */
-@WebServlet(name = "SuperuserServlet", urlPatterns = {"/superuser"})
+@WebServlet(name = "SuperuserServlet", urlPatterns = {UrlsPaths.SUPERUSER})
 public class SuperuserServlet extends HttpServlet {
 
     /**
@@ -87,6 +89,8 @@ public class SuperuserServlet extends HttpServlet {
             plantilla.put("usuarios", service.getAllUsers(offset));
             plantilla.put("offset", offset);
             plantilla.put(Constantes.messageToUser, messageToUser);
+            UrlService urlServicios = new UrlService();
+            plantilla.putAll(urlServicios.addConstantsEndPoints(request));
             Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.SUPERUSERTEMPLATE);
             temp.process(plantilla, response.getWriter());
         } catch (TemplateException ex) {
