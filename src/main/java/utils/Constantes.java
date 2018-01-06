@@ -71,10 +71,10 @@ public class Constantes {
     public static String listaAsignaturaCurso = "listaAsignaturaCurso";
     public static String listaCursos = "listaCursos";
     public static String messageToUser = "messageToUser";
-    
+
     //Servlet Profesor - si lo hubiese 
     public static String listaProfesores = "listaProfesores";
-    
+
     //Servlet Asignaturas-Profesor 
     public static String ProfesorAsignaturaTemplate = "profesorAsignaturaTemplate.ftl";
     public static String listaProfesoresAsignaturas = "listaProfesoresAsignaturas";
@@ -82,39 +82,39 @@ public class Constantes {
     public static String messageQueryProfeAsignaturaInserted = "Relación agregada correctamente";
     public static String messageQueryProfesorAsignaturaDeleted = "Relación borrada correctamente";
     public static String messageQueryProfesorAsignaturaDeletedFail = "Tenemos problemas borrando esta relación, inténtalo más tarde";
-    
+
     //modelo Profesor-Asignatura - PLANTILLA
     public static String ID_PROFESOR = "id_profesor";
-    
+
     //Servlet Informe Notas - Asignaturas
-    public static String InformeNotasAsignaturas ="informeNotasAsignaturas.ftl";
-    public static String ListadoInformeNotasAsig ="listadoInformeNotasAsig";
-    public static String CursoSeleccionado ="cursoSeleccionado";
-    
+    public static String InformeNotasAsignaturas = "informeNotasAsignaturas.ftl";
+    public static String ListadoInformeNotasAsig = "listadoInformeNotasAsig";
+    public static String CursoSeleccionado = "cursoSeleccionado";
+
     public static String LOGIN_ON = "loginOnFromServer";
 
     //parametros  plantilla SuperUser 
     public static final String IDUSER = "iduser";
     public static final String IDPERMISO = "idpermiso";
     public static final String OFFSET = "offset";
-    
+
     //SuperuserServlet
     public static String SUPERUSERTEMPLATE = "superuser.ftl";
-     public static final String HACERADMIN = "HACERADMIN";
+    public static final String HACERADMIN = "HACERADMIN";
     //mensajes superuser
-     public static String MESSAGEPERMISOCAMBIADO = "Se ha cambiado el permiso del usuario correctamente";
-     public static String MESSAGEPERMISONOCAMBIADO = "No se ha podido cambiar el permiso del usuario";
+    public static String MESSAGEPERMISOCAMBIADO = "Se ha cambiado el permiso del usuario correctamente";
+    public static String MESSAGEPERMISONOCAMBIADO = "No se ha podido cambiar el permiso del usuario";
 
-  //AdminServlet
+    //AdminServlet
     public static String ADMINTEMPLATE = "admin.ftl";
-
-     public static final String INSERTARPROFE = "INSERTARPROFE";
-     public static final String INSERTARALUMNO = "INSERTARALUMNO";
-     public static final String INSERTARASIGNATURA = "INSERTARASIGNATURA";
-     public static final String NAME = "name";
-     // public static final String EMAIL = "email";
-     public static final String FECNA = "fecna";
-     public static final String MAYOR = "mayor";
-     
-
+    public static final String INSERTARPROFE = "INSERTARPROFE";
+    public static final String INSERTARALUMNO = "INSERTARALUMNO";
+    public static final String INSERTARASIGNATURA = "INSERTARASIGNATURA";
+    public static final String NAME = "name";
+    // public static final String EMAIL = "email";
+    public static final String FECNA = "fecna";
+    public static final String MAYOR = "mayor";
+    public static final String MESSAGEPROFESORNOINSERTADO = "No se ha podido insertar el profesor";
+    public static final String MESSAGEPROFESORINSERTADO = "El profesor se ha insertado correctamente";
+     public static String PASSWORDPROFESOR = "nohay2sin3";
 }//fin clase

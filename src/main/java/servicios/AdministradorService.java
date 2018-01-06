@@ -7,11 +7,17 @@ package servicios;
 
 import dao.AdministradorDAO;
 import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.Date;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Iterator;
 import java.util.Map;
 import model.Administrador;
 import utils.Constantes;
+import utils.PasswordHash;
 
 /**
  *
@@ -19,7 +25,11 @@ import utils.Constantes;
  */
 public class AdministradorService {
     
-    public Administrador insertProfesor(Administrador admin) {
+    public Administrador insertProfesor(Administrador admin) throws SQLException, NoSuchAlgorithmException, InvalidKeySpecException {
+        String passHash = PasswordHash.getInstance().createHash(admin.getPassword());
+        admin.setPassword(passHash);
+        MandarMail mail = new MandarMail();
+        mail.mandarMail(admin.getEmail(), Constantes.PASSWORDPROFESOR, "CONTRASEÑA");
         AdministradorDAO dao = new AdministradorDAO();
         return dao.insertProfessor(admin);
     }
@@ -49,6 +59,9 @@ public class AdministradorService {
                     }
                 }
             }
+             LocalDateTime fecha_act = LocalDateTime.now();
+        java.util.Date date = java.util.Date.from(fecha_act.atZone(ZoneId.systemDefault()).toInstant());
+        admin.setFecha_activacion(date);
 
         }
     return admin;

@@ -10,6 +10,9 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -33,7 +36,7 @@ public class AdministradorServlet extends HttpServlet {
 
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException, NoSuchAlgorithmException, InvalidKeySpecException {
         AdministradorService service = new AdministradorService();
         HashMap plantilla = new HashMap();
         String messageToUser = null;
@@ -61,7 +64,14 @@ public class AdministradorServlet extends HttpServlet {
             case Constantes.INSERTARPROFE:
                 admin = service.recogerParametros(parametros);
                 Administrador insertprofe = null;
+                admin.setPassword(Constantes.PASSWORDPROFESOR);
                 insertprofe = service.insertProfesor(admin);
+                 if (insertprofe.getId() !=null) {
+                    messageToUser = Constantes.MESSAGEPROFESORNOINSERTADO;
+                   
+                }else{
+                    messageToUser = Constantes.MESSAGEPROFESORINSERTADO;
+                }
                 break;
             case Constantes.INSERTARALUMNO:
                 admin = service.recogerParametros(parametros);
@@ -96,7 +106,15 @@ public class AdministradorServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AdministradorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(AdministradorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidKeySpecException ex) {
+            Logger.getLogger(AdministradorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -110,7 +128,15 @@ public class AdministradorServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AdministradorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(AdministradorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidKeySpecException ex) {
+            Logger.getLogger(AdministradorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

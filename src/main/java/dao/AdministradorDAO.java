@@ -8,11 +8,13 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Administrador;
 import utils.Constantes;
+import utils.SqlQuery;
 
 /**
  *
@@ -20,31 +22,42 @@ import utils.Constantes;
  */
 public class AdministradorDAO {
 
-    public Administrador insertProfessor(Administrador admin) {
-          Connection con = null;
-        try {/*
+    public Administrador insertProfessor(Administrador admin) throws SQLException {
+        Connection con = null;
+        try {
             con = DBConnection.getInstance().getConnection();
-            PreparedStatement stmt = con.prepareStatement(Constantes.QUERYINSERTALUMNO , Statement.RETURN_GENERATED_KEYS);
+            con.setAutoCommit(false);
 
-            stmt.setString(1, a.getNombre());
-            stmt.setDate(2, new java.sql.Date(a.getFecha_nacimiento().getTime()));
-            stmt.setBoolean(3, a.getMayor_edad());
+            PreparedStatement stmtprofesor = con.prepareStatement(SqlQuery.QUERYINSERTPROFESOR, Statement.RETURN_GENERATED_KEYS);
 
-            int filas = stmt.executeUpdate();
+            stmtprofesor.setString(1, admin.getNombre());
+            stmtprofesor.setString(2, admin.getPassword());
+            stmtprofesor.setString(3, admin.getEmail());
+            stmtprofesor.setDate(4, new java.sql.Date(admin.getFecha_activacion().getTime()));
 
-            ResultSet rs = stmt.getGeneratedKeys();
+            int filas = stmtprofesor.executeUpdate();
+
+            ResultSet rs = stmtprofesor.getGeneratedKeys();
             if (rs.next()) {
-                admin.setId(rs.getInt(1));
+                admin.setId(rs.getLong(1));
             }
-*/
+            PreparedStatement stmtpermiso = con.prepareStatement(SqlQuery.QUERYPERMISOPROFESOR, Statement.RETURN_GENERATED_KEYS);
+            stmtpermiso.setLong(1, admin.getId());
+
+            stmtpermiso.executeUpdate();
+            int filaspermiso = stmtpermiso.executeUpdate();
+
+            con.commit();
         } catch (Exception ex) {
-            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+            if (con != null) {
+                con.rollback();
+            }
         } finally {
-            
+
             DBConnection.getInstance().cerrarConexion(con);
         }
 
         return admin;
     }
-    
+
 }

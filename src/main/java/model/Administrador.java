@@ -19,7 +19,15 @@ public class Administrador {
     private Boolean mayor;
     private Date fecha_nacimiento;
     private String curso;
+    private Date fecha_activacion;
 
+    public Date getFecha_activacion() {
+        return fecha_activacion;
+    }
+
+    public void setFecha_activacion(Date fecha_activacion) {
+        this.fecha_activacion = fecha_activacion;
+    }
     public Long getId() {
         return id;
     }
