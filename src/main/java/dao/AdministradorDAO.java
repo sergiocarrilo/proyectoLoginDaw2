@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Administrador;
+import servlets.AdministradorServlet;
 import utils.Constantes;
 import utils.SqlQuery;
 
@@ -28,7 +29,7 @@ public class AdministradorDAO {
             con = DBConnection.getInstance().getConnection();
             con.setAutoCommit(false);
 
-            PreparedStatement stmtprofesor = con.prepareStatement(SqlQuery.QUERYINSERTPROFESOR, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmtprofesor = con.prepareStatement(SqlQuery.QUERYINSERTUSER, Statement.RETURN_GENERATED_KEYS);
 
             stmtprofesor.setString(1, admin.getNombre());
             stmtprofesor.setString(2, admin.getPassword());
@@ -52,6 +53,79 @@ public class AdministradorDAO {
             if (con != null) {
                 con.rollback();
             }
+        } finally {
+
+            DBConnection.getInstance().cerrarConexion(con);
+        }
+
+        return admin;
+    }
+
+    public Administrador insertAlumno(Administrador admin) throws SQLException {
+        Connection con = null;
+        try {
+            con = DBConnection.getInstance().getConnection();
+            con.setAutoCommit(false);
+
+            PreparedStatement stmtuser = con.prepareStatement(SqlQuery.QUERYINSERTUSER, Statement.RETURN_GENERATED_KEYS);
+
+            stmtuser.setString(1, admin.getNombre());
+            stmtuser.setString(2, admin.getPassword());
+            stmtuser.setString(3, admin.getEmail());
+            stmtuser.setDate(4, new java.sql.Date(admin.getFecha_activacion().getTime()));
+
+            int filas = stmtuser.executeUpdate();
+
+            ResultSet rs = stmtuser.getGeneratedKeys();
+            if (rs.next()) {
+                admin.setId(rs.getLong(1));
+            }
+            PreparedStatement stmtpermiso = con.prepareStatement(SqlQuery.QUERYPERMISOALUMNO, Statement.RETURN_GENERATED_KEYS);
+            stmtpermiso.setLong(1, admin.getId());
+
+            stmtpermiso.executeUpdate();
+            int filaspermiso = stmtpermiso.executeUpdate();
+            
+            PreparedStatement stmtalumno = con.prepareStatement(SqlQuery.QUERYINSERTALUMNO, Statement.RETURN_GENERATED_KEYS);
+            stmtalumno.setLong(1, admin.getId());
+            stmtalumno.setString(2, admin.getNombre());
+            stmtalumno.setDate(3, new java.sql.Date(admin.getFecha_nacimiento().getTime()));
+            stmtalumno.setBoolean(4, admin.getMayor());
+            
+            
+
+            con.commit();
+        } catch (Exception ex) {
+            if (con != null) {
+                con.rollback();
+            }
+        } finally {
+
+            DBConnection.getInstance().cerrarConexion(con);
+        }
+
+        return admin;
+    }
+
+    public Administrador insertAsignatura(Administrador admin) {
+       Connection con = null;
+        try {
+            con = DBConnection.getInstance().getConnection();
+            con.setAutoCommit(false);
+
+            PreparedStatement stmtprofesor = con.prepareStatement(SqlQuery.QUERYINSERTASIGNATURA, Statement.RETURN_GENERATED_KEYS);
+
+            stmtprofesor.setString(1, admin.getNombre());
+
+            int filas = stmtprofesor.executeUpdate();
+
+            ResultSet rs = stmtprofesor.getGeneratedKeys();
+            if (rs.next()) {
+                admin.setId(rs.getLong(1));
+            }
+   
+        } catch (Exception ex) {
+              Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
 
             DBConnection.getInstance().cerrarConexion(con);

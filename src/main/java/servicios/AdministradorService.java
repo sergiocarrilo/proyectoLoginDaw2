@@ -24,18 +24,43 @@ import utils.PasswordHash;
  * @author DAW
  */
 public class AdministradorService {
-    
+
     public Administrador insertProfesor(Administrador admin) throws SQLException, NoSuchAlgorithmException, InvalidKeySpecException {
         String passHash = PasswordHash.getInstance().createHash(admin.getPassword());
         admin.setPassword(passHash);
         MandarMail mail = new MandarMail();
-        mail.mandarMail(admin.getEmail(), Constantes.PASSWORDPROFESOR, "CONTRASEÑA");
         AdministradorDAO dao = new AdministradorDAO();
-        return dao.insertProfessor(admin);
+        Administrador compadmin = dao.insertProfessor(admin);
+
+        if (compadmin.getId() == null) {
+            return dao.insertProfessor(admin);
+
+        } else {
+
+            mail.mandarMail(admin.getEmail(), Constantes.PASSWORDPROFESOR, "CONTRASEÑA");
+            return dao.insertProfessor(admin);
+        }
+
     }
     
+     public Administrador insertAlumno(Administrador admin) throws NoSuchAlgorithmException, InvalidKeySpecException, SQLException {
+        String passHash = PasswordHash.getInstance().createHash(admin.getPassword());
+        admin.setPassword(passHash);
+        MandarMail mail = new MandarMail();
+        AdministradorDAO dao = new AdministradorDAO();
+        Administrador compadmin = dao.insertProfessor(admin);
+
+        if (compadmin.getId() == null) {
+            return dao.insertAlumno(admin);
+        } else {
+            mail.mandarMail(admin.getEmail(), Constantes.PASSWORDALUMNO, "CONTRASEÑA");
+            return dao.insertAlumno(admin);
+        }
+
+    }
+
     public Administrador recogerParametros(Map<String, String[]> parametros) throws UnsupportedEncodingException {
-         Administrador admin = null;
+        Administrador admin = null;
         if (parametros != null && !parametros.isEmpty()) {
 
             admin = new Administrador();
@@ -52,29 +77,24 @@ public class AdministradorService {
                         admin.setEmail(String.valueOf(values[0]));
                     } else if (Constantes.FECNA.equalsIgnoreCase(key)) {
                         admin.setFecha_nacimiento(Date.valueOf(values[0]));
-                    } else if(Constantes.MAYOR.equalsIgnoreCase(key)){
+                    } else if (Constantes.MAYOR.equalsIgnoreCase(key)) {
                         admin.setMayor(Boolean.TRUE);
-                    }else if(Constantes.CURSO.equalsIgnoreCase(key)){
-                        admin.setCurso(String.valueOf(values[0]));
                     }
                 }
             }
-             LocalDateTime fecha_act = LocalDateTime.now();
-        java.util.Date date = java.util.Date.from(fecha_act.atZone(ZoneId.systemDefault()).toInstant());
-        admin.setFecha_activacion(date);
+            LocalDateTime fecha_act = LocalDateTime.now();
+            java.util.Date date = java.util.Date.from(fecha_act.atZone(ZoneId.systemDefault()).toInstant());
+            admin.setFecha_activacion(date);
 
         }
-    return admin;
+        return admin;
     }
 
-    public Administrador insertAlumno(Administrador admin) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   
+
+    public Administrador insertAsignatura(Administrador admin) throws SQLException {
+        AdministradorDAO dao = new AdministradorDAO();
+        return dao.insertAsignatura(admin);
     }
 
-    public Administrador insertAsignatura(Administrador admin) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    
-    
 }

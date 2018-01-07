@@ -117,11 +117,15 @@ public class Constantes {
     public static final String MESSAGEPROFESORNOINSERTADO = "No se ha podido insertar el profesor";
     public static final String MESSAGEPROFESORINSERTADO = "El profesor se ha insertado correctamente";
     public static String PASSWORDPROFESOR = "nohay2sin3";
-
+    public static final String MESSAGEALUMNONOINSERTADO = "No se ha podido insertar el alumno";
+    public static final String MESSAGEALUMNOINSERTADO = "El alumno se ha insertado correctamente";
+    public static final String MESSAGEASIGNATURANOINSERTADA = "No se ha podido insertar la asignatura";
+    public static final String MESSAGEASIGNATURAINSERTADO = "La asignatura se ha insertado correctamente";
+    public static String PASSWORDALUMNO = "tiernogalvan";
     //URL
     public static String BaseUrlServer = "baseUrlServer";
-    
+
     //servlet Login
     public static String IndexTemplate = "index.ftl";
-    
+
 }//fin clase

@@ -18,7 +18,6 @@ public class Administrador {
     private String email;
     private Boolean mayor;
     private Date fecha_nacimiento;
-    private String curso;
     private Date fecha_activacion;
 
     public Date getFecha_activacion() {
@@ -75,15 +74,7 @@ public class Administrador {
     public void setFecha_nacimiento(Date fecha_nacimiento) {
         this.fecha_nacimiento = fecha_nacimiento;
     }
-
-    public String getCurso() {
-        return curso;
-    }
-
-    public void setCurso(String curso) {
-        this.curso = curso;
-    }
-
+    
     public Long getPermiso() {
         return permiso;
     }
