@@ -10,7 +10,10 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -18,8 +21,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.User;
+import servicios.LoginServicios;
 import servicios.UrlService;
 import utils.Constantes;
+import utils.PasswordHash;
 import utils.UrlsPaths;
 
 /**
@@ -42,14 +48,73 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
+            String action = request.getParameter(Constantes.actionTemplate);
+            Map<String, String[]> parametros = request.getParameterMap();
+            String messageToUser = null;
+            LoginServicios servicios = new LoginServicios();
+            User usuario = servicios.tratarParametro(parametros);
+            long levelAccessUser = -1;
+
+            if (action != null && !action.isEmpty()) {
+                switch (action) {
+                    case Constantes.LOGIN:
+                        if (servicios.userReadyToWorkLogin(usuario)) {
+                            String passwordFromClient = usuario.getPassword();
+                            usuario = servicios.selectLoginUser(usuario);//recupera el hash de DB
+
+                            request.getSession().setAttribute(Constantes.LOGIN_ON, usuario);//Temporal hasta implemetar el filtro
+                            levelAccessUser = servicios.getIdTipoPermiso(usuario.getId());//Temporal - Borrar después
+
+                            if (usuario != null) {
+                                if (usuario.isActivo()) {
+
+                                    if (PasswordHash.getInstance().validatePassword(passwordFromClient, usuario.getPassword())) {
+
+                                        levelAccessUser = servicios.getIdTipoPermiso(usuario.getId());
+                                        request.getSession().setAttribute(Constantes.LOGIN_ON, usuario);
+
+                                    } else {
+                                        messageToUser = Constantes.messageUserLoginFailPassword;
+                                    }
+                                } else {
+                                    messageToUser = Constantes.messageUserLoginFailActivo;
+                                }
+
+                            } else {
+                                messageToUser = Constantes.messageUserLoginFailNombre;
+                            }
+                        } else {
+                            messageToUser = Constantes.messageUserMissingFields;
+                        }
+
+                        break;
+                    case Constantes.LOGOUT:
+                        request.getSession().setAttribute(Constantes.LOGIN_ON, null);
+                        Configuration.getInstance().getFreeMarker().setSharedVariable(Constantes.LOGIN_ON, null);
+                        Configuration.getInstance().getFreeMarker().setSharedVariable(Constantes.LEVEL_ACCESS, null);
+                        break;
+                }
+            }
             HashMap paramentrosPlantilla = new HashMap();
+            if (messageToUser != null) {
+                paramentrosPlantilla.put(Constantes.messageToUser, messageToUser);
+            }
+
             UrlService urlServicios = new UrlService();
             paramentrosPlantilla.putAll(urlServicios.addConstantsEndPoints(request));
-            
-            
+            paramentrosPlantilla.put(Constantes.LOGIN_ON, usuario);
+            if (request.getSession().getAttribute(Constantes.LOGIN_ON) != null && usuario != null) {
+                Configuration.getInstance().getFreeMarker().setSharedVariable(Constantes.LOGIN_ON, usuario);
+                Configuration.getInstance().getFreeMarker().setSharedVariable(Constantes.LEVEL_ACCESS, levelAccessUser);
+            }
+
             Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.IndexTemplate);
             plantilla.process(paramentrosPlantilla, response.getWriter());
         } catch (TemplateException ex) {
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidKeySpecException ex) {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
