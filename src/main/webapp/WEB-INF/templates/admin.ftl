@@ -13,6 +13,19 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
         </head>
+        <script>
+                function crearProfe(){
+                    document.getElementById("formprofe").submit();
+                }
+                    
+                function crearAlumno(){
+                    document.getElementById("formaulmno").submit();
+                }
+                   
+                function crearAsignatura(){
+                    document.getElementById("formasignatura").submit();
+                }
+        </script>
     <body>
         <#include "/menuTemplate.ftl">
         <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modalProfesor">Insertar Profesor</button>
@@ -28,7 +41,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form id="formprofe" action="adminsitrador?">
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Nombre:</label>
                                 <input type="text" name="name" class="form-control" id="professorname">
@@ -43,7 +56,7 @@
                             <div class="modal-footer">
                                 <div class="form-group">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                    <button type="button" onclick="" class="btn btn-primary">INSERTAR</button>
+                                    <button type="button" onclick="crearProfe();" class="btn btn-primary">INSERTAR</button>
                                 </div>
                             </div>
                         </form>
@@ -63,7 +76,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form id="formalumno" action="adminsitrador?>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Nombre:</label>
                                 <input type="text" name="name" class="form-control" id="alumnoname">
@@ -87,7 +100,7 @@
                             <div class="modal-footer">
                                 <div class="form-group">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                    <button type="button" onclick="" class="btn btn-primary">INSERTAR</button>
+                                    <button type="button" onclick="crearAlumno();" class="btn btn-primary">INSERTAR</button>
                                 </div>
                             </div>
                         </form>
@@ -106,23 +119,18 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form id="formasignatura" action="administrador?">
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Asignatura:</label>
                                 <input type="text" name="name" class="form-control" id="asigname">
-                                </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Curso:</label>
-                                <input type="text" name="curso" class="form-control" id="asigcurso">
                             </div>
-                            
                             <div>
                                 <input type="hidden" name="action" class="form-control" id="action" value="INSERTARASIGNATURA">   
                             </div>
                             <div class="modal-footer">
                                 <div class="form-group">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                    <button type="button" onclick="" class="btn btn-primary">INSERTAR</button>
+                                    <button type="button" onclick="crearAsignatura();" class="btn btn-primary">INSERTAR</button>
                                 </div>
                             </div>
                         </form>
@@ -131,5 +139,11 @@
                     </div>
                 </div>
             </div>
+     <#if messageToUser??>
+                    <div class="alert alert-primary" role="alert">
+                ${messageToUser?js_string}    
+                        </div>
+
+        </#if>
         </body>
     </html>

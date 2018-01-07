@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Administrador;
-import model.Superuser;
 import servicios.AdministradorService;
 import servicios.UrlService;
 import utils.Constantes;
@@ -87,11 +86,10 @@ public class AdministradorServlet extends HttpServlet {
                 }
                 break;
             case Constantes.INSERTARASIGNATURA:
-                Administrador insertasignatura = null;
-                insertasignatura = service.insertAsignatura(admin);
+                
+                Administrador insertasignatura =  service.insertAsignatura(admin);
                 if (insertasignatura.getId() == null) {
                     messageToUser = Constantes.MESSAGEASIGNATURANOINSERTADA;
-
                 } else {
                     messageToUser = Constantes.MESSAGEASIGNATURAINSERTADO;
                 }
@@ -101,10 +99,11 @@ public class AdministradorServlet extends HttpServlet {
 
             Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.ADMINTEMPLATE);
             UrlService urlServicios = new UrlService();
+            plantilla.put(Constantes.messageToUser, messageToUser);
             plantilla.putAll(urlServicios.addConstantsEndPoints(request));
             temp.process(plantilla, response.getWriter());
         } catch (TemplateException ex) {
-            Logger.getLogger(Superuser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

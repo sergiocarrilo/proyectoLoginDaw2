@@ -111,9 +111,9 @@ public class AdministradorDAO {
        Connection con = null;
         try {
             con = DBConnection.getInstance().getConnection();
-            con.setAutoCommit(false);
+         
 
-            PreparedStatement stmtprofesor = con.prepareStatement(SqlQuery.QUERYINSERTASIGNATURA, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmtprofesor = con.prepareStatement(SqlQuery.INSERT_ASIGNATURA, Statement.RETURN_GENERATED_KEYS);
 
             stmtprofesor.setString(1, admin.getNombre());
 
