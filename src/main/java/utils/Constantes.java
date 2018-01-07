@@ -92,6 +92,7 @@ public class Constantes {
     public static String CursoSeleccionado = "cursoSeleccionado";
 
     public static String LOGIN_ON = "loginOnFromServer";
+    public static String LEVEL_ACCESS = "levelAccess";
 
     //parametros  plantilla SuperUser 
     public static final String IDUSER = "iduser";
@@ -127,5 +128,9 @@ public class Constantes {
 
     //servlet Login
     public static String IndexTemplate = "index.ftl";
-
+    public static String messageUserLoginFailPassword = "Contraseña Errónea";
+    public static String messageUserLoginFailActivo = "Quieto parado! Este Usuario no ha sido validado";
+    public static String messageUserLoginFailNombre = "Error en las credenciales, El Usuario no existe";
+    public static String messageUserMissingFields = "Te faltan campos por rellenar";
+    
 }//fin clase
