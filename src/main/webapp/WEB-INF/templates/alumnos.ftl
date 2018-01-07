@@ -45,24 +45,24 @@
 
             </script>
 
-    <c:if test="${filas == 0}">
+    <#if  filas == 0>
         <script>alert("La operacion ha fallado");</script>
-        </c:if>
+        </#if>
 
-    <c:if test="${filas == 1}">
+    <#if  filas == 1>
         <script>alert("La operacion se ha realizado correctamente");</script>
-        </c:if>
+        </#if>
 
 
     <script>
         function borrarSiosi() {
-        <c:if test="${filas == 2}">
+        <#if  filas == 2>
             var borrar = confirm("Desea borrar las notas de el alumno");
                 if (borrar) {
                 document.getElementById("op").value = "DELETESIOSI";
                 document.getElementById("formalum").submit();
                 }
-                </c:if>
+                </#if>
         }
 
                 </script>
@@ -96,7 +96,7 @@
                                 </td>
 
                             <td>
-                        <fmt:formatDate value="${alumno.fecha_nacimiento}" pattern="dd-MM-yyyy"/>
+                        ${alumno.fecha_nacimiento?string["dd-MM-yyyy"]}
                         </td>
 
                         <td>
