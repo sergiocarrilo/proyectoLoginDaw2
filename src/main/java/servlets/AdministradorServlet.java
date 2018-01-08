@@ -9,7 +9,6 @@ import config.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
@@ -46,7 +45,7 @@ public class AdministradorServlet extends HttpServlet {
         String action;
 
         if (request.getParameter(Constantes.actionTemplate) == null) {
-            action = Constantes.VIEW;
+            action = Constantes.VIEWPROFESSOR;
         } else {
             action = request.getParameter(Constantes.actionTemplate);
         }
@@ -58,8 +57,12 @@ public class AdministradorServlet extends HttpServlet {
             offset = Integer.parseInt(request.getParameter("offset"));
         }
         Administrador admin = null;
-         switch (action) {
-            case Constantes.VIEW:
+        switch (action) {
+            case Constantes.VIEWPROFESSOR:
+                break;
+            case Constantes.VIEWALUMNO:
+                break;
+            case Constantes.VIEWASIGNATURA:
                 break;
             case Constantes.INSERTARPROFE:
                 admin = service.recogerParametros(parametros);
@@ -86,8 +89,8 @@ public class AdministradorServlet extends HttpServlet {
                 }
                 break;
             case Constantes.INSERTARASIGNATURA:
-                 admin = service.recogerParametros(parametros);
-                Administrador insertasignatura =  service.insertAsignatura(admin);
+                admin = service.recogerParametros(parametros);
+                Administrador insertasignatura = service.insertAsignatura(admin);
                 if (insertasignatura.getId() == null) {
                     messageToUser = Constantes.MESSAGEASIGNATURANOINSERTADA;
                 } else {

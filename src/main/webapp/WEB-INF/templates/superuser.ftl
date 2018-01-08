@@ -16,12 +16,15 @@
 
         function cambiarAdmin(id,idpermiso) {
             var comprobacion = document.getElementById("id_permiso").checked;
-            if(comprobacion == true){
+                debugger;
+            if(idpermiso == 0){
+                debugger;
                 document.getElementById("iduser").value = id;
                 document.getElementById("idpermiso").value = idpermiso;
                 document.getElementById("ACTION").value = "HACERADMIN";
                 document.getElementById("formsupuser").submit();
             }else{
+                debugger;
                 document.getElementById("iduser").value = id;
                 document.getElementById("idpermiso").value = idpermiso;
                 document.getElementById("ACTION").value = "QUITARADMIN";

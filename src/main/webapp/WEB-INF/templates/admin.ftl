@@ -25,9 +25,60 @@
                 function crearAsignatura(){
                     document.getElementById("formasignatura").submit();
                 }
+                    
+                function mostrarTabla(operacion){
+                    document.getElementById("ACTIONTABLA").value=operacion;
+                        document.getElementById("formtabla").submit();
+                }
         </script>
     <body>
         <#include "/menuTemplate.ftl">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active"  href="javascript:mostrarTabla('VIEWPROFESSOR')">Profesores</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"  href="javascript:mostrarTabla('VIEWALUMNO')">Alumnos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="javascript:mostrarTabla('VIEWASIGNATURA')">Asignaturas</a>
+            </li>
+          </ul>
+        <div>
+            <table  class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Fecha Activacion</th>
+                                <th>Administrador</th>
+                                </tr>
+                            </thead>
+                <#list administradores as admin>  
+                        <tr>
+                            <td>
+                                ${admin.nombre}
+                             </td> 
+                            <td>
+                        ${alumno.nombre}
+                                </td>
+
+                            <td>
+                        ${alumno.fecha_nacimiento?string["dd-MM-yyyy"]}
+                        </td>
+
+                        <td>
+                            <input type="checkbox" <#if alumno.mayor_edad?c>checked</#if> />
+                            </td>
+                        </tr>
+
+
+                </#list>
+
+            </table>
+        </div>
+        </br>
         <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modalProfesor">Insertar Profesor</button>
         <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modalAlumno">Insertar Alumno</button>
         <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modalAsignatura">Insertar Asignatura</button>
@@ -51,7 +102,7 @@
                                 <input type="text" name="email" class="form-control" id="professoremail">
                             </div>
                             <div>
-                                <input type="hidden" name="ACTION" class="form-control" id="action" value="INSERTARPROFESSOR">   
+                                <input type="hidden" name="ACTION" class="form-control" id="ACTIONPROFESOR" value="INSERTARPROFESSOR">   
                             </div>
                             <div class="modal-footer">
                                 <div class="form-group">
@@ -95,7 +146,7 @@
                                 <input type="checkbox" name="mayor" class="form-control" id="alumnomayor">
                             </div>
                             <div>
-                                <input type="hidden" name="ACTION" class="form-control" id="ACTION" value="INSERTARALUMNO">   
+                                <input type="hidden" name="ACTION" class="form-control" id="ACTIONALUMNO" value="INSERTARALUMNO">   
                             </div>
                             <div class="modal-footer">
                                 <div class="form-group">
@@ -125,7 +176,7 @@
                                 <input type="text" name="name" class="form-control" id="asigname">
                             </div>
                             <div>
-                                <input type="hidden" name="ACTION" class="form-control" id="ACTION" value="INSERTARASIGNATURA">   
+                                <input type="hidden" name="ACTION" class="form-control" id="ACTIONASIGNATURA" value="INSERTARASIGNATURA">   
                             </div>
                             <div class="modal-footer">
                                 <div class="form-group">
@@ -145,5 +196,11 @@
                         </div>
 
         </#if>
+    
+        <form id="formtabla" action="administrador?"> 
+            <div>
+                <input type="hidden" name="ACTION" class="form-control" id="ACTIONTABLA" value="">   
+            </div>
+                   </form>
         </body>
     </html>
