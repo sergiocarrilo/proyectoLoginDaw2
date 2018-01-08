@@ -25,16 +25,14 @@ public class SuperuserService {
         return dao.getAllUsers(offset);
     }
 
-    public int cambiarPermiso(Superuser superuser) {
-        long permisonone = 4;
-        long permisoadmin = 2;
+    public int hacerAdmin(Superuser superuser) {
         SuperuserDAO dao = new SuperuserDAO();       
-         if(superuser.getPermiso() == 2){
-                superuser.setPermiso(permisonone);  
-            }else{
-                superuser.setPermiso(permisoadmin);
-            }
-        return dao.cambiarPermiso(superuser);
+        return dao.hacerAdmin(superuser);
+    }
+    
+     public int quitarAdmin(Superuser superuser) {
+        SuperuserDAO dao = new SuperuserDAO();       
+        return dao.quitarAdmin(superuser);
     }
     
      public Superuser recogerParametros(Map<String, String[]> parametros) throws UnsupportedEncodingException {
@@ -60,6 +58,8 @@ public class SuperuserService {
         }
     return superuser;
     }
+
+   
 
     
 }

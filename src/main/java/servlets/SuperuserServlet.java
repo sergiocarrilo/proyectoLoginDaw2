@@ -75,14 +75,24 @@ public class SuperuserServlet extends HttpServlet {
                 break;
             case Constantes.HACERADMIN:
                 Superuser superuser = service.recogerParametros(parametros);
-                int filas = service.cambiarPermiso(superuser);
+                int filas = service.hacerAdmin(superuser);
                 if (filas == 0) {
                     messageToUser = Constantes.MESSAGEPERMISONOCAMBIADO;
                    
                 }else{
                     messageToUser = Constantes.MESSAGEPERMISOCAMBIADO;
                 }
-                break;
+            break;
+            case Constantes.QUITARADMIN:
+                Superuser quitaradmin = service.recogerParametros(parametros);
+                int filasquitar = service.quitarAdmin(quitaradmin);
+                if (filasquitar == 0) {
+                    messageToUser = Constantes.MESSAGEPERMISONOCAMBIADO;
+                   
+                }else{
+                    messageToUser = Constantes.MESSAGEPERMISOCAMBIADO;
+                }
+            break;
         }
         try {
 

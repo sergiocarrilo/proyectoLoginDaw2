@@ -102,6 +102,7 @@ public class Constantes {
     //SuperuserServlet
     public static String SUPERUSERTEMPLATE = "superuser.ftl";
     public static final String HACERADMIN = "HACERADMIN";
+    public static final String QUITARADMIN = "QUITARADMIN";
     //mensajes superuser
     public static String MESSAGEPERMISOCAMBIADO = "Se ha cambiado el permiso del usuario correctamente";
     public static String MESSAGEPERMISONOCAMBIADO = "No se ha podido cambiar el permiso del usuario";
