@@ -118,6 +118,9 @@ public class Constantes {
     // public static final String EMAIL = "email";
     public static final String FECNA = "fecna";
     public static final String MAYOR = "mayor";
+    public static final String VIEWPROFESSOR = "VIEWPROFESSOR";
+    public static final String VIEWALUMNO = "VIEWALUMNO";
+    public static final String VIEWASIGNATURA = "VIEWASIGNATURA"; 
     public static final String MESSAGEPROFESORNOINSERTADO = "No se ha podido insertar el profesor";
     public static final String MESSAGEPROFESORINSERTADO = "El profesor se ha insertado correctamente";
     public static String PASSWORDPROFESOR = "nohay2sin3";

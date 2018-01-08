@@ -92,7 +92,7 @@ public class SuperuserDAO {
             PreparedStatement stmtinsert = con.prepareStatement(SqlQuery.QUERYHACERADMIN, Statement.RETURN_GENERATED_KEYS);
 
             stmtinsert.setLong(1, sup.getId());
-            stmtinsert.setLong(2, sup.getPermiso());
+
             filas = stmtinsert.executeUpdate();
 
         } catch (Exception ex) {
