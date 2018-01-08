@@ -77,8 +77,8 @@ public class ProfesorAsignaturaServlet extends HttpServlet {
             if (messageToUser != null) {
                 paramentrosPlantilla.put(Constantes.messageToUser, messageToUser);
             }
-            UrlService urlServicios = new UrlService();
-            paramentrosPlantilla.putAll(urlServicios.addConstantsEndPoints(request));
+            //UrlService urlServicios = new UrlService();
+            //paramentrosPlantilla.putAll(urlServicios.addConstantsEndPoints(request));
 
             paramentrosPlantilla.put(Constantes.listaProfesoresAsignaturas, serviciosPA.getAllProfesoresAsignaturas());
             paramentrosPlantilla.put(Constantes.listaProfesores, serviciosProfesor.getAllProfesores());

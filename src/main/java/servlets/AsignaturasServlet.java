@@ -182,8 +182,8 @@ public class AsignaturasServlet extends HttpServlet {
         if (messageToUser != null) {
             paramentrosPlantilla.put(Constantes.messageToUser, messageToUser);
         }
-        UrlService urlServicios = new UrlService();
-        paramentrosPlantilla.putAll(urlServicios.addConstantsEndPoints(request));
+        //UrlService urlServicios = new UrlService();
+        //paramentrosPlantilla.putAll(urlServicios.addConstantsEndPoints(request));
 
         paramentrosPlantilla.put(Constantes.listaAsignaturaCurso, servicios.getAllAsignaturasCursosdbUtils());
         paramentrosPlantilla.put(Constantes.listaCursos, servicios.getAllCursosdbUtils());
