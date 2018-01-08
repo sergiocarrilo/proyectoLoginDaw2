@@ -6,6 +6,13 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Nota;
@@ -15,6 +22,8 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
+import utils.Constantes;
+import utils.SqlQuery;
 
 public class NotasDAO {
 
@@ -75,23 +84,41 @@ public class NotasDAO {
         return n;
     }
     
-    public Nota getAlumnoAsignatura(Long idAlu) {
+    public List<Nota> getAllNotas(int offset) {
+        List<Nota> lista = new ArrayList<>();
+        Nota nota = null;
         Connection con = null;
-        Nota n = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         try {
             con = DBConnection.getInstance().getConnection();
-            QueryRunner qr = new QueryRunner();
-            ResultSetHandler<Nota> h = new BeanHandler<>(Nota.class);
-            n = qr.query(con, "SELECT ALUMNOS.NOMBRE, ASIGNATURAS.NOMBRE, NOTAS.NOTA "
-                    + "FROM ((NOTAS INNER JOIN ALUMNOS ON NOTAS.ID_ALUMNO = ALUMNOS.ID) "
-                    + "INNER JOIN ASIGNATURAS ON NOTAS.ID_ASIGNATURA = ASIGNATURAS.ID) "
-                    + "WHERE ID_ALUMNO = ?", h, idAlu);
+            stmt = con.prepareStatement(SqlQuery.QUERYGETALLNOTAS, Statement.RETURN_GENERATED_KEYS);
+            stmt.setLong(1, offset);
+            rs = stmt.executeQuery();
+
+
+            while (rs.next()) {
+                //Retrieve by column name
+                int idAlumno = rs.getInt("NOTAS.ID_ALUMNO");
+                int idAsignatura = rs.getInt("NOTAS.ID_ASIGNATURA");
+                String alumno = rs.getString("ALUMNOS.NOMBRE");
+                String asignatura = rs.getString("ASIGNATURAS.NOMBRE");
+                int notita = rs.getInt("NOTAS.NOTA");
+                nota = new Nota();
+                nota.setIdAlumno((long)idAlumno);
+                nota.setIdAsignatura((long)idAsignatura);
+                nota.setAlumno(alumno);
+                nota.setAsignatura(asignatura);
+                nota.setNota(notita);
+
+                lista.add(nota);
+            }
 
         } catch (Exception ex) {
             Logger.getLogger(NotasDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             DBConnection.getInstance().cerrarConexion(con);
         }
-        return n;
+        return lista;
     }
 }

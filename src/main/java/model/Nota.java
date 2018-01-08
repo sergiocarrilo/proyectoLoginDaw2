@@ -9,6 +9,8 @@ public class Nota {
     
     private Long idAlumno;
     private Long idAsignatura;
+    private String alumno;
+    private String asignatura;
     private int nota;
     
     public Nota(){
@@ -23,6 +25,12 @@ public class Nota {
     public void setNota(int nota){
         this.nota=nota;
     }
+    public void setAlumno(String alumno){
+        this.alumno=alumno;
+    }
+    public void setAsignatura(String asignatura){
+        this.asignatura=asignatura;
+    }
     
     public Long getIdAlumno(){
         return idAlumno;
@@ -32,5 +40,11 @@ public class Nota {
     }
     public int getNota(){
         return nota;
+    }
+    public String getAlumno(){
+        return alumno;
+    }
+    public String getAsignatura(){
+        return asignatura;
     }
 }

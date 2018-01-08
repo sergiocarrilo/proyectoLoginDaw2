@@ -58,7 +58,7 @@ public class AdministradorServlet extends HttpServlet {
             offset = Integer.parseInt(request.getParameter("offset"));
         }
         Administrador admin = null;
-        switch (action) {
+         switch (action) {
             case Constantes.VIEW:
                 break;
             case Constantes.INSERTARPROFE:
@@ -86,7 +86,7 @@ public class AdministradorServlet extends HttpServlet {
                 }
                 break;
             case Constantes.INSERTARASIGNATURA:
-                
+                 admin = service.recogerParametros(parametros);
                 Administrador insertasignatura =  service.insertAsignatura(admin);
                 if (insertasignatura.getId() == null) {
                     messageToUser = Constantes.MESSAGEASIGNATURANOINSERTADA;
