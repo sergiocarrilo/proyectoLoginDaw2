@@ -51,7 +51,7 @@
                                 <input type="text" name="email" class="form-control" id="professoremail">
                             </div>
                             <div>
-                                <input type="hidden" name="action" class="form-control" id="action" value="INSERTARPROFESSOR">   
+                                <input type="hidden" name="ACTION" class="form-control" id="action" value="INSERTARPROFESSOR">   
                             </div>
                             <div class="modal-footer">
                                 <div class="form-group">
@@ -95,7 +95,7 @@
                                 <input type="checkbox" name="mayor" class="form-control" id="alumnomayor">
                             </div>
                             <div>
-                                <input type="hidden" name="action" class="form-control" id="action" value="INSERTARALUMNO">   
+                                <input type="hidden" name="ACTION" class="form-control" id="ACTION" value="INSERTARALUMNO">   
                             </div>
                             <div class="modal-footer">
                                 <div class="form-group">
@@ -125,7 +125,7 @@
                                 <input type="text" name="name" class="form-control" id="asigname">
                             </div>
                             <div>
-                                <input type="hidden" name="action" class="form-control" id="action" value="INSERTARASIGNATURA">   
+                                <input type="hidden" name="ACTION" class="form-control" id="ACTION" value="INSERTARASIGNATURA">   
                             </div>
                             <div class="modal-footer">
                                 <div class="form-group">
