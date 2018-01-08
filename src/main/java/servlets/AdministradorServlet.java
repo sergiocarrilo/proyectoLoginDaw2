@@ -108,6 +108,7 @@ public class AdministradorServlet extends HttpServlet {
 
             Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.ADMINTEMPLATE);
             UrlService urlServicios = new UrlService();
+            plantilla.put(Constantes.LISTA, adminList);
             plantilla.put(Constantes.messageToUser, messageToUser);
             plantilla.putAll(urlServicios.addConstantsEndPoints(request));
             temp.process(plantilla, response.getWriter());
