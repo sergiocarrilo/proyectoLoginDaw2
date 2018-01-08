@@ -11,10 +11,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Administrador;
+import model.Asignatura;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.ResultSetHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import servlets.AdministradorServlet;
 import utils.Constantes;
@@ -136,5 +140,67 @@ public class AdministradorDAO {
         }
         return admin;
 
+    }
+
+    public List<Administrador> getAllProfessors() {
+        List<Administrador> lista = null;
+       
+        Connection con = null;
+        try {
+            con = DBConnection.getInstance().getConnection();
+
+            QueryRunner qr = new QueryRunner();
+            ResultSetHandler<List<Administrador>> handler
+                    = new BeanListHandler<Administrador>(Administrador.class);
+            lista = qr.query(con, SqlQuery.QUERYGETALLPROFESSORS, handler);
+
+        } catch (Exception ex) {
+            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBConnection.getInstance().cerrarConexion(con);
+        }
+        return lista;
+    }
+    
+
+    public List<Administrador> getAllAlumnos() {
+       List<Administrador> lista = null;
+       
+        Connection con = null;
+        try {
+            con = DBConnection.getInstance().getConnection();
+
+            QueryRunner qr = new QueryRunner();
+            ResultSetHandler<List<Administrador>> handler
+                    = new BeanListHandler<Administrador>(Administrador.class);
+            lista = qr.query(con, SqlQuery.QUERYGETALLALUMNOS, handler);
+
+        } catch (Exception ex) {
+            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBConnection.getInstance().cerrarConexion(con);
+        }
+        return lista;
+    }
+    
+
+    public List<Administrador> getAllAsignaturas() {
+        List<Administrador> lista = null;
+       
+        Connection con = null;
+        try {
+            con = DBConnection.getInstance().getConnection();
+
+            QueryRunner qr = new QueryRunner();
+            ResultSetHandler<List<Administrador>> handler
+                    = new BeanListHandler<Administrador>(Administrador.class);
+            lista = qr.query(con, SqlQuery.QUERYGETALLASIGNATURAS, handler);
+
+        } catch (Exception ex) {
+            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBConnection.getInstance().cerrarConexion(con);
+        }
+        return lista;
     }
 }

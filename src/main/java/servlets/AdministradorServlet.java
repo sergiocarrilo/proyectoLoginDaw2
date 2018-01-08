@@ -13,6 +13,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,6 +47,7 @@ public class AdministradorServlet extends HttpServlet {
 
         if (request.getParameter(Constantes.actionTemplate) == null) {
             action = Constantes.VIEWPROFESSOR;
+            
         } else {
             action = request.getParameter(Constantes.actionTemplate);
         }
@@ -57,12 +59,16 @@ public class AdministradorServlet extends HttpServlet {
             offset = Integer.parseInt(request.getParameter("offset"));
         }
         Administrador admin = null;
+        List<Administrador> adminList = null;
         switch (action) {
             case Constantes.VIEWPROFESSOR:
+                   adminList = service.getAllProfessors();
                 break;
             case Constantes.VIEWALUMNO:
+                adminList = service.getAllAlumnos();
                 break;
             case Constantes.VIEWASIGNATURA:
+                adminList = service.getAllAsignaturas();
                 break;
             case Constantes.INSERTARPROFE:
                 admin = service.recogerParametros(parametros);
