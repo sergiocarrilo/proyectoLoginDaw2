@@ -13,6 +13,8 @@ public class Constantes {
 
     public static String registroJSP = "registroJsp.jsp";
     public static String actionTemplate = "ACTION";
+    public static String DEFAULT_ENCODING = "UTF-8";
+    public static String CONTENT_TYPE = "text/html; charset=UTF-8";
 
     public static final String INSERT = "INSERT";
     public static final String UPDATE = "UPDATE";
