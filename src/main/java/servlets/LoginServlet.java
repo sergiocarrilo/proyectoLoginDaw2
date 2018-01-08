@@ -9,7 +9,6 @@ import config.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
@@ -99,7 +98,7 @@ public class LoginServlet extends HttpServlet {
             if (messageToUser != null) {
                 paramentrosPlantilla.put(Constantes.messageToUser, messageToUser);
             }
-
+                                  
             UrlService urlServicios = new UrlService();
             paramentrosPlantilla.putAll(urlServicios.addConstantsEndPoints(request));
             paramentrosPlantilla.put(Constantes.LOGIN_ON, usuario);
@@ -108,8 +107,8 @@ public class LoginServlet extends HttpServlet {
                 Configuration.getInstance().getFreeMarker().setSharedVariable(Constantes.LEVEL_ACCESS, levelAccessUser);
             }
 
-            Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.IndexTemplate);
-            plantilla.process(paramentrosPlantilla, response.getWriter());
+            Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.IndexTemplate);           
+            plantilla.process(paramentrosPlantilla, response.getWriter());            
         } catch (TemplateException ex) {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NoSuchAlgorithmException ex) {
@@ -131,7 +130,7 @@ public class LoginServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException {       
         processRequest(request, response);
     }
 
