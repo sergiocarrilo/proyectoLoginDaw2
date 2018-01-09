@@ -51,7 +51,7 @@
             }
         </script>
     <body>
-        <#escape x as x?html>
+       
         <#include "/menuTemplate.ftl">
         <ul class="nav nav-tabs">
             <li class="nav-item">
@@ -137,7 +137,7 @@
                             </button>
                         </div>
                     <div class="modal-body">
-                        <form id="formprofe" action="adminsitrador?">
+                        <form id="formprofe" action="administrador?">
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Nombre:</label>
                                 <input type="text" name="name" class="form-control" id="professorname">
@@ -147,6 +147,11 @@
                                 <input type="text" name="email" class="form-control" id="professoremail">
                                 </div>
                             <div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Fecha Nacimiento:</label>
+                                <input type="date" name="fecna" class="form-control" id="profefecna">
+
+                            </div>
                            <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Fecha Entrada:</label>
                                 <input type="date" name="fecha_entrada" class="form-control" id="profesorfechaentrada">
@@ -177,7 +182,7 @@
                             </button>
                         </div>
                     <div class="modal-body">
-                        <form id="formalumno" action="adminsitrador?>
+                        <form id="formalumno" action="administrador?>
                               <div class="form-group">
                               <label for="recipient-name" class="col-form-label">Nombre:</label>
                             <input type="text" name="name" class="form-control" id="alumnoname">
@@ -261,6 +266,6 @@
                 <input type="hidden" id="offset"  name="offset" value="${offset}"/>
                 </div>
             </form>
-    </#escape>
+   
         </body>
     </html>

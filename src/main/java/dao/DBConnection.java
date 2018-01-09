@@ -37,7 +37,7 @@ public class DBConnection {
     }
 
     public Connection getConnection() throws Exception {
-        Class.forName(Configuration.getInstance().getDriverDB());
+         Class.forName(Configuration.getInstance().getDriverDB());
         Connection connection;
 
         connection = hikariDatasource.getConnection();
