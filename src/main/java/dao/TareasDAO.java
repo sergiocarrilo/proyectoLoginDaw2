@@ -13,6 +13,7 @@ import model.TareaAlumno;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.springframework.jdbc.core.JdbcTemplate;
 import utils.SqlQuery;
 
 /**
@@ -21,7 +22,7 @@ import utils.SqlQuery;
  */
 public class TareasDAO {
 
-  public List<TareaAlumno> getTareasByIdAlumnodbUtils(long id_alumno) {
+    public List<TareaAlumno> getTareasByIdAlumnodbUtils(long id_alumno) {
         List<TareaAlumno> lista = null;
 
         Connection con = null;
@@ -40,5 +41,15 @@ public class TareasDAO {
         }
         return lista;
     }
-    
+
+    public int updateTareaAlumnoJdbcTemplate(TareaAlumno tarea) {
+
+        JdbcTemplate jtm = new JdbcTemplate(
+                DBConnection.getInstance().getDataSource());
+        
+        int rowsAffected = jtm.update(SqlQuery.UPDATE_TAREA_BY_ID_TAREAS_ALUMNOS, tarea.isHecho(), tarea.getId_tareas_alumnos());
+
+        return rowsAffected;
+    }
+
 }//fin clase

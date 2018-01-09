@@ -58,6 +58,7 @@
     </head>
     <body>
         <#escape x as x?html>
+        <#include "/menuTemplate.ftl">
         <table class="table">
                 <thead class="thead-dark">
                     <tr>
@@ -102,7 +103,7 @@
             </div>
         </#if>
         
-        <form id="formnotas" action="notas?">
+        <form id="formnotas" action="">
             <input type="hidden" id="ACTION"  name="ACTION"/>
             <input type="hidden" id="offset"  name="offset" value="${offset}"/>
         </form>     
@@ -131,7 +132,7 @@
                 <br>
                 <br>
                 <br>
-                <form action="notas">
+                <form action="">
                     <table class="table-condensed" style="margin: auto">
                         <tr>
                             <td>

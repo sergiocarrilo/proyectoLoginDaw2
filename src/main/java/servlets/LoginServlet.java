@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.User;
 import servicios.LoginServicios;
-import servicios.UrlService;
 import utils.Constantes;
 import utils.PasswordHash;
 import utils.UrlsPaths;
@@ -61,8 +60,8 @@ public class LoginServlet extends HttpServlet {
                             String passwordFromClient = usuario.getPassword();
                             usuario = servicios.selectLoginUser(usuario);//recupera el hash de DB
 
-                            request.getSession().setAttribute(Constantes.LOGIN_ON, usuario);//Temporal hasta implemetar el filtro
-                            levelAccessUser = servicios.getIdTipoPermiso(usuario.getId());//Temporal - Borrar después
+                            request.getSession().setAttribute(Constantes.LOGIN_ON, usuario);//TODO - Temporal hasta implemetar el filtro
+                            levelAccessUser = servicios.getIdTipoPermiso(usuario.getId());//TODO - Temporal - Borrar después
 
                             if (usuario != null) {
                                 if (usuario.isActivo()) {
@@ -99,8 +98,7 @@ public class LoginServlet extends HttpServlet {
                 paramentrosPlantilla.put(Constantes.messageToUser, messageToUser);
             }
                                   
-            //UrlService urlServicios = new UrlService();
-           // paramentrosPlantilla.putAll(urlServicios.addConstantsEndPoints(request));
+           
             paramentrosPlantilla.put(Constantes.LOGIN_ON, usuario);
             if (request.getSession().getAttribute(Constantes.LOGIN_ON) != null && usuario != null) {
                 Configuration.getInstance().getFreeMarker().setSharedVariable(Constantes.LOGIN_ON, usuario);

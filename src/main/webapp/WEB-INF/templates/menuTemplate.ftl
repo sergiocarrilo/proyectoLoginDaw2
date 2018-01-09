@@ -13,9 +13,9 @@
         <ul class="navbar-nav">
             <li class="nav-item ">
                 <a class="nav-link" href="#">Alumnos <span class="sr-only">(current)</span></a>
-                </li>
+                </li>           
             <li class="nav-item">
-                <a class="nav-link" href="${baseUrl}${endpoint_asignaturas}">Asignaturas</a>
+                <a class="nav-link" href="${baseUrl}${endpoint_notas}">Notas</a>
                 </li>
             <li class="nav-item">
                 <a class="nav-link" href="${baseUrl}${endpoint_administrador}">Administrador</a>
@@ -30,7 +30,7 @@
                 <a class="nav-link" href="#">Crear Tareas(profe)</a>
                 </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Ver Tareas(alum)</a>
+                <a class="nav-link" href="${baseUrl}${endpoint_tareas_alumno}">Ver Tareas(alum)</a>
                 </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Ver Notas (alum)</a>
@@ -41,7 +41,8 @@
                     </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="#">Alumnos - Asignaturas</a>
-                    <a class="dropdown-item" href="${baseUrl}${endpoint_profesor_asignaturas}">Profesor - Asignatura</a>                              
+                    <a class="dropdown-item" href="${baseUrl}${endpoint_profesor_asignaturas}">Profesor - Asignatura</a> 
+                    <a class="dropdown-item" href="${baseUrl}${endpoint_asignaturas}">Asignaturas - Cursos</a>
                     </div>
                 </li>
             <li class="nav-item dropdown">

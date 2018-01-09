@@ -47,7 +47,7 @@
                     <table class="table">
                         <tr>
                             <th></th>
-                            <th>Nombre</th>
+                            <th>Asignatura</th>
                             <th>Curso</th>                
 
                             </tr>
@@ -96,14 +96,14 @@
                         <option id ="asig.id" value="${asig.id}">${asig.nombre}</option>
                  </#list>                
                         </select> 
-                    <form action="asignaturas">                    
+                    <form action="">                    
 
                         <br>
                         Nombre:
                         <input type="hidden" name="id_asignatura" id="id_asignatura">
                         <input type="text" name="nombre" id="nombre">
                         <br>
-                        <input type="submit" name="ACTION" value="INSERT_ASIGNATURA">
+                        
                         <input type="submit" name="ACTION" value="UPDATE_ASIGNATURA">
                         <input type="submit" name="ACTION" value="DELETE_ASIGNATURA">
                         </form>
@@ -117,7 +117,7 @@
                         <option id ="curso.id" value="${curso.id}">${curso.curso}</option>
                  </#list>                
                         </select> 
-                    <form action="asignaturas">                    
+                    <form action="">                    
 
                         <br>
                         Nombre:
@@ -131,7 +131,7 @@
                     </div>
                 <div class="col-sm-4">
                     <h3>Asignaturas - Cursos</h3>
-                    <form action="asignaturas" >
+                    <form action="" >
 
                         Nombre:
                         <select name="id_asignatura" id="id_asignatura_ls">

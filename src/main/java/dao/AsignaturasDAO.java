@@ -188,7 +188,7 @@ public class AsignaturasDAO {
 
     }
 
-    public int updateAsignaturasCursodbUtils(AsignaturaCurso asignaturaCurso) {
+    public int updateAsignaturasCursoJdbcTemplate(AsignaturaCurso asignaturaCurso) {
 
         JdbcTemplate jtm = new JdbcTemplate(
                 DBConnection.getInstance().getDataSource());

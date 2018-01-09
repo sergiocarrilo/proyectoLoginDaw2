@@ -60,7 +60,7 @@ public class AsignaturasServicios {
 
     public int updateAsignaturaCursodbUtils(AsignaturaCurso asignaturaCurso) {
         AsignaturasDAO dao = new AsignaturasDAO();
-        return dao.updateAsignaturasCursodbUtils(asignaturaCurso);
+        return dao.updateAsignaturasCursoJdbcTemplate(asignaturaCurso);
 
     }
 

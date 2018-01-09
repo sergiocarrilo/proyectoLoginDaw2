@@ -34,7 +34,10 @@ public class TareaAlumno {
         this.hecho = hecho;
     }
 
-    public long getId_tareas_alumnos() {
+    public TareaAlumno(long id_tareas_alumnos) {
+        this.id_tareas_alumnos = id_tareas_alumnos;
+    }
+      public long getId_tareas_alumnos() {
         return id_tareas_alumnos;
     }
 

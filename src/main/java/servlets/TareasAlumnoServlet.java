@@ -10,7 +10,6 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,12 +22,13 @@ import model.TareaAlumno;
 import model.User;
 import servicios.TareasServicios;
 import utils.Constantes;
+import utils.UrlsPaths;
 
 /**
  *
  * @author Gato
  */
-@WebServlet(name = "TareasAlumnoServlet", urlPatterns = {"/tareasAlumnoServlet"})
+@WebServlet(name = "TareasAlumnoServlet", urlPatterns = {UrlsPaths.TAREAS_ALUMNO})
 public class TareasAlumnoServlet extends HttpServlet {
 
     /**
@@ -50,15 +50,13 @@ public class TareasAlumnoServlet extends HttpServlet {
             String messageToUser = null;
             User alumno = (User) request.getSession().getAttribute(Constantes.LOGIN_ON);
 
-            if (alumno != null) {
-
-                paramentrosPlantilla.put(Constantes.listaTareasAlumno, servicios.getAllTareasOfAlumno(alumno.getId()));
-
-            }
-
             if (action != null && !action.isEmpty()) {
                 switch (action) {
                     case Constantes.UPDATE:
+                        TareaAlumno tarea = servicios.tratarParametrosTareaAlumno(parametros);
+                        if (tarea != null) {
+                            messageToUser = (servicios.updateTareaAlumno(tarea)) ? Constantes.messageTareaAlumnoUpdated : Constantes.messageTareaAlumnoFail;
+                        }
 
                         break;
                 }//fin switch
@@ -66,6 +64,11 @@ public class TareasAlumnoServlet extends HttpServlet {
 
             if (messageToUser != null) {
                 paramentrosPlantilla.put(Constantes.messageToUser, messageToUser);
+            }
+            if (alumno != null) {
+
+                paramentrosPlantilla.put(Constantes.listaTareasAlumno, servicios.getAllTareasOfAlumno(alumno.getId()));
+
             }
 
             Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.TareasAlumnoTemplate);

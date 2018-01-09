@@ -24,7 +24,6 @@ import model.Asignatura;
 import model.AsignaturaCurso;
 import model.Curso;
 import servicios.AsignaturasServicios;
-import servicios.UrlService;
 import utils.Constantes;
 import utils.ConstantesError;
 import utils.UrlsPaths;
@@ -91,11 +90,11 @@ public class AsignaturasServlet extends HttpServlet {
 
                     break;
                 case Constantes.INSERT_ASIGNATURA:
-
-                    asignaturaCurso = servicios.tratarParametros(parametros);
-                    Asignatura asignaturaIn = servicios.toAsignatura(asignaturaCurso);
-                    messageToUser = (servicios.insertAsignaturadbUtils(asignaturaIn))
-                            ? Constantes.messageQueryAsignaturaInserted : Constantes.messageQueryAsignaturaInsertFailed;
+//
+//                    asignaturaCurso = servicios.tratarParametros(parametros);
+//                    Asignatura asignaturaIn = servicios.toAsignatura(asignaturaCurso);
+//                    messageToUser = (servicios.insertAsignaturadbUtils(asignaturaIn))
+//                            ? Constantes.messageQueryAsignaturaInserted : Constantes.messageQueryAsignaturaInsertFailed;
 
                     break;
                 case Constantes.INSERT_CURSO:
@@ -117,7 +116,7 @@ public class AsignaturasServlet extends HttpServlet {
                     if (deleted == ConstantesError.CodeErrorClaveForanea) {
 
                         asignaturaCurso = servicios.tratarParametros(parametros);
-                        //request.setAttribute(Constantes.asignaturaResult, asignaturaCurso);
+
                         messageToUser = Constantes.messageQueryAsignaturaDeletedFail;
 
                     } else if (deleted > 0 && deleted < ConstantesError.CodeErrorClaveForanea) {
@@ -135,7 +134,7 @@ public class AsignaturasServlet extends HttpServlet {
                     if (deletedAs == ConstantesError.CodeErrorClaveForanea) {
 
                         asignaturaCurso = servicios.tratarParametros(parametros);
-                        //request.setAttribute(Constantes.asignaturaResult, asignaturaCurso);
+
                         messageToUser = Constantes.messageQueryAsignaturaDeletedFail;
 
                     } else if (deletedAs > 0 && deletedAs < ConstantesError.CodeErrorClaveForanea) {
@@ -153,27 +152,12 @@ public class AsignaturasServlet extends HttpServlet {
                     if (deletedCu == ConstantesError.CodeErrorClaveForanea) {
 
                         asignaturaCurso = servicios.tratarParametros(parametros);
-                        //request.setAttribute(Constantes.asignaturaResult, asignaturaCurso);
+
                         messageToUser = Constantes.messageQueryAsignaturaDeletedFail;
 
                     } else if (deletedCu > 0 && deletedCu < ConstantesError.CodeErrorClaveForanea) {
                         messageToUser = Constantes.messageQueryAsignaturaDeleted;
                     }
-                    break;
-                case Constantes.DELETE_FORCE:
-                    /*
-                    asignatura = servicios.tratarParametros(parametros);
-
-                    try {
-                        boolean borrado = servicios.deleteAsignaturaForce((int) asignatura.getId());
-                        messageToUser = (borrado) ? Constantes.messageQueryAsignaturaDeleted : Constantes.messageQueryAsignaturaDeletedFailedAgain;
-
-                    } catch (SQLException ex) {
-                        Logger.getLogger(AsignaturasServlet.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                     */
-                    //1º -> BORRAR NOTA 
-                    //2º -> BORRAR ASIGNATURA
                     break;
 
             }
@@ -182,8 +166,6 @@ public class AsignaturasServlet extends HttpServlet {
         if (messageToUser != null) {
             paramentrosPlantilla.put(Constantes.messageToUser, messageToUser);
         }
-        //UrlService urlServicios = new UrlService();
-        //paramentrosPlantilla.putAll(urlServicios.addConstantsEndPoints(request));
 
         paramentrosPlantilla.put(Constantes.listaAsignaturaCurso, servicios.getAllAsignaturasCursosdbUtils());
         paramentrosPlantilla.put(Constantes.listaCursos, servicios.getAllCursosdbUtils());

@@ -48,6 +48,10 @@ public class Constantes {
     public static final String ID_ASIGNATURA = "ID_ASIGNATURA";
     public static final String ID_CURSO = "ID_CURSO";
 
+    //parametros TareaAlumno
+    public static final String ID_TAREAS_ALUMNO = "id_tareas_alumno";
+    public static final String HECHO = "hecho";
+
     //Columnas Cursos
     public static final String CURSO = "CURSO";
 
@@ -100,7 +104,7 @@ public class Constantes {
     public static final String IDUSER = "iduser";
     public static final String IDPERMISO = "idpermiso";
     public static final String OFFSET = "offset";
-    
+
     //NotasServlet
     public static String NOTASTEMPLATE = "notas.ftl";
 
@@ -124,7 +128,7 @@ public class Constantes {
     public static final String MAYOR = "mayor";
     public static final String VIEWPROFESSOR = "VIEWPROFESSOR";
     public static final String VIEWALUMNO = "VIEWALUMNO";
-    public static final String VIEWASIGNATURA = "VIEWASIGNATURA"; 
+    public static final String VIEWASIGNATURA = "VIEWASIGNATURA";
     public static final String MESSAGEPROFESORNOINSERTADO = "No se ha podido insertar el profesor";
     public static final String MESSAGEPROFESORINSERTADO = "El profesor se ha insertado correctamente";
     public static String PASSWORDPROFESOR = "nohay2sin3";
@@ -136,7 +140,7 @@ public class Constantes {
     public static final String PROFESORES = "profe";
     public static final String ALUMNOS = "alumno";
     public static final String ASIGNATURAS = "asignaturas";
-    
+
     //URL
     public static String BaseUrlServer = "baseUrlServer";
 
@@ -146,9 +150,11 @@ public class Constantes {
     public static String messageUserLoginFailActivo = "Quieto parado! Este Usuario no ha sido validado";
     public static String messageUserLoginFailNombre = "Error en las credenciales, El Usuario no existe";
     public static String messageUserMissingFields = "Te faltan campos por rellenar";
-    
+
     //Servlet Tareas Alumno
     public static String TareasAlumnoTemplate = "tareasAlumnoTemplate.ftl";
     public static String listaTareasAlumno = "listaTareasAlumno";
-    
+    public static String messageTareaAlumnoUpdated = "La tarea fue actualizada correctamente";
+    public static String messageTareaAlumnoFail = "Tenemos problemas Actualizando el estado de la tarea, prueba otra vez";
+
 }//fin clase
