@@ -57,24 +57,7 @@
         </script>
     </head>
     <body>
-        <nav class="navbar navbar-inverse" style="border-radius: 0">
-            <div class="container-fluid">
-                <div style=" margin-right: 100px" class="navbar-header">
-                    <span style="cursor: default" class="navbar-brand"><strong>${nombreUsuario}</strong></span>
-                </div>
-                <ul class="nav navbar-nav">
-                    <li><a href="/sesion/alumnos">Alumnos</a></li>
-                    <li><a href="/sesion/asignaturas">Asignaturas</a></li>
-                    <li class="active"><a style="cursor: default; pointer-events: none" href="#">Notas</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="../users?accion=logout"><span class="glyphicon glyphicon-log-out"></span> Cerrar sesión</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        
+        <#escape x as x?html>
         <table class="table">
                 <thead class="thead-dark">
                     <tr>
@@ -91,11 +74,15 @@
                         <td>
                             ${nota.idAlumno}
                         </td> 
+                        <td>
                             ${nota.alumno}
+                        </td>
                         <td>
                             ${nota.idAsignatura}   
                         </td>
+                        <td>
                             ${nota.asignatura}
+                        </td>
                         <td>
                             ${nota.nota}
                         </td>
@@ -118,18 +105,7 @@
         <form id="formnotas" action="notas?">
             <input type="hidden" id="ACTION"  name="ACTION"/>
             <input type="hidden" id="offset"  name="offset" value="${offset}"/>
-        </form>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        </form>     
         
             <div class="container">
             <div class="col-xs-8 col-xs-offset-2">
@@ -161,14 +137,15 @@
                             <td>
                                 ALUMNO
                                 <br>
-                                <input type="hidden" id="idAlumno" name="idAlumno" size="1" value="${idAlu}">
-                                <input type="text" name="nombreAlumno" id="nombreAlumno" value="${nomAlu}">
+                                <input type="hidden" id="idAlumno" name="idAlumno" size="1" value="<#if idAlu??> ${idAlu} </#if>">
+                                
+                                <input type="text" name="nombreAlumno" id="nombreAlumno" value="<#if nomAlu??> ${nomAlu} </#if>">
                             </td>
                             <td>
                                 ASIGNATURA
                                 <br>
-                                <input type="hidden" id="idAsignatura" name="idAsignatura" size="1" value="${idAsig}">
-                                <input type="text" name="nombreAsignatura" id="nombreAsignatura" value="${nomAsig}">
+                                <input type="hidden" id="idAsignatura" name="idAsignatura" size="1" value="<#if idAsig??> ${idAsig} </#if>">
+                                <input type="text" name="nombreAsignatura" id="nombreAsignatura" value="<#if nomAsig??> ${nomAsig} </#if>">
                             </td>
                             <td>
                                 <br>
@@ -178,7 +155,7 @@
                         <tr>
                             <td>
                                 <br>
-                                NOTA <input type="text" value="${nota.nota}" id="nota" name="nota" size="1">
+                                NOTA <input type="number" value="<#if nota??>${nota.nota}</#if>" id="nota" name="nota" size="1">
                             </td>
                             <td>
                                 <br>
@@ -190,8 +167,10 @@
                     </table>
                 </form>
                 <br>
-                <h3>${mensaje}</h3>
+                <br>
+                <h3><#if mensaje??> ${mensaje} </#if></h3>
             </div>
         </div>
+        </#escape>
     </body>
 </html>

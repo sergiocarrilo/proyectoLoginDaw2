@@ -27,7 +27,7 @@ import servicios.UrlService;
 import utils.Constantes;
 import utils.UrlsPaths;
 
-@WebServlet(name = "Notas", urlPatterns = {UrlsPaths.NOTAS})
+@WebServlet(name = "NotasServlet", urlPatterns = {UrlsPaths.NOTAS})
 public class NotasServlet extends HttpServlet {
 
     /**
@@ -74,18 +74,31 @@ public class NotasServlet extends HttpServlet {
         
         if (op != null) {
             Nota n = new Nota();
-            n.setIdAlumno(Long.parseLong(idAlu));
+            if (idAlu != null) {
+                idAlu = idAlu.replace(" ","");
+            }
+            else {
+                plantilla.put("mensaje", "ERROR AL SELECCIONAR");
+            }
+            n.setIdAlumno(Long.valueOf(idAlu));
+            idAsig = idAsig.replace(" ","");
             n.setIdAsignatura(Long.parseLong(idAsig));
             int filas = 0;
 
             switch (op) {
                 case "guardar":
-                    n.setNota(Integer.parseInt(nota));
-                    n = ns.guardarNota(n);
-                    if (n != null) {
-                        filas = 1;
+                    if (nota != ""){
+                        n.setNota(Integer.parseInt(nota));
+                        n = ns.guardarNota(n);
+                        if (n != null) {
+                            filas = 1;
+                        }
+                        plantilla.put("nota",n);
                     }
-                    request.setAttribute("nota", n);
+                    else {
+                        plantilla.put("mensaje", "ERROR AL SELECCIONAR");
+                    }
+                    
                     break;
                 case "borrar":
                     filas = ns.delNota(n);
@@ -94,9 +107,9 @@ public class NotasServlet extends HttpServlet {
                     n = ns.getNota(n.getIdAlumno(), n.getIdAsignatura());
                     cargar = true;
                     if (n == null) {
-                        request.setAttribute("mensaje", "No hay notas");
+                        plantilla.put("mensaje", "No hay notas");
                     }else{
-                        request.setAttribute("nota", n);
+                        plantilla.put("nota",n);
                     }
                     break;
             }
@@ -108,7 +121,7 @@ public class NotasServlet extends HttpServlet {
         }
         // getAll siempre se hace
         
-        plantilla.put("usuarios", ns.getAllNotas(offset));
+        plantilla.put("notas", ns.getAllNotas(offset));
         plantilla.put("asignaturas", asigs.getAllAsignaturasdbUtils());
         plantilla.put("alumnos", alums.getAllAlumnos());
         plantilla.put("nomAlu", nomAlu);
