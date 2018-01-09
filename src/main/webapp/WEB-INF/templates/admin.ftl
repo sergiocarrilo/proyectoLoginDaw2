@@ -30,8 +30,28 @@
                 document.getElementById("ACTIONTABLA").value=operacion;
                     document.getElementById("formtabla").submit();
             }
+            function previousPage(){
+                var offsetacutal =  document.getElementById("offset").value;
+
+                if(offsetacutal==0){
+
+                }else{
+                    document.getElementById("offset").value = offsetacutal - 10;
+                    document.getElementById("ACTION").value = "VIEW";
+                    document.getElementById("formsupuser").submit();
+                }
+
+            }
+
+            function nextPage(){
+                var offsetacutal =  parseInt(document.getElementById("offset").value);
+                document.getElementById("offset").value = offsetacutal + 10;
+                document.getElementById("ACTION").value = "VIEW";
+                document.getElementById("formsupuser").submit();
+            }
         </script>
     <body>
+        <#escape x as x?html>
         <#include "/menuTemplate.ftl">
         <ul class="nav nav-tabs">
             <li class="nav-item">
@@ -45,18 +65,30 @@
                 </li>
             </ul>
         <div>
+            <#if  profe == 1>
+                        <div>Fecha Nacimiento</div>
+            </#if>
+            <#if  alumno == 1>
+                        <div>Fecha1 Nacimiento1</div>
+            </#if>
+            <#if  profe == 1 || alumno == 1>
+                        <div>Fecha2 Nacimiento2</div>
+            </#if>
+                         <#if  profes?? || alumnossss??>
+                        <div>Fecha3 Nacimiento2</div>
+            </#if>
             <table  class="table">
                 <thead class="thead-dark">
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
-                                <#if profe?? || alumno??>
+                                <#if profe == 1 || alumno ==1>
                         <th>Fecha de entrada</th>
                                  </#if>
-                                <#if  profe?? || alumno??>
+                                <#if  profe == 1 || alumno == 1>
                         <th>Fecha Nacimiento</th>
                                 </#if>
-                                <#if alumno??>
+                                <#if alumno == 1>
                         <th>Mayor de edad</th>
                                 </#if>
                         </tr>
@@ -219,11 +251,16 @@
             </div>
 
         </#if>
-
+        <div class="pagination">
+            <button onclick="previousPage();">&larr; Previous</button>
+            <button onclick="nextPage();">Next &rarr;</button>
+        </div>
         <form id="formtabla" action="administrador?"> 
             <div>
-                <input type="hidden" name="ACTION" class="form-control" id="ACTIONTABLA" value="">   
+                <input type="hidden" name="ACTION" class="form-control" id="ACTIONTABLA" value=""/>  
+                <input type="hidden" id="offset"  name="offset" value="${offset}"/>
                 </div>
             </form>
+    </#escape>
         </body>
     </html>
