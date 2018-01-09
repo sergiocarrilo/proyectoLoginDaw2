@@ -100,6 +100,9 @@ public class Constantes {
     public static final String IDUSER = "iduser";
     public static final String IDPERMISO = "idpermiso";
     public static final String OFFSET = "offset";
+    
+    //NotasServlet
+    public static String NOTASTEMPLATE = "notas.ftl";
 
     //SuperuserServlet
     public static String SUPERUSERTEMPLATE = "superuser.ftl";

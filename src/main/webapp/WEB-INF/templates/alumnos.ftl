@@ -119,7 +119,7 @@
                         <button type="submit" onclick="insertar();" >insert</button>
                         <button type="submit" onclick="update();">update</button>
                         <button type="submit" onclick="borrar();">delete</button>
-                        </form>
+                    </form>
 
                     </body>
                 </html>

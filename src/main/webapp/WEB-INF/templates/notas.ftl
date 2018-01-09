@@ -8,7 +8,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="/assets/css/style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
         <title>Notas</title>
+        
         <script>
             function cargarAlumno(id, nombre) {
                 document.getElementById("idAlumno").value = id;
@@ -27,7 +32,28 @@
             function cargar() {
                 document.getElementById("accion").value = "cargar";
             }
+        </script>
+        
+        <script>
+            function previousPage(){
+                var offsetacutal =  document.getElementById("offset").value;
 
+                if(offsetacutal==0){
+
+                }else{
+                    document.getElementById("offset").value = offsetacutal - 10;
+                    document.getElementById("ACTION").value = "VIEW";
+                    document.getElementById("formnotas").submit();
+                }
+
+            }
+
+            function nextPage(){
+                var offsetacutal =  document.getElementById("offset").value;
+                document.getElementById("offset").value = offsetacutal + 10;
+                document.getElementById("ACTION").value = "VIEW";
+                document.getElementById("formnotas").submit();
+            }
         </script>
     </head>
     <body>
@@ -49,46 +75,63 @@
             </div>
         </nav>
         
-    <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th>ID Alumno</th>
-                    <th>Nombre Alumno</th>
-                    <th>ID Asignatura</th>
-                    <th>Nombre Asignatura</th>
-                    <th>Nota</th>
+        <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID Alumno</th>
+                        <th>Nombre Alumno</th>
+                        <th>ID Asignatura</th>
+                        <th>Nombre Asignatura</th>
+                        <th>Nota</th>
+                        </tr>
+                </thead>
+                <tbody>
+                    <#list notas as nota>  
+                    <tr>
+                        <td>
+                            ${nota.idAlumno}
+                        </td> 
+                            ${nota.alumno}
+                        <td>
+                            ${nota.idAsignatura}   
+                        </td>
+                            ${nota.asignatura}
+                        <td>
+                            ${nota.nota}
+                        </td>
                     </tr>
-            </thead>
-            <tbody>
-                <#list notas as nota>  
-                <tr>
-                    <td>
-                        ${nota.idAlumno}
-                    </td> 
-                        ${nota.alumno}
-                    <td>
-                        ${nota.idAsignatura}   
-                    </td>
-                        ${nota.asignatura}
-                    <td>
-                        ${nota.notita}
-                    </td>
-                </tr>
-                </#list>
-            </tbody>
-    </table>
-     
-    <div class="pagination">
-            <button onclick="previousPage();">&larr; Previous</button>
-            <button onclick="nextPage();">Next &rarr;</button>
-        </div>
-        <#if messageToUser??>
-                    <div class="alert alert-primary" role="alert">
-                ${messageToUser?js_string}    
-                        </div>
+                    </#list>
+                </tbody>
+        </table>
 
+        <div class="pagination">
+            <button onclick="previousPage();">&larr; Atrás</button>
+            <button onclick="nextPage();">Siguiente &rarr;</button>
+        </div>
+        
+        <#if messageToUser??>
+            <div class="alert alert-primary" role="alert">
+                ${messageToUser?js_string}    
+            </div>
         </#if>
-        <div class="container">
+        
+        <form id="formnotas" action="notas?">
+            <input type="hidden" id="ACTION"  name="ACTION"/>
+            <input type="hidden" id="offset"  name="offset" value="${offset}"/>
+        </form>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+            <div class="container">
             <div class="col-xs-8 col-xs-offset-2">
                 <h1>Notas</h1>
 
@@ -96,18 +139,18 @@
                 <select id="alumno" onchange="cargarAlumno(this.value, this.options[this.selectedIndex].innerHTML)">
                     <option disabled selected>Selecciona un alumno</option>
                     <option disabled>-------------------------</option>
-                    <c:forEach items="${alumnos}" var="alumno">
+                    <#list alumnos as alumno> 
                         <option value="${alumno.id}" name="${alumno.nombre}">${alumno.nombre}</option>
-                    </c:forEach>
+                    </#list>
                 </select>
 
                 <span>Asignatura: </span>
                 <select id="asignatura" onchange="cargarAsignatura(this.value, this.options[this.selectedIndex].innerHTML)">
                     <option disabled selected>Selecciona una asignatura</option>
                     <option disabled>-------------------------</option>
-                    <c:forEach items="${asignaturas}" var="asignatura">
+                    <#list asignaturas as asignatura> 
                         <option value="${asignatura.id}">${asignatura.nombre}</option>
-                    </c:forEach>
+                    </#list>
                 </select>
                 <br>
                 <br>
