@@ -31,7 +31,7 @@ public class AdministradorDAO {
             con.setAutoCommit(false);
 
             QueryRunner qr = new QueryRunner();
-
+          
             long id = qr.insert(con,
                     SqlQuery.QUERYINSERTUSER,
                     new ScalarHandler<Long>(),
@@ -39,19 +39,19 @@ public class AdministradorDAO {
                     admin.getPassword(),
                     admin.getEmail(),
                     new java.sql.Date(admin.getFecha_activacion().getTime()));
-
+            admin.setId(id);
             long idpermiso = qr.insert(con,
                     SqlQuery.QUERYPERMISOPROFESOR,
                     new ScalarHandler<Long>(),
-                    id);
-            long idprofe = qr.insert(con,
+                    admin.getId());
+            BigInteger idprofe = qr.insert(con,
                     SqlQuery.QUERYINSERTPROFESOR,
-                    new ScalarHandler<Long>(),
-                    id,
+                    new ScalarHandler<BigInteger>(),
+                    admin.getId(),
                     admin.getNombre(),
                     new java.sql.Date(admin.getFecha_nacimiento().getTime()),
                     new java.sql.Date(admin.getFecha_entrada().getTime()));
-            admin.setId(id);
+            
             con.commit();
         } catch (Exception ex) {
             if (con != null) {
@@ -75,19 +75,19 @@ public class AdministradorDAO {
 
             QueryRunner qr = new QueryRunner();
 
-            BigInteger id = qr.insert(con,
+            long id = qr.insert(con,
                     SqlQuery.QUERYINSERTUSER,
-                    new ScalarHandler<BigInteger>(),
+                    new ScalarHandler<Long>(),
                     admin.getNombre(),
                     admin.getPassword(),
                     admin.getEmail(),
                     new java.sql.Date(admin.getFecha_activacion().getTime()));
 
-            admin.setId(id.intValue());
+            admin.setId(id);
 
-            BigInteger id2 = qr.insert(con,
+            long id2 = qr.insert(con,
                     SqlQuery.QUERYPERMISOALUMNO,
-                    new ScalarHandler<BigInteger>(),
+                    new ScalarHandler<Long>(),
                     admin.getId());
 
             BigInteger id3 = qr.insert(con,
