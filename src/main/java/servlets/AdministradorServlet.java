@@ -9,11 +9,11 @@ import config.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,7 +46,8 @@ public class AdministradorServlet extends HttpServlet {
         String action;
 
         if (request.getParameter(Constantes.actionTemplate) == null) {
-            action = Constantes.VIEW;
+            action = Constantes.VIEWPROFESSOR;
+            
         } else {
             action = request.getParameter(Constantes.actionTemplate);
         }
@@ -58,15 +59,26 @@ public class AdministradorServlet extends HttpServlet {
             offset = Integer.parseInt(request.getParameter("offset"));
         }
         Administrador admin = null;
+        List<Administrador> lista = null;
         switch (action) {
-            case Constantes.VIEW:
+            case Constantes.VIEWPROFESSOR:
+                   lista = service.getAllProfessors();
+                   plantilla.put(Constantes.PROFESORES, lista);
+                break;
+            case Constantes.VIEWALUMNO:
+                lista = service.getAllAlumnos();
+                plantilla.put(Constantes.ALUMNOS, lista);
+                break;
+            case Constantes.VIEWASIGNATURA:
+                lista = service.getAllAsignaturas();
+                plantilla.put(Constantes.ASIGNATURAS, lista);
                 break;
             case Constantes.INSERTARPROFE:
                 admin = service.recogerParametros(parametros);
                 Administrador insertprofe = null;
                 admin.setPassword(Constantes.PASSWORDPROFESOR);
                 insertprofe = service.insertProfesor(admin);
-                if (insertprofe.getId() == null) {
+                if (String.valueOf(insertprofe.getId()) == null) {
                     messageToUser = Constantes.MESSAGEPROFESORNOINSERTADO;
 
                 } else {
@@ -78,7 +90,8 @@ public class AdministradorServlet extends HttpServlet {
                 Administrador insertalumno = null;
                 admin.setPassword(Constantes.PASSWORDALUMNO);
                 insertalumno = service.insertAlumno(admin);
-                if (insertalumno.getId() == null) {
+                
+                if (String.valueOf(insertalumno.getId()) == null) {
                     messageToUser = Constantes.MESSAGEALUMNONOINSERTADO;
 
                 } else {
@@ -86,9 +99,9 @@ public class AdministradorServlet extends HttpServlet {
                 }
                 break;
             case Constantes.INSERTARASIGNATURA:
-                
-                Administrador insertasignatura =  service.insertAsignatura(admin);
-                if (insertasignatura.getId() == null) {
+                admin = service.recogerParametros(parametros);
+                Administrador insertasignatura = service.insertAsignatura(admin);
+                if (String.valueOf(insertasignatura.getId()) == null) {
                     messageToUser = Constantes.MESSAGEASIGNATURANOINSERTADA;
                 } else {
                     messageToUser = Constantes.MESSAGEASIGNATURAINSERTADO;
@@ -99,6 +112,7 @@ public class AdministradorServlet extends HttpServlet {
 
             Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.ADMINTEMPLATE);
             UrlService urlServicios = new UrlService();
+            plantilla.put(Constantes.LISTA, lista);
             plantilla.put(Constantes.messageToUser, messageToUser);
             plantilla.putAll(urlServicios.addConstantsEndPoints(request));
             temp.process(plantilla, response.getWriter());

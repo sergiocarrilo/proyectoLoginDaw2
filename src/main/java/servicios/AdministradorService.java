@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import model.Administrador;
 import utils.Constantes;
@@ -32,7 +33,7 @@ public class AdministradorService {
         AdministradorDAO dao = new AdministradorDAO();
         Administrador compadmin = dao.insertProfessor(admin);
 
-        if (compadmin.getId() == null) {
+        if (String.valueOf(compadmin.getId()) == null) {
             return dao.insertProfessor(admin);
 
         } else {
@@ -50,7 +51,7 @@ public class AdministradorService {
         AdministradorDAO dao = new AdministradorDAO();
         Administrador compadmin = dao.insertProfessor(admin);
 
-        if (compadmin.getId() == null) {
+        if (String.valueOf(compadmin.getId()) == null) {
             return dao.insertAlumno(admin);
         } else {
             mail.mandarMail(admin.getEmail(), Constantes.PASSWORDALUMNO, "CONTRASEÑA");
@@ -79,6 +80,8 @@ public class AdministradorService {
                         admin.setFecha_nacimiento(Date.valueOf(values[0]));
                     } else if (Constantes.MAYOR.equalsIgnoreCase(key)) {
                         admin.setMayor(Boolean.TRUE);
+                    }else if(Constantes.FECHA_ENTRADA.equalsIgnoreCase(key)){
+                        admin.setFecha_entrada(Date.valueOf(values[0]));
                     }
                 }
             }
@@ -95,6 +98,21 @@ public class AdministradorService {
     public Administrador insertAsignatura(Administrador admin) throws SQLException {
         AdministradorDAO dao = new AdministradorDAO();
         return dao.insertAsignatura(admin);
+    }
+
+    public List<Administrador> getAllProfessors() {
+        AdministradorDAO dao = new AdministradorDAO();
+        return dao.getAllProfessors();
+    }
+
+    public List<Administrador> getAllAlumnos() {
+       AdministradorDAO dao = new AdministradorDAO();
+        return dao.getAllAlumnos();
+    }
+
+    public List<Administrador> getAllAsignaturas() {
+        AdministradorDAO dao = new AdministradorDAO();
+        return dao.getAllAsignaturas();
     }
 
 }

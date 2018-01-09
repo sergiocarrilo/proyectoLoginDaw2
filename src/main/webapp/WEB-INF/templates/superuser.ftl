@@ -15,11 +15,23 @@
         <script>
 
         function cambiarAdmin(id,idpermiso) {
-            document.getElementById("iduser").value = id;
-            document.getElementById("idpermiso").value = idpermiso;
-            document.getElementById("ACTION").value = "HACERADMIN";
-            document.getElementById("formsupuser").submit();
+            var comprobacion = document.getElementById("id_permiso").checked;
+                debugger;
+            if(idpermiso == 0){
+                debugger;
+                document.getElementById("iduser").value = id;
+                document.getElementById("idpermiso").value = idpermiso;
+                document.getElementById("ACTION").value = "HACERADMIN";
+                document.getElementById("formsupuser").submit();
+            }else{
+                debugger;
+                document.getElementById("iduser").value = id;
+                document.getElementById("idpermiso").value = idpermiso;
+                document.getElementById("ACTION").value = "QUITARADMIN";
+                document.getElementById("formsupuser").submit();
+            }
         }
+
         
         function previousPage(){
             var offsetacutal =  document.getElementById("offset").value;
@@ -35,7 +47,7 @@
         }
             
         function nextPage(){
-            var offsetacutal =  document.getElementById("offset").value;
+            var offsetacutal =  parseInt(document.getElementById("offset").value);
             document.getElementById("offset").value = offsetacutal + 10;
             document.getElementById("ACTION").value = "VIEW";
             document.getElementById("formsupuser").submit();

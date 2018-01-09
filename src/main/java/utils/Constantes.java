@@ -107,6 +107,7 @@ public class Constantes {
     //SuperuserServlet
     public static String SUPERUSERTEMPLATE = "superuser.ftl";
     public static final String HACERADMIN = "HACERADMIN";
+    public static final String QUITARADMIN = "QUITARADMIN";
     //mensajes superuser
     public static String MESSAGEPERMISOCAMBIADO = "Se ha cambiado el permiso del usuario correctamente";
     public static String MESSAGEPERMISONOCAMBIADO = "No se ha podido cambiar el permiso del usuario";
@@ -117,9 +118,13 @@ public class Constantes {
     public static final String INSERTARALUMNO = "INSERTARALUMNO";
     public static final String INSERTARASIGNATURA = "INSERTARASIGNATURA";
     public static final String NAME = "name";
-    // public static final String EMAIL = "email";
+    public static final String LISTA = "elementos";
+    public static final String FECHA_ENTRADA = "fecha_entrada";
     public static final String FECNA = "fecna";
     public static final String MAYOR = "mayor";
+    public static final String VIEWPROFESSOR = "VIEWPROFESSOR";
+    public static final String VIEWALUMNO = "VIEWALUMNO";
+    public static final String VIEWASIGNATURA = "VIEWASIGNATURA"; 
     public static final String MESSAGEPROFESORNOINSERTADO = "No se ha podido insertar el profesor";
     public static final String MESSAGEPROFESORINSERTADO = "El profesor se ha insertado correctamente";
     public static String PASSWORDPROFESOR = "nohay2sin3";
@@ -128,6 +133,10 @@ public class Constantes {
     public static final String MESSAGEASIGNATURANOINSERTADA = "No se ha podido insertar la asignatura";
     public static final String MESSAGEASIGNATURAINSERTADO = "La asignatura se ha insertado correctamente";
     public static String PASSWORDALUMNO = "tiernogalvan";
+    public static final String PROFESORES = "profe";
+    public static final String ALUMNOS = "alumno";
+    public static final String ASIGNATURAS = "asignaturas";
+    
     //URL
     public static String BaseUrlServer = "baseUrlServer";
 
@@ -137,5 +146,9 @@ public class Constantes {
     public static String messageUserLoginFailActivo = "Quieto parado! Este Usuario no ha sido validado";
     public static String messageUserLoginFailNombre = "Error en las credenciales, El Usuario no existe";
     public static String messageUserMissingFields = "Te faltan campos por rellenar";
+    
+    //Servlet Tareas Alumno
+    public static String TareasAlumnoTemplate = "tareasAlumnoTemplate.ftl";
+    public static String listaTareasAlumno = "listaTareasAlumno";
     
 }//fin clase

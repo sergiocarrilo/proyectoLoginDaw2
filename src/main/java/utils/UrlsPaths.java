@@ -13,7 +13,7 @@ public class UrlsPaths {
 
     public static final String ALUMNOS = "/src/alumnos";
     public static final String ASIGNATURAS = "/src/asignaturas";
-    public static final String NOTAS = "/src/notas";
+    public static final String NOTAS = "/notas";
     public static final String REGISTRO = "/registro";
     public static final String SECURE = "/privado-filtro-desactivado/*";
     public static final String PROFESOR_ASIGNATURAS = "/src/profesor-asignaturas";

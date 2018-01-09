@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 import model.Superuser;
 import utils.SqlQuery;
 import utils.Constantes;
+
 /**
  *
  * @author DAW
@@ -32,12 +33,12 @@ public class SuperuserDAO {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
+
         try {
             con = DBConnection.getInstance().getConnection();
             stmt = con.prepareStatement(SqlQuery.QUERYGETALLUSERS, Statement.RETURN_GENERATED_KEYS);
             stmt.setLong(1, offset);
             rs = stmt.executeQuery();
-
 
             while (rs.next()) {
                 //Retrieve by column name
@@ -45,13 +46,19 @@ public class SuperuserDAO {
                 String nombre = rs.getString(Constantes.NOMBRE);
                 String email = rs.getString(Constantes.EMAIL);
                 Date fecha = rs.getDate(Constantes.FECHA_ACTIVACION);
-                int id_permiso = rs.getInt(Constantes.ID_PERMISO);
+                int id_permiso;
+                if (rs.getString(Constantes.ID_PERMISO) ==null) {
+                    id_permiso = 0;
+                } else {
+                    id_permiso = rs.getInt(Constantes.ID_PERMISO);
+                }
+              
                 supuser = new Superuser();
-                supuser.setId((long)id);
+                  supuser.setPermiso((long) id_permiso);
+                supuser.setId((long) id);
                 supuser.setNombre(nombre);
                 supuser.setEmail(email);
                 supuser.setFecha_activacion(fecha);
-                supuser.setPermiso((long)id_permiso);
 
                 lista.add(supuser);
             }
@@ -75,25 +82,21 @@ public class SuperuserDAO {
         return lista;
     }
 
-    public int cambiarPermiso(Superuser sup) {
-       
-         Connection con = null;
+    public int hacerAdmin(Superuser sup) {
+
+        Connection con = null;
         int filas = 0;
         try {
             con = DBConnection.getInstance().getConnection();
 
-            PreparedStatement stmtupdate = con.prepareStatement(SqlQuery.QUERYHACERADMIN, Statement.RETURN_GENERATED_KEYS);
-            
-                stmtupdate.setLong(1, sup.getPermiso());
-                stmtupdate.setLong(2, sup.getId());
-           
-            
-            
+            PreparedStatement stmtinsert = con.prepareStatement(SqlQuery.QUERYHACERADMIN, Statement.RETURN_GENERATED_KEYS);
 
-            filas = stmtupdate.executeUpdate();
+            stmtinsert.setLong(1, sup.getId());
+
+            filas = stmtinsert.executeUpdate();
 
         } catch (Exception ex) {
-            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SuperuserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             DBConnection.getInstance().cerrarConexion(con);
         }
@@ -101,7 +104,24 @@ public class SuperuserDAO {
         return filas;
     }
 
-    
-    
-    
+    public int quitarAdmin(Superuser superuser) {
+        Connection con = null;
+        int filas = 0;
+        try {
+            con = DBConnection.getInstance().getConnection();
+
+            PreparedStatement stmtdelete = con.prepareStatement(SqlQuery.QUERYQUITARADMIN, Statement.RETURN_GENERATED_KEYS);
+            stmtdelete.setLong(1, superuser.getId());
+
+            filas = stmtdelete.executeUpdate();
+
+        } catch (Exception ex) {
+            Logger.getLogger(SuperuserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBConnection.getInstance().cerrarConexion(con);
+        }
+
+        return filas;
+    }
+
 }
