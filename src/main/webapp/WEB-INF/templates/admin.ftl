@@ -19,7 +19,7 @@
             }
                     
             function crearAlumno(){
-                document.getElementById("formaulmno").submit();
+                document.getElementById("formalumno").submit();
             }
                    
             function crearAsignatura(){
@@ -182,7 +182,7 @@
                             </button>
                         </div>
                     <div class="modal-body">
-                        <form id="formalumno" action="administrador?>
+                        <form id="formalumno" action="administrador?">
                               <div class="form-group">
                               <label for="recipient-name" class="col-form-label">Nombre:</label>
                             <input type="text" name="name" class="form-control" id="alumnoname">
