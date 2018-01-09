@@ -99,8 +99,8 @@ public class LoginServlet extends HttpServlet {
                 paramentrosPlantilla.put(Constantes.messageToUser, messageToUser);
             }
                                   
-            UrlService urlServicios = new UrlService();
-            paramentrosPlantilla.putAll(urlServicios.addConstantsEndPoints(request));
+            //UrlService urlServicios = new UrlService();
+           // paramentrosPlantilla.putAll(urlServicios.addConstantsEndPoints(request));
             paramentrosPlantilla.put(Constantes.LOGIN_ON, usuario);
             if (request.getSession().getAttribute(Constantes.LOGIN_ON) != null && usuario != null) {
                 Configuration.getInstance().getFreeMarker().setSharedVariable(Constantes.LOGIN_ON, usuario);

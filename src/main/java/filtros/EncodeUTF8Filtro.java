@@ -5,10 +5,18 @@
  */
 package filtros;
 
+import config.Configuration;
+import freemarker.template.SimpleCollection;
+import freemarker.template.SimpleScalar;
+import freemarker.template.TemplateCollectionModel;
+import freemarker.template.TemplateHashModelEx;
+import freemarker.template.TemplateModel;
+import freemarker.template.TemplateModelException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Map;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -16,6 +24,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import servicios.UrlService;
 import utils.Constantes;
 
 /**
@@ -112,6 +122,39 @@ public class EncodeUTF8Filtro implements Filter {
             request.setCharacterEncoding(Constantes.DEFAULT_ENCODING);
             response.setCharacterEncoding(Constantes.DEFAULT_ENCODING);
             response.setContentType(Constantes.CONTENT_TYPE);
+            
+            UrlService service = new UrlService();
+            final Map<String, String> resultMap = service.addConstantsEndPoints((HttpServletRequest) request);
+            Configuration.getInstance().getFreeMarker().setAllSharedVariables(new TemplateHashModelEx() {
+                @Override
+                public int size() throws TemplateModelException {
+                    return resultMap.size();
+                }
+
+                @Override
+                public TemplateCollectionModel keys() throws TemplateModelException {
+                    return new SimpleCollection(resultMap.keySet());
+                }
+
+                @Override
+                public TemplateCollectionModel values() throws TemplateModelException {
+                    return new SimpleCollection(resultMap.values());
+                }
+
+                @Override
+                public TemplateModel get(String string) throws TemplateModelException {
+                    String val = resultMap.get(string);
+                    if (val == null) {
+                        return null;
+                    }
+                    return new SimpleScalar(val);
+                }
+
+                @Override
+                public boolean isEmpty() throws TemplateModelException {
+                    return resultMap.isEmpty();
+                }
+            });
 
             chain.doFilter(request, response);
         } catch (Throwable t) {

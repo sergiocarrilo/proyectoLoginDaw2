@@ -19,20 +19,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Curso;
-import model.InformeNotaAsignatura;
-import servicios.AsignaturasServicios;
-import servicios.InformeNotasAsignaturasServicios;
-import servicios.UrlService;
+import model.TareaAlumno;
+import model.User;
+import servicios.TareasServicios;
 import utils.Constantes;
-import utils.UrlsPaths;
 
 /**
  *
  * @author Gato
  */
-@WebServlet(name = "InformeNotasAsignaturasServlet", urlPatterns = {UrlsPaths.INFORME_NOTAS_ASIGNATURAS})
-public class InformeNotasAsignaturasServlet extends HttpServlet {
+@WebServlet(name = "TareasAlumnoServlet", urlPatterns = {"/tareasAlumnoServlet"})
+public class TareasAlumnoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,45 +42,38 @@ public class InformeNotasAsignaturasServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         try {
-            AsignaturasServicios serviciosAsignatura = new AsignaturasServicios();
-            InformeNotasAsignaturasServicios notasAsignaturasServicios = new InformeNotasAsignaturasServicios();
-            List<InformeNotaAsignatura> informe = null;
             String action = request.getParameter(Constantes.actionTemplate);
             Map<String, String[]> parametros = request.getParameterMap();
+            TareasServicios servicios = new TareasServicios();
+            HashMap paramentrosPlantilla = new HashMap();
             String messageToUser = null;
-            Curso curso = null;
+            User alumno = (User) request.getSession().getAttribute(Constantes.LOGIN_ON);
+
+            if (alumno != null) {
+
+                paramentrosPlantilla.put(Constantes.listaTareasAlumno, servicios.getAllTareasOfAlumno(alumno.getId()));
+
+            }
+
             if (action != null && !action.isEmpty()) {
                 switch (action) {
                     case Constantes.VIEW:
 
-                        curso = notasAsignaturasServicios.tratarParametros(parametros);
-                        informe = notasAsignaturasServicios.getInformeNotasAsignaturas(curso.getId());
-
                         break;
                 }//fin switch
             }//fin if action
-            HashMap paramentrosPlantilla = new HashMap();
+
             if (messageToUser != null) {
                 paramentrosPlantilla.put(Constantes.messageToUser, messageToUser);
             }
-            if (informe != null && curso != null) {
-                paramentrosPlantilla.put(Constantes.ListadoInformeNotasAsig, informe);
-                paramentrosPlantilla.put(Constantes.CursoSeleccionado, curso.getCurso());
 
-            }
-            //UrlService urlServicios = new UrlService();
-           // paramentrosPlantilla.putAll(urlServicios.addConstantsEndPoints(request));
-            
-            paramentrosPlantilla.put(Constantes.listaCursos, serviciosAsignatura.getAllCursosdbUtils());            
-            Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.InformeNotasAsignaturas);                                    
+            Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.TareasAlumnoTemplate);
             plantilla.process(paramentrosPlantilla, response.getWriter());
         } catch (TemplateException ex) {
-            Logger.getLogger(InformeNotasAsignaturasServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TareasAlumnoServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-    }//fin processRequest
+    }//fin proccess
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

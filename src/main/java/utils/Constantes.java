@@ -140,4 +140,8 @@ public class Constantes {
     public static String messageUserLoginFailNombre = "Error en las credenciales, El Usuario no existe";
     public static String messageUserMissingFields = "Te faltan campos por rellenar";
     
+    //Servlet Tareas Alumno
+    public static String TareasAlumnoTemplate = "tareasAlumnoTemplate.ftl";
+    public static String listaTareasAlumno = "listaTareasAlumno";
+    
 }//fin clase
