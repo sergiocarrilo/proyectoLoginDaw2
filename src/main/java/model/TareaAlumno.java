@@ -13,6 +13,7 @@ import java.sql.Date;
  */
 public class TareaAlumno {
 
+    private long id_tareas_alumnos;
     private long id_asignatura;
     private long id_tarea;
     private String nombre;
@@ -23,13 +24,22 @@ public class TareaAlumno {
     public TareaAlumno() {
     }
 
-    public TareaAlumno(long id_asignatura, long id_tarea, String nombre, String tarea, Date fecha_entrega, boolean hecho) {
+    public TareaAlumno(long id_tareas_alumnos, long id_asignatura, long id_tarea, String nombre, String tarea, Date fecha_entrega, boolean hecho) {
+        this.id_tareas_alumnos = id_tareas_alumnos;
         this.id_asignatura = id_asignatura;
         this.id_tarea = id_tarea;
         this.nombre = nombre;
         this.tarea = tarea;
         this.fecha_entrega = fecha_entrega;
         this.hecho = hecho;
+    }
+
+    public long getId_tareas_alumnos() {
+        return id_tareas_alumnos;
+    }
+
+    public void setId_tareas_alumnos(long id_tareas_alumnos) {
+        this.id_tareas_alumnos = id_tareas_alumnos;
     }
 
     public long getId_asignatura() {
@@ -80,4 +90,5 @@ public class TareaAlumno {
         this.hecho = hecho;
     }
 
+    
 }

@@ -7,6 +7,21 @@
         <title>${title}</title>
         <meta charset="${charset}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+
+       function updateTareas(input_hecho) {   
+           var hecho = input_hecho.checked;
+           console.log(hecho);
+               
+           if(hecho == 'on'){
+              
+               //document.getElementById("formsupuser").submit();
+           }else{
+              
+               //document.getElementById("formsupuser").submit();
+           }
+       }
+            </script>
         </head>
     <body>
 
@@ -16,7 +31,13 @@
 
             <div class="row justify-content-center">
                 <div class="col-sm-9">
-                    <h2>Mis Tareas - </h2>
+                    <h2>Mis Tareas - 
+                        <#if loginOnFromServer??>
+                            <#if (loginOnFromServer.nombre)??>
+                                ${loginOnFromServer.nombre}
+                            </#if>
+                        </#if>
+                        </h2>
 
                     </div>
                 </div>
@@ -46,6 +67,12 @@
                                 </thead>
                             <tbody>
                                 <#list listaTareasAlumno as tarea>
+                            <form id="form_tareas_alumno" action="">
+                                <input type="hidden" id="id_tareas_alumno" name="id_tareas_alumno"/>
+                                <input type="hidden" id="hecho_input_${tarea.id_tareas_alumnos}" name="hecho" value="${tarea.hecho?string("1", "0")}"/>
+                                <input type="hidden" id="action"  name="ACTION" value="UPDATE"/>            
+
+
                                 <tr>
                                     <td>
                                         <div class="text-center">
@@ -63,18 +90,23 @@
 
                                         </td>
                                     <td >
+                                        <input type="checkbox" id="hecho_input_${tarea.id_tareas_alumnos}" 
+                                               onchange="updateTareas(this)"
+                                               ${tarea.hecho?string("checked", "")}
+                                               />
 
-                                            ${tarea.hecho?string("yes", "no")}
+
 
                                         </td>
                                     <td >
 
-                                           <button>Actualizar</button>
+                                        <button >Actualizar</button>
 
                                         </td>
                                     </tr>
+                                </form>
 </#list>   
-                                </tbody>
+                            </tbody>
                             </table>
 
 
@@ -89,6 +121,7 @@
 
             </div>
         </div>
+
 </#escape>
     <#include "/footBootstrap.ftl">
 

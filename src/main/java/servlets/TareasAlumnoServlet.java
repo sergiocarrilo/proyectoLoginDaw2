@@ -58,7 +58,7 @@ public class TareasAlumnoServlet extends HttpServlet {
 
             if (action != null && !action.isEmpty()) {
                 switch (action) {
-                    case Constantes.VIEW:
+                    case Constantes.UPDATE:
 
                         break;
                 }//fin switch

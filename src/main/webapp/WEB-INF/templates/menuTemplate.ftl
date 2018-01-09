@@ -27,10 +27,13 @@
                 <a class="nav-link" href="#">Cambiar Contraseña</a>
                 </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Tareas</a>
+                <a class="nav-link" href="#">Crear Tareas(profe)</a>
                 </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Notas Alumno</a>
+                <a class="nav-link" href="#">Ver Tareas(alum)</a>
+                </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Ver Notas (alum)</a>
                 </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
