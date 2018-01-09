@@ -60,18 +60,21 @@ public class AdministradorServlet extends HttpServlet {
         }
         Administrador admin = null;
         List<Administrador> lista = null;
+         plantilla.put(Constantes.PROFESORES, 0);
+         plantilla.put(Constantes.ALUMNOS, 0);
+         plantilla.put(Constantes.ASIGNATURAS, 0);
         switch (action) {
             case Constantes.VIEWPROFESSOR:
-                   lista = service.getAllProfessors();
-                   plantilla.put(Constantes.PROFESORES, lista);
+                   lista = service.getAllProfessors(offset);
+                   plantilla.put(Constantes.PROFESORES, 1);
                 break;
             case Constantes.VIEWALUMNO:
-                lista = service.getAllAlumnos();
-                plantilla.put(Constantes.ALUMNOS, lista);
+                lista = service.getAllAlumnos(offset);
+                plantilla.put(Constantes.ALUMNOS, 1);
                 break;
             case Constantes.VIEWASIGNATURA:
-                lista = service.getAllAsignaturas();
-                plantilla.put(Constantes.ASIGNATURAS, lista);
+                lista = service.getAllAsignaturas(offset);
+                plantilla.put(Constantes.ASIGNATURAS, 1);
                 break;
             case Constantes.INSERTARPROFE:
                 admin = service.recogerParametros(parametros);
@@ -114,6 +117,7 @@ public class AdministradorServlet extends HttpServlet {
             UrlService urlServicios = new UrlService();
             plantilla.put(Constantes.LISTA, lista);
             plantilla.put(Constantes.messageToUser, messageToUser);
+            plantilla.put("offset", offset);
             plantilla.putAll(urlServicios.addConstantsEndPoints(request));
             temp.process(plantilla, response.getWriter());
         } catch (TemplateException ex) {

@@ -104,7 +104,7 @@ public class AdministradorDAO {
                     admin.getId(),
                     admin.getNombre(),
                     new java.sql.Date(admin.getFecha_nacimiento().getTime()),
-                    admin.getMayor(),
+                    admin.getMayor_Edad(),
                     new java.sql.Date(admin.getFecha_entrada().getTime()));
 
             con.commit();
@@ -144,7 +144,7 @@ public class AdministradorDAO {
 
     }
 
-    public List<Administrador> getAllProfessors() {
+    public List<Administrador> getAllProfessors(int offset) {
         List<Administrador> lista = null;
        
         Connection con = null;
@@ -165,7 +165,7 @@ public class AdministradorDAO {
     }
     
 
-    public List<Administrador> getAllAlumnos() {
+    public List<Administrador> getAllAlumnos(int offset) {
        List<Administrador> lista = null;
        
         Connection con = null;
@@ -186,7 +186,7 @@ public class AdministradorDAO {
     }
     
 
-    public List<Administrador> getAllAsignaturas() {
+    public List<Administrador> getAllAsignaturas(int offset) {
         List<Administrador> lista = null;
        
         Connection con = null;

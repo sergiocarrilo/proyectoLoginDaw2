@@ -16,7 +16,7 @@ public class Administrador {
     private String nombre;
     private String password;
     private String email;
-    private Boolean mayor;
+    private Boolean mayor_edad;
     private Date fecha_nacimiento;
     private Date fecha_activacion;
     private Date fecha_entrada;
@@ -68,12 +68,12 @@ public class Administrador {
         this.email = email;
     }
 
-    public Boolean getMayor() {
-        return mayor;
+    public Boolean getMayor_Edad() {
+        return mayor_edad;
     }
 
-    public void setMayor(Boolean mayor) {
-        this.mayor = mayor;
+    public void setMayor_Edad(Boolean mayor_edad) {
+        this.mayor_edad = mayor_edad;
     }
 
     public Date getFecha_nacimiento() {
