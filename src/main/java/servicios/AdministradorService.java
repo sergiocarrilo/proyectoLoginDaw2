@@ -33,7 +33,7 @@ public class AdministradorService {
         AdministradorDAO dao = new AdministradorDAO();
         Administrador compadmin = dao.insertProfessor(admin);
 
-        if (String.valueOf(compadmin.getId()) == null) {
+        if (String.valueOf(compadmin.getId()) == null || compadmin.getId() == 0) {
             return dao.insertProfessor(admin);
 
         } else {
@@ -51,7 +51,7 @@ public class AdministradorService {
         AdministradorDAO dao = new AdministradorDAO();
         Administrador compadmin = dao.insertProfessor(admin);
 
-        if (String.valueOf(compadmin.getId()) == null) {
+        if (String.valueOf(compadmin.getId()) == null || compadmin.getId() == 0) {
             return dao.insertAlumno(admin);
         } else {
             mail.mandarMail(admin.getEmail(), Constantes.PASSWORDALUMNO, "CONTRASEÑA");

@@ -43,6 +43,7 @@
                         </form>        
                     </div>
                 </div>
+            <!--
             <div class="row justify-content-center">
                 <div class="col-sm-10">
                 <#if messageToUser??>
@@ -113,7 +114,7 @@
                 </div>
 
             </div>
-        </div>
+        </div>-->
 </#escape>
     <#include "/footBootstrap.ftl">
 

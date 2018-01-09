@@ -12,7 +12,7 @@ import java.util.Date;
  * @author DAW
  */
 public class Administrador {
-    private int id;
+    private long id;
     private String nombre;
     private String password;
     private String email;
@@ -36,11 +36,11 @@ public class Administrador {
     public void setFecha_activacion(Date fecha_activacion) {
         this.fecha_activacion = fecha_activacion;
     }
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

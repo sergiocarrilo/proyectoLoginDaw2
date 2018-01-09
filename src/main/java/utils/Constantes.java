@@ -114,7 +114,7 @@ public class Constantes {
 
     //AdminServlet
     public static String ADMINTEMPLATE = "admin.ftl";
-    public static final String INSERTARPROFE = "INSERTARPROFE";
+    public static final String INSERTARPROFE = "INSERTARPROFESSOR";
     public static final String INSERTARALUMNO = "INSERTARALUMNO";
     public static final String INSERTARASIGNATURA = "INSERTARASIGNATURA";
     public static final String NAME = "name";

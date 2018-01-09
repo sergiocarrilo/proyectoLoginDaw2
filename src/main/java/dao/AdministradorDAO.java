@@ -7,21 +7,15 @@ package dao;
 
 import java.math.BigInteger;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Administrador;
-import model.Asignatura;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
-import servlets.AdministradorServlet;
-import utils.Constantes;
 import utils.SqlQuery;
 
 /**
@@ -38,33 +32,31 @@ public class AdministradorDAO {
 
             QueryRunner qr = new QueryRunner();
 
-            BigInteger id = qr.insert(con,
+            long id = qr.insert(con,
                     SqlQuery.QUERYINSERTUSER,
-                    new ScalarHandler<BigInteger>(),
+                    new ScalarHandler<Long>(),
                     admin.getNombre(),
                     admin.getPassword(),
                     admin.getEmail(),
                     new java.sql.Date(admin.getFecha_activacion().getTime()));
 
-            admin.setId(id.intValue());
-            
-            BigInteger id2 = qr.insert(con,
+            long idpermiso = qr.insert(con,
                     SqlQuery.QUERYPERMISOPROFESOR,
-                    new ScalarHandler<BigInteger>(),
-                    admin.getId());
-
-            BigInteger id3 = qr.insert(con,
+                    new ScalarHandler<Long>(),
+                    id);
+            long idprofe = qr.insert(con,
                     SqlQuery.QUERYINSERTPROFESOR,
-                    new ScalarHandler<BigInteger>(),
-                    admin.getId(),
+                    new ScalarHandler<Long>(),
+                    id,
                     admin.getNombre(),
                     new java.sql.Date(admin.getFecha_nacimiento().getTime()),
                     new java.sql.Date(admin.getFecha_entrada().getTime()));
-            
+            admin.setId(id);
             con.commit();
         } catch (Exception ex) {
             if (con != null) {
-                con.rollback();
+                Logger.getLogger(AsignaturasDAO.class.getName()).log(Level.SEVERE, null, ex);
+                //con.rollback();
             }
         } finally {
 
@@ -146,7 +138,7 @@ public class AdministradorDAO {
 
     public List<Administrador> getAllProfessors(int offset) {
         List<Administrador> lista = null;
-       
+
         Connection con = null;
         try {
             con = DBConnection.getInstance().getConnection();
@@ -163,11 +155,10 @@ public class AdministradorDAO {
         }
         return lista;
     }
-    
 
     public List<Administrador> getAllAlumnos(int offset) {
-       List<Administrador> lista = null;
-       
+        List<Administrador> lista = null;
+
         Connection con = null;
         try {
             con = DBConnection.getInstance().getConnection();
@@ -184,11 +175,10 @@ public class AdministradorDAO {
         }
         return lista;
     }
-    
 
     public List<Administrador> getAllAsignaturas(int offset) {
         List<Administrador> lista = null;
-       
+
         Connection con = null;
         try {
             con = DBConnection.getInstance().getConnection();
