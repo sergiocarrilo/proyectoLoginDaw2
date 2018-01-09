@@ -33,7 +33,7 @@ public class AdministradorService {
         AdministradorDAO dao = new AdministradorDAO();
         Administrador compadmin = dao.insertProfessor(admin);
 
-        if (compadmin.getId() == null) {
+        if (String.valueOf(compadmin.getId()) == null) {
             return dao.insertProfessor(admin);
 
         } else {
@@ -51,7 +51,7 @@ public class AdministradorService {
         AdministradorDAO dao = new AdministradorDAO();
         Administrador compadmin = dao.insertProfessor(admin);
 
-        if (compadmin.getId() == null) {
+        if (String.valueOf(compadmin.getId()) == null) {
             return dao.insertAlumno(admin);
         } else {
             mail.mandarMail(admin.getEmail(), Constantes.PASSWORDALUMNO, "CONTRASEÑA");
@@ -80,6 +80,8 @@ public class AdministradorService {
                         admin.setFecha_nacimiento(Date.valueOf(values[0]));
                     } else if (Constantes.MAYOR.equalsIgnoreCase(key)) {
                         admin.setMayor(Boolean.TRUE);
+                    }else if(Constantes.FECHA_ENTRADA.equalsIgnoreCase(key)){
+                        admin.setFecha_entrada(Date.valueOf(values[0]));
                     }
                 }
             }

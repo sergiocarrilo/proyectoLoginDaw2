@@ -115,8 +115,8 @@ public class Constantes {
     public static final String INSERTARALUMNO = "INSERTARALUMNO";
     public static final String INSERTARASIGNATURA = "INSERTARASIGNATURA";
     public static final String NAME = "name";
-    public static final String LISTA = "administradores";
-    // public static final String EMAIL = "email";
+    public static final String LISTA = "elementos";
+    public static final String FECHA_ENTRADA = "fecha_entrada";
     public static final String FECNA = "fecna";
     public static final String MAYOR = "mayor";
     public static final String VIEWPROFESSOR = "VIEWPROFESSOR";
@@ -130,6 +130,10 @@ public class Constantes {
     public static final String MESSAGEASIGNATURANOINSERTADA = "No se ha podido insertar la asignatura";
     public static final String MESSAGEASIGNATURAINSERTADO = "La asignatura se ha insertado correctamente";
     public static String PASSWORDALUMNO = "tiernogalvan";
+    public static final String PROFESORES = "profe";
+    public static final String ALUMNOS = "alumno";
+    public static final String ASIGNATURAS = "asignaturas";
+    
     //URL
     public static String BaseUrlServer = "baseUrlServer";
 

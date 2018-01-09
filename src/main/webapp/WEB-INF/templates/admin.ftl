@@ -50,36 +50,39 @@
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
-                                <#if admin.email??>
-                        <th>Email</th>
+                                <#if profe?? || alumno??>
+                        <th>Fecha de entrada</th>
                                  </#if>
-                                <#if admin.fecha_nacimiento??>
+                                <#if  profe?? || alumno??>
                         <th>Fecha Nacimiento</th>
                                 </#if>
-                                <#if admin.mayor_edad??>
+                                <#if alumno??>
                         <th>Mayor de edad</th>
                                 </#if>
                         </tr>
                     </thead>
-                <#list administradores as admin>  
+                <#list elementos as elemento>  
                 <tr>
                     <td>
-                                ${admin.nombre}
+                                ${elemento.id}
                         </td> 
-                          <#if admin.email??>
                     <td>
-                        ${admin.email}
+                                ${elemento.nombre}
+                        </td> 
+                          <#if elemento.fecha_entrada??>
+                    <td>
+                                 ${elemento.fecha_entrada?string["dd-MM-yyyy"]}
                         </td>
                            </#if>
-                            <#if admin.fecha_nacimiento??>
+                            <#if elemento.fecha_nacimiento??>
                     <td>
-                        ${admin.fecha_nacimiento?string["dd-MM-yyyy"]}
-                        </td>
+                        ${elemento.fecha_nacimiento?string["dd-MM-yyyy"]}
+                    </td>
                             </#if>
-                            <#if admin.mayor_edad??>
+                            <#if elemento.mayor_edad??>
                     <td>
-                        <input type="checkbox" <#if admin.mayor_edad?c>checked</#if> />
-                        </td>
+                        <input type="checkbox" <#if elemento.mayor_edad?c>checked</#if> />
+                    </td>
                         </#if>
                     </tr>
 
@@ -112,6 +115,11 @@
                                 <input type="text" name="email" class="form-control" id="professoremail">
                                 </div>
                             <div>
+                           <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Fecha Entrada:</label>
+                                <input type="date" name="fecha_entrada" class="form-control" id="profesorfechaentrada">
+
+                            </div>
                                 <input type="hidden" name="ACTION" class="form-control" id="ACTIONPROFESOR" value="INSERTARPROFESSOR">   
                                 </div>
                             <div class="modal-footer">
@@ -156,6 +164,11 @@
                                 <input type="checkbox" name="mayor" class="form-control" id="alumnomayor">
                                 </div>
                             <div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Fecha Entrada:</label>
+                                <input type="date" name="fecha_entrada" class="form-control" id="alumnofechaentrada">
+
+                            </div>
                                 <input type="hidden" name="ACTION" class="form-control" id="ACTIONALUMNO" value="INSERTARALUMNO">   
                                 </div>
                             <div class="modal-footer">

@@ -46,7 +46,7 @@ public class AdministradorDAO {
                     admin.getEmail(),
                     new java.sql.Date(admin.getFecha_activacion().getTime()));
 
-            admin.setId(id.longValue());
+            admin.setId(id.intValue());
             
             BigInteger id2 = qr.insert(con,
                     SqlQuery.QUERYPERMISOPROFESOR,
@@ -58,7 +58,8 @@ public class AdministradorDAO {
                     new ScalarHandler<BigInteger>(),
                     admin.getId(),
                     admin.getNombre(),
-                    new java.sql.Date(admin.getFecha_nacimiento().getTime()));
+                    new java.sql.Date(admin.getFecha_nacimiento().getTime()),
+                    new java.sql.Date(admin.getFecha_entrada().getTime()));
             
             con.commit();
         } catch (Exception ex) {
@@ -90,7 +91,7 @@ public class AdministradorDAO {
                     admin.getEmail(),
                     new java.sql.Date(admin.getFecha_activacion().getTime()));
 
-            admin.setId(id.longValue());
+            admin.setId(id.intValue());
 
             BigInteger id2 = qr.insert(con,
                     SqlQuery.QUERYPERMISOALUMNO,
@@ -103,7 +104,8 @@ public class AdministradorDAO {
                     admin.getId(),
                     admin.getNombre(),
                     new java.sql.Date(admin.getFecha_nacimiento().getTime()),
-                    admin.getMayor());
+                    admin.getMayor(),
+                    new java.sql.Date(admin.getFecha_entrada().getTime()));
 
             con.commit();
 
@@ -131,7 +133,7 @@ public class AdministradorDAO {
                     new ScalarHandler<BigInteger>(),
                     admin.getNombre());
 
-            admin.setId(id.longValue());
+            admin.setId(id.intValue());
 
         } catch (Exception ex) {
             Logger.getLogger(AsignaturasDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -151,7 +153,7 @@ public class AdministradorDAO {
 
             QueryRunner qr = new QueryRunner();
             ResultSetHandler<List<Administrador>> handler
-                    = new BeanListHandler<Administrador>(Administrador.class);
+                    = new BeanListHandler<>(Administrador.class);
             lista = qr.query(con, SqlQuery.QUERYGETALLPROFESSORS, handler);
 
         } catch (Exception ex) {
@@ -172,7 +174,7 @@ public class AdministradorDAO {
 
             QueryRunner qr = new QueryRunner();
             ResultSetHandler<List<Administrador>> handler
-                    = new BeanListHandler<Administrador>(Administrador.class);
+                    = new BeanListHandler<>(Administrador.class);
             lista = qr.query(con, SqlQuery.QUERYGETALLALUMNOS, handler);
 
         } catch (Exception ex) {
@@ -193,7 +195,7 @@ public class AdministradorDAO {
 
             QueryRunner qr = new QueryRunner();
             ResultSetHandler<List<Administrador>> handler
-                    = new BeanListHandler<Administrador>(Administrador.class);
+                    = new BeanListHandler<>(Administrador.class);
             lista = qr.query(con, SqlQuery.QUERYGETALLASIGNATURAS, handler);
 
         } catch (Exception ex) {
