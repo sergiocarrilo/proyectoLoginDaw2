@@ -5,19 +5,29 @@
  */
 package servlets;
 
+import config.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Asignatura;
 import model.Nota;
 import servicios.AlumnosServicios;
 import servicios.AsignaturasServicios;
 import servicios.NotasServicios;
+import servicios.UrlService;
+import utils.Constantes;
 import utils.UrlsPaths;
 
-@WebServlet(name = "Notas", urlPatterns = {UrlsPaths.NOTAS})
+@WebServlet(name = "NotasServlet", urlPatterns = {UrlsPaths.NOTAS})
 public class NotasServlet extends HttpServlet {
 
     /**
@@ -28,9 +38,10 @@ public class NotasServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws freemarker.template.TemplateException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, TemplateException {
         NotasServicios ns = new NotasServicios();
         AlumnosServicios alums = new AlumnosServicios();
         AsignaturasServicios asigs = new AsignaturasServicios();
@@ -42,20 +53,52 @@ public class NotasServlet extends HttpServlet {
         String nota = request.getParameter("nota");
         boolean cargar = false;
 
+        String action = request.getParameter(Constantes.actionTemplate);
+        String messageToUser = null;
+        HashMap plantilla = new HashMap();
+        Map<String, String[]> parametros = request.getParameterMap();
+        
+        if (request.getParameter(Constantes.actionTemplate) == null) {
+            action = Constantes.VIEW;
+        } else {
+            action = request.getParameter(Constantes.actionTemplate);
+        }
+
+        int offset;
+        
+        if (request.getParameter("offset") == null) {
+            offset = 0;
+        } else {
+            offset = Integer.parseInt(request.getParameter("offset"));
+        }
+        
         if (op != null) {
             Nota n = new Nota();
-            n.setIdAlumno(Long.parseLong(idAlu));
+            if (idAlu != null) {
+                idAlu = idAlu.replace(" ","");
+            }
+            else {
+                plantilla.put("mensaje", "ERROR AL SELECCIONAR");
+            }
+            n.setIdAlumno(Long.valueOf(idAlu));
+            idAsig = idAsig.replace(" ","");
             n.setIdAsignatura(Long.parseLong(idAsig));
             int filas = 0;
 
             switch (op) {
                 case "guardar":
-                    n.setNota(Integer.parseInt(nota));
-                    n = ns.guardarNota(n);
-                    if (n != null) {
-                        filas = 1;
+                    if (nota != ""){
+                        n.setNota(Integer.parseInt(nota));
+                        n = ns.guardarNota(n);
+                        if (n != null) {
+                            filas = 1;
+                        }
+                        plantilla.put("nota",n);
                     }
-                    request.setAttribute("nota", n);
+                    else {
+                        plantilla.put("mensaje", "ERROR AL SELECCIONAR");
+                    }
+                    
                     break;
                 case "borrar":
                     filas = ns.delNota(n);
@@ -64,9 +107,9 @@ public class NotasServlet extends HttpServlet {
                     n = ns.getNota(n.getIdAlumno(), n.getIdAsignatura());
                     cargar = true;
                     if (n == null) {
-                        request.setAttribute("mensaje", "No hay notas");
+                        plantilla.put("mensaje", "No hay notas");
                     }else{
-                        request.setAttribute("nota", n);
+                        plantilla.put("nota",n);
                     }
                     break;
             }
@@ -77,13 +120,20 @@ public class NotasServlet extends HttpServlet {
             }
         }
         // getAll siempre se hace
-        request.setAttribute("asignaturas", asigs.getAllAsignaturasdbUtils());
-        request.setAttribute("alumnos", alums.getAllAlumnos());
-        request.setAttribute("nomAlu", nomAlu);
-        request.setAttribute("idAlu", idAlu);
-        request.setAttribute("nomAsig", nomAsig);
-        request.setAttribute("idAsig", idAsig);
-        request.getRequestDispatcher("/pintarListaNotas.jsp").forward(request, response);
+        
+        plantilla.put("notas", ns.getAllNotas(offset));
+        plantilla.put("asignaturas", asigs.getAllAsignaturasdbUtils());
+        plantilla.put("alumnos", alums.getAllAlumnos());
+        plantilla.put("nomAlu", nomAlu);
+        plantilla.put("idAlu", idAlu);
+        plantilla.put("nomAsig", nomAsig);
+        plantilla.put("idAsig", idAsig);
+        plantilla.put("offset", offset);
+        plantilla.put(Constantes.messageToUser, messageToUser);
+        UrlService urlServicios = new UrlService();
+        plantilla.putAll(urlServicios.addConstantsEndPoints(request));
+        Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.NOTASTEMPLATE);
+        temp.process(plantilla, response.getWriter());
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -98,7 +148,11 @@ public class NotasServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (TemplateException ex) {
+            Logger.getLogger(NotasServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -112,7 +166,11 @@ public class NotasServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (TemplateException ex) {
+            Logger.getLogger(NotasServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

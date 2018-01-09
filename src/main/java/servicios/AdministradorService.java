@@ -33,7 +33,7 @@ public class AdministradorService {
         AdministradorDAO dao = new AdministradorDAO();
         Administrador compadmin = dao.insertProfessor(admin);
 
-        if (compadmin.getId() == null) {
+        if (String.valueOf(compadmin.getId()) == null) {
             return dao.insertProfessor(admin);
 
         } else {
@@ -51,7 +51,7 @@ public class AdministradorService {
         AdministradorDAO dao = new AdministradorDAO();
         Administrador compadmin = dao.insertProfessor(admin);
 
-        if (compadmin.getId() == null) {
+        if (String.valueOf(compadmin.getId()) == null) {
             return dao.insertAlumno(admin);
         } else {
             mail.mandarMail(admin.getEmail(), Constantes.PASSWORDALUMNO, "CONTRASEÑA");
@@ -67,7 +67,7 @@ public class AdministradorService {
             admin = new Administrador();
 
             Iterator<String> it = parametros.keySet().iterator();
-            admin.setMayor(Boolean.FALSE);
+            admin.setMayor_Edad(Boolean.FALSE);
             while (it.hasNext()) {
                 String key = (String) it.next();
                 String[] values = (String[]) parametros.get(key);
@@ -79,7 +79,9 @@ public class AdministradorService {
                     } else if (Constantes.FECNA.equalsIgnoreCase(key)) {
                         admin.setFecha_nacimiento(Date.valueOf(values[0]));
                     } else if (Constantes.MAYOR.equalsIgnoreCase(key)) {
-                        admin.setMayor(Boolean.TRUE);
+                        admin.setMayor_Edad(Boolean.TRUE);
+                    }else if(Constantes.FECHA_ENTRADA.equalsIgnoreCase(key)){
+                        admin.setFecha_entrada(Date.valueOf(values[0]));
                     }
                 }
             }
@@ -98,19 +100,19 @@ public class AdministradorService {
         return dao.insertAsignatura(admin);
     }
 
-    public List<Administrador> getAllProfessors() {
+    public List<Administrador> getAllProfessors(int offset) {
         AdministradorDAO dao = new AdministradorDAO();
-        return dao.getAllProfessors();
+        return dao.getAllProfessors(offset);
     }
 
-    public List<Administrador> getAllAlumnos() {
+    public List<Administrador> getAllAlumnos(int offset) {
        AdministradorDAO dao = new AdministradorDAO();
-        return dao.getAllAlumnos();
+        return dao.getAllAlumnos(offset);
     }
 
-    public List<Administrador> getAllAsignaturas() {
+    public List<Administrador> getAllAsignaturas(int offset) {
         AdministradorDAO dao = new AdministradorDAO();
-        return dao.getAllAsignaturas();
+        return dao.getAllAsignaturas(offset);
     }
 
 }

@@ -59,23 +59,29 @@ public class AdministradorServlet extends HttpServlet {
             offset = Integer.parseInt(request.getParameter("offset"));
         }
         Administrador admin = null;
-        List<Administrador> adminList = null;
+        List<Administrador> lista = null;
+         plantilla.put(Constantes.PROFESORES, 0);
+         plantilla.put(Constantes.ALUMNOS, 0);
+         plantilla.put(Constantes.ASIGNATURAS, 0);
         switch (action) {
             case Constantes.VIEWPROFESSOR:
-                   adminList = service.getAllProfessors();
+                   lista = service.getAllProfessors(offset);
+                   plantilla.put(Constantes.PROFESORES, 1);
                 break;
             case Constantes.VIEWALUMNO:
-                adminList = service.getAllAlumnos();
+                lista = service.getAllAlumnos(offset);
+                plantilla.put(Constantes.ALUMNOS, 1);
                 break;
             case Constantes.VIEWASIGNATURA:
-                adminList = service.getAllAsignaturas();
+                lista = service.getAllAsignaturas(offset);
+                plantilla.put(Constantes.ASIGNATURAS, 1);
                 break;
             case Constantes.INSERTARPROFE:
                 admin = service.recogerParametros(parametros);
                 Administrador insertprofe = null;
                 admin.setPassword(Constantes.PASSWORDPROFESOR);
                 insertprofe = service.insertProfesor(admin);
-                if (insertprofe.getId() == null) {
+                if (String.valueOf(insertprofe.getId()) == null) {
                     messageToUser = Constantes.MESSAGEPROFESORNOINSERTADO;
 
                 } else {
@@ -87,7 +93,8 @@ public class AdministradorServlet extends HttpServlet {
                 Administrador insertalumno = null;
                 admin.setPassword(Constantes.PASSWORDALUMNO);
                 insertalumno = service.insertAlumno(admin);
-                if (insertalumno.getId() == null) {
+                
+                if (String.valueOf(insertalumno.getId()) == null) {
                     messageToUser = Constantes.MESSAGEALUMNONOINSERTADO;
 
                 } else {
@@ -97,7 +104,7 @@ public class AdministradorServlet extends HttpServlet {
             case Constantes.INSERTARASIGNATURA:
                 admin = service.recogerParametros(parametros);
                 Administrador insertasignatura = service.insertAsignatura(admin);
-                if (insertasignatura.getId() == null) {
+                if (String.valueOf(insertasignatura.getId()) == null) {
                     messageToUser = Constantes.MESSAGEASIGNATURANOINSERTADA;
                 } else {
                     messageToUser = Constantes.MESSAGEASIGNATURAINSERTADO;
@@ -108,8 +115,9 @@ public class AdministradorServlet extends HttpServlet {
 
             Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.ADMINTEMPLATE);
             UrlService urlServicios = new UrlService();
-            plantilla.put(Constantes.LISTA, adminList);
+            plantilla.put(Constantes.LISTA, lista);
             plantilla.put(Constantes.messageToUser, messageToUser);
+            plantilla.put("offset", offset);
             plantilla.putAll(urlServicios.addConstantsEndPoints(request));
             temp.process(plantilla, response.getWriter());
         } catch (TemplateException ex) {

@@ -30,8 +30,28 @@
                 document.getElementById("ACTIONTABLA").value=operacion;
                     document.getElementById("formtabla").submit();
             }
+            function previousPage(){
+                var offsetacutal =  document.getElementById("offset").value;
+
+                if(offsetacutal==0){
+
+                }else{
+                    document.getElementById("offset").value = offsetacutal - 10;
+                    document.getElementById("ACTION").value = "VIEW";
+                    document.getElementById("formsupuser").submit();
+                }
+
+            }
+
+            function nextPage(){
+                var offsetacutal =  parseInt(document.getElementById("offset").value);
+                document.getElementById("offset").value = offsetacutal + 10;
+                document.getElementById("ACTION").value = "VIEW";
+                document.getElementById("formsupuser").submit();
+            }
         </script>
     <body>
+        <#escape x as x?html>
         <#include "/menuTemplate.ftl">
         <ul class="nav nav-tabs">
             <li class="nav-item">
@@ -45,41 +65,56 @@
                 </li>
             </ul>
         <div>
+            <#if  profe == 1>
+                        <div>Fecha Nacimiento</div>
+            </#if>
+            <#if  alumno == 1>
+                        <div>Fecha1 Nacimiento1</div>
+            </#if>
+            <#if  profe == 1 || alumno == 1>
+                        <div>Fecha2 Nacimiento2</div>
+            </#if>
+                         <#if  profes?? || alumnossss??>
+                        <div>Fecha3 Nacimiento2</div>
+            </#if>
             <table  class="table">
                 <thead class="thead-dark">
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
-                                <#if admin.email??>
-                        <th>Email</th>
+                                <#if profe == 1 || alumno ==1>
+                        <th>Fecha de entrada</th>
                                  </#if>
-                                <#if admin.fecha_nacimiento??>
+                                <#if  profe == 1 || alumno == 1>
                         <th>Fecha Nacimiento</th>
                                 </#if>
-                                <#if admin.mayor_edad??>
+                                <#if alumno == 1>
                         <th>Mayor de edad</th>
                                 </#if>
                         </tr>
                     </thead>
-                <#list administradores as admin>  
+                <#list elementos as elemento>  
                 <tr>
                     <td>
-                                ${admin.nombre}
+                                ${elemento.id}
                         </td> 
-                          <#if admin.email??>
                     <td>
-                        ${admin.email}
+                                ${elemento.nombre}
+                        </td> 
+                          <#if elemento.fecha_entrada??>
+                    <td>
+                                 ${elemento.fecha_entrada?string["dd-MM-yyyy"]}
                         </td>
                            </#if>
-                            <#if admin.fecha_nacimiento??>
+                            <#if elemento.fecha_nacimiento??>
                     <td>
-                        ${admin.fecha_nacimiento?string["dd-MM-yyyy"]}
-                        </td>
+                        ${elemento.fecha_nacimiento?string["dd-MM-yyyy"]}
+                    </td>
                             </#if>
-                            <#if admin.mayor_edad??>
+                            <#if elemento.mayor_edad??>
                     <td>
-                        <input type="checkbox" <#if admin.mayor_edad?c>checked</#if> />
-                        </td>
+                        <input type="checkbox" <#if elemento.mayor_edad?c>checked</#if> />
+                    </td>
                         </#if>
                     </tr>
 
@@ -112,6 +147,11 @@
                                 <input type="text" name="email" class="form-control" id="professoremail">
                                 </div>
                             <div>
+                           <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Fecha Entrada:</label>
+                                <input type="date" name="fecha_entrada" class="form-control" id="profesorfechaentrada">
+
+                            </div>
                                 <input type="hidden" name="ACTION" class="form-control" id="ACTIONPROFESOR" value="INSERTARPROFESSOR">   
                                 </div>
                             <div class="modal-footer">
@@ -156,6 +196,11 @@
                                 <input type="checkbox" name="mayor" class="form-control" id="alumnomayor">
                                 </div>
                             <div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Fecha Entrada:</label>
+                                <input type="date" name="fecha_entrada" class="form-control" id="alumnofechaentrada">
+
+                            </div>
                                 <input type="hidden" name="ACTION" class="form-control" id="ACTIONALUMNO" value="INSERTARALUMNO">   
                                 </div>
                             <div class="modal-footer">
@@ -206,11 +251,16 @@
             </div>
 
         </#if>
-
+        <div class="pagination">
+            <button onclick="previousPage();">&larr; Previous</button>
+            <button onclick="nextPage();">Next &rarr;</button>
+        </div>
         <form id="formtabla" action="administrador?"> 
             <div>
-                <input type="hidden" name="ACTION" class="form-control" id="ACTIONTABLA" value="">   
+                <input type="hidden" name="ACTION" class="form-control" id="ACTIONTABLA" value=""/>  
+                <input type="hidden" id="offset"  name="offset" value="${offset}"/>
                 </div>
             </form>
+    </#escape>
         </body>
     </html>
