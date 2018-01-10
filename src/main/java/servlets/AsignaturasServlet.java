@@ -46,7 +46,6 @@ public class AsignaturasServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, TemplateException {
-        //request.setCharacterEncoding("UTF-8");
         AsignaturasServicios servicios = new AsignaturasServicios();
 
         String action = request.getParameter(Constantes.actionTemplate);
@@ -166,8 +165,9 @@ public class AsignaturasServlet extends HttpServlet {
         if (messageToUser != null) {
             paramentrosPlantilla.put(Constantes.messageToUser, messageToUser);
         }
-
-        paramentrosPlantilla.put(Constantes.listaAsignaturaCurso, servicios.getAllAsignaturasCursosdbUtils());
+        int offset = servicios.getOffset(parametros);
+        paramentrosPlantilla.put(Constantes.OFFSET, offset);
+        paramentrosPlantilla.put(Constantes.listaAsignaturaCurso, servicios.getAllAsignaturasCursosdbUtils(offset));
         paramentrosPlantilla.put(Constantes.listaCursos, servicios.getAllCursosdbUtils());
         paramentrosPlantilla.put(Constantes.listaAsignaturas, servicios.getAllAsignaturadbUtils());
         Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.asignaturasTemplate);

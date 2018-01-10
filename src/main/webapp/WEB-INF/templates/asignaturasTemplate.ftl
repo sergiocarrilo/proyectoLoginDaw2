@@ -15,8 +15,6 @@
             function cargarAsignatura(id_as, id_ascu, id_curso) {
                 document.getElementById("id").value = id_ascu;
                 document.getElementById("id_asignatura_ls").value = id_as;
-                //document.getElementById("nombre").value = nombre;
-                //document.getElementById("comboBox").options.namedItem("3").selected=true;
                 document.getElementById("id_curso_ls").value = id_curso;
                 
 
@@ -33,6 +31,20 @@
                         document.getElementById("curso").value = text;
                             document.getElementById("id_curso").value = id;
 }
+            var formPagination = "formPagination";
+            function previousPage(){
+                    var offsetacutal =  document.getElementById("offset").value;
+
+                    if(offsetacutal!=0){
+                        document.getElementById("offset").value = offsetacutal - 10;                
+                        document.getElementById(formPagination).submit();                          
+                }
+             }   
+                function nextPage(){
+                    var offsetacutal =  parseInt(document.getElementById("offset").value);
+                    document.getElementById("offset").value = offsetacutal + 10;            
+                    document.getElementById(formPagination).submit();
+                }
     
             </script>
         </head>
@@ -56,7 +68,7 @@
             <#list listaAsignaturaCurso as asignatura>
                         <tr>
 
-                            <td><button id="cargarAsignatura" onClick="
+                            <td><button class="btn btn-primary" id="cargarAsignatura" onClick="
                 cargarAsignatura(${asignatura.id_asignatura},'${asignatura.id}','${asignatura.id_curso}')">Cargar</button>
                                 </td>
                             <td>
@@ -73,12 +85,28 @@
   </#list>
 
                         </table>
+
                     </div>
+                <form id="formPagination" action="">
+                    <input type="hidden" id="iduser" name="iduser"/>
+                    <input type="hidden" id="idpermiso" name="idpermiso"/>
+                    <input type="hidden" id="ACTION"  name="ACTION"/>
+                    <input type="hidden" id="offset"  name="offset" value="${offset}"/>
+
+                    </form>
 
                 <div class="col-sm-2"></div>
                 </div>
-            <div class="row justify-content-center">
-                <div class="col-sm-6 ">
+            <div class="row justify-content-center"                
+                 <div class="col-sm-6 ">
+                    <div class="pagination">
+                        <#if (offset > 0)>
+                        <button class="btn btn-info" onclick="previousPage();">&larr; Previous</button>                        
+                        </#if>                           
+                        <#if (listaAsignaturaCurso?size > 9)>
+                        <button class="btn btn-info" onclick="nextPage();">Next &rarr;</button>
+                        </#if>                       
+                        </div>
         <#if messageToUser??>
                     <div class="alert alert-primary" role="alert">
                 ${messageToUser?js_string}    
@@ -103,9 +131,9 @@
                         <input type="hidden" name="id_asignatura" id="id_asignatura">
                         <input type="text" name="nombre" id="nombre">
                         <br>
-                        
-                        <input type="submit" name="ACTION" value="UPDATE_ASIGNATURA">
-                        <input type="submit" name="ACTION" value="DELETE_ASIGNATURA">
+
+                        <input type="submit" class="btn btn-warning" name="ACTION" value="UPDATE_ASIGNATURA">
+                        <input type="submit" class="btn btn-danger" name="ACTION" value="DELETE_ASIGNATURA">
                         </form>
                     </div>
                 <div class="col-sm-4">
@@ -124,9 +152,9 @@
                         <input type="hidden" name="id_curso" id="id_curso">
                         <input type="text" name="curso" id="curso">
                         <br>
-                        <input type="submit" name="ACTION" value="INSERT_CURSO">
-                        <input type="submit" name="ACTION" value="UPDATE_CURSO">
-                        <input type="submit" name="ACTION" value="DELETE_CURSO">
+                        <input type="submit" class="btn btn-primary" name="ACTION" value="INSERT_CURSO">
+                        <input type="submit" class="btn btn-warning" name="ACTION" value="UPDATE_CURSO">
+                        <input type="submit" class="btn btn-danger" name="ACTION" value="DELETE_CURSO">
                         </form>
                     </div>
                 <div class="col-sm-4">
@@ -150,9 +178,9 @@
 
 
                         <br>
-                        <input type="submit" name="ACTION" value="INSERT">
-                        <input type="submit" name="ACTION" value="UPDATE">
-                        <input type="submit" name="ACTION" value="DELETE">
+                        <input type="submit" class="btn btn-primary" name="ACTION" value="INSERT">
+                        <input type="submit"  class="btn btn-warning" name="ACTION" value="UPDATE">
+                        <input type="submit" class="btn btn-danger" name="ACTION" value="DELETE">
                         </form>
                     </div>
                 </div>

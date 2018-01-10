@@ -1,6 +1,33 @@
 <#assign baseUrl="${baseUrlServer}">
 <#assign super=1 admin=2 profe=3 alumno=4>
 
+<#if loginOnFromServer??>
+<#if (levelAccess)??>
+
+<#switch levelAccess>
+  <#case super>
+     SuperUser - menu en desarrollo
+     <#break>
+  <#case admin>
+     Admin - menu en desarrollo
+     <#break>
+  <#case profe>
+     Profe - menu en desarrollo
+     <#break>
+  <#case alumno>
+     Alumno - menu en desarrollo
+     <#break>
+  <#default>
+     Default - menu en desarrollo
+</#switch>
+
+</#if>
+<#else>
+
+</#if>
+
+
+
 
 <!--Pendiente de Terminar -->
 
@@ -66,14 +93,10 @@
             <#if (levelAccess)??>
 
     <form action="${baseUrl}/index" class="form-inline my-2 my-lg-0">
-        <span class="navbar-text">
+        <span class="navbar-text text-primary">
 
                     ${loginOnFromServer.nombre}
-                        <#if levelAccess == alumno>
-                       Filtro                       
-                       ${levelAccess}
-                        </#if>
-                    
+                                           
             <input type="hidden" class="form-control" name="ID" id="exampleInputEmail1" value="${loginOnFromServer.id}">
 
             </span>

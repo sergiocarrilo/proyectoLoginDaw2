@@ -29,16 +29,17 @@ import utils.SqlQuery;
  */
 public class AsignaturasDAO {
 
-    public List<AsignaturaCurso> getAllAsignaturasCursosdbUtils() {
+    public List<AsignaturaCurso> getAllAsignaturasCursosdbUtils(long offset) {
         List<AsignaturaCurso> lista = null;
 
         Connection con = null;
         try {
             con = DBConnection.getInstance().getConnection();
             QueryRunner qr = new QueryRunner();
+            Object params[] = {offset};
             ResultSetHandler<List<AsignaturaCurso>> handler
                     = new BeanListHandler<AsignaturaCurso>(AsignaturaCurso.class);
-            lista = qr.query(con, SqlQuery.SELECT_ALL_ASIGNATURAS_CURSOS, handler);
+            lista = qr.query(con, SqlQuery.SELECT_ALL_ASIGNATURAS_CURSOS, handler,params);
 
         } catch (Exception ex) {
             Logger.getLogger(AsignaturasDAO.class.getName()).log(Level.SEVERE, null, ex);

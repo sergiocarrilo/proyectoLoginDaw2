@@ -24,7 +24,7 @@ public class Constantes {
     public static final String REGISTRAR = "REGISTRAR";
     public static final String VALIDATE = "VALIDATE";
     public static final String LOGIN = "LOGIN";
-    public static final String LOGOUT = "LOGOUT";
+    public static final String LOGOUT = "LOGOUT";   
 
     //Columnas Users
     public static final String USERS = "USERS";
