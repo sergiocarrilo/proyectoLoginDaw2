@@ -30,10 +30,10 @@ public class NotasServicios {
         return dao.delNota(n);
     }
     
-    public List<Nota> getAllNotas(int offset)
+    public List<Nota> getAllNotas(long id_asignatura,int offset)
     {
         NotasDAO notas = new NotasDAO();
-        return notas.getAllNotas(offset);
+        return notas.getAllNotas(id_asignatura,offset);
     }
         
 }

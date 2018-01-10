@@ -13,7 +13,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
         <title>Notas</title>
-        
+
         <script>
             function cargarAlumno(id, nombre) {
                 document.getElementById("idAlumno").value = id;
@@ -22,6 +22,8 @@
             function cargarAsignatura(id, nombre) {
                 document.getElementById("idAsignatura").value = id;
                 document.getElementById("nombreAsignatura").value = nombre;
+                document.getElementById("accion").value = "VIEW_ALUMNOS";
+                document.getElementById("form_notas_2").submit();
             }
             function guardar() {
                 document.getElementById("accion").value = "guardar";
@@ -32,8 +34,8 @@
             function cargar() {
                 document.getElementById("accion").value = "cargar";
             }
-        </script>
-        
+            </script>
+
         <script>
             function previousPage(){
                 var offsetacutal =  document.getElementById("offset").value;
@@ -54,12 +56,13 @@
                 document.getElementById("ACTION").value = "VIEW";
                 document.getElementById("formnotas").submit();
             }
-        </script>
-    </head>
+            </script>
+        </head>
     <body>
         <#escape x as x?html>
         <#include "/menuTemplate.ftl">
-        <table class="table">
+        <#if notas??>
+            <table class="table">
                 <thead class="thead-dark">
                     <tr>
                         <th>ID Alumno</th>
@@ -68,47 +71,47 @@
                         <th>Nombre Asignatura</th>
                         <th>Nota</th>
                         </tr>
-                </thead>
+                    </thead>
                 <tbody>
-                    <#list notas as nota>  
+                        <#list notas as nota>  
                     <tr>
                         <td>
-                            ${nota.idAlumno}
-                        </td> 
+                                ${nota.idAlumno}
+                            </td> 
                         <td>
-                            ${nota.alumno}
-                        </td>
+                                ${nota.alumno}
+                            </td>
                         <td>
-                            ${nota.idAsignatura}   
-                        </td>
+                                ${nota.idAsignatura}   
+                            </td>
                         <td>
-                            ${nota.asignatura}
-                        </td>
+                                ${nota.asignatura}
+                            </td>
                         <td>
-                            ${nota.nota}
-                        </td>
-                    </tr>
-                    </#list>
-                </tbody>
-        </table>
+                                ${nota.nota}
+                            </td>
+                        </tr>
+                        </#list>
+                    </tbody>
+                </table>
 
-        <div class="pagination">
-            <button onclick="previousPage();">&larr; Atrás</button>
-            <button onclick="nextPage();">Siguiente &rarr;</button>
-        </div>
-        
+            <div class="pagination">
+                <button onclick="previousPage();">&larr; Atrás</button>
+                <button onclick="nextPage();">Siguiente &rarr;</button>
+                </div>
+        </#if>
         <#if messageToUser??>
-            <div class="alert alert-primary" role="alert">
+        <div class="alert alert-primary" role="alert">
                 ${messageToUser?js_string}    
             </div>
         </#if>
-        
+
         <form id="formnotas" action="">
             <input type="hidden" id="ACTION"  name="ACTION"/>
             <input type="hidden" id="offset"  name="offset" value="${offset}"/>
-        </form>     
-        
-            <div class="container">
+            </form>     
+
+        <div class="container">
             <div class="col-xs-8 col-xs-offset-2">
                 <h1>Notas</h1>
                 <h5>Selectiona la asignatura que deseas poner Notas</h5>
@@ -117,63 +120,70 @@
                     <option disabled selected>Selecciona una asignatura</option>
                     <option disabled>-------------------------</option>
                     <#list asignaturas as asignatura> 
-                        <option value="${asignatura.id_asignatura}">${asignatura.nombre_asignatura}</option>
+                    <option value="${asignatura.id_asignatura}" 
+                      <#if idAsig??>
+                          <#if asignatura.id_asignatura == idAsig>
+                            selected
+                          </#if>
+                       </#if>
+                            >${asignatura.nombre_asignatura}</option>
                     </#list>
-                </select>
+                    </select>
+                <#if alumnos??>
 
                 <span>Alumno: </span>
                 <select id="alumno" onchange="cargarAlumno(this.value, this.options[this.selectedIndex].innerHTML)">
                     <option disabled selected>Selecciona un alumno</option>
                     <option disabled>-------------------------</option>
-                    <#list alumnos as alumno> 
-                        <option value="${alumno.id}" name="${alumno.nombre}">${alumno.nombre}</option>
-                    </#list>
-                </select>
+                        <#list alumnos as alumno> 
+                    <option value="${alumno.id}" name="${alumno.nombre}">${alumno.nombre}</option>
+                        </#list>
+                    </select>
+                </#if>
 
-                
                 <br>
                 <br>
                 <br>
-                <form action="">
+                <form id="form_notas_2" action="">
                     <table class="table-condensed" style="margin: auto">
                         <tr>
                             <td>
                                 ALUMNO
                                 <br>
                                 <input type="hidden" id="idAlumno" name="idAlumno" size="1" value="<#if idAlu??> ${idAlu} </#if>">
-                                
+
                                 <input type="text" name="nombreAlumno" id="nombreAlumno" value="<#if nomAlu??> ${nomAlu} </#if>">
-                            </td>
+                                </td>
                             <td>
                                 ASIGNATURA
                                 <br>
                                 <input type="hidden" id="idAsignatura" name="idAsignatura" size="1" value="<#if idAsig??> ${idAsig} </#if>">
                                 <input type="text" name="nombreAsignatura" id="nombreAsignatura" value="<#if nomAsig??> ${nomAsig} </#if>">
-                            </td>
+                                </td>
                             <td>
                                 <br>
                                 <button onclick="cargar()">Cargar</button>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
                         <tr>
                             <td>
                                 <br>
                                 NOTA <input type="number" value="<#if nota??>${nota.nota}</#if>" id="nota" name="nota" size="1">
-                            </td>
+                                </td>
                             <td>
                                 <br>
                                 <input type="hidden" id="accion" name="accion" value="">
                                 <button onclick="guardar()">Guardar</button>
                                 <button onclick="borrar()">Borrar</button>
-                            </td>
-                        </tr>
-                    </table>
-                </form>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
                 <br>
                 <br>
                 <h3><#if mensaje??> ${mensaje} </#if></h3>
+                </div>
             </div>
-        </div>
         </#escape>
-    </body>
-</html>
+        </body>
+    </html>

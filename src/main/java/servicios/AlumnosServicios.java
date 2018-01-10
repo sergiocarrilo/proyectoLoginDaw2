@@ -15,6 +15,10 @@ public class AlumnosServicios {
         AlumnosDAO dao = new AlumnosDAO();
         return dao.getAllAlumnosJDBC();
     }
+     public List<Alumno> getAllAlumnosByIdAsignatura(long id_asignatura) {
+        AlumnosDAO dao = new AlumnosDAO();
+        return dao.getAllAlumnosByIdAsignaturadbUtils(id_asignatura);
+    }
 
     public Alumno addAlumno(Alumno alumnoNuevo) {
         AlumnosDAO dao = new AlumnosDAO();
