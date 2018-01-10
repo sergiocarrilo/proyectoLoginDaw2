@@ -157,4 +157,10 @@ public class Constantes {
     public static String messageTareaAlumnoUpdated = "La tarea fue actualizada correctamente";
     public static String messageTareaAlumnoFail = "Tenemos problemas Actualizando el estado de la tarea, prueba otra vez";
 
+    //Servlet Informe Notas Alumnos
+    public static String IDPROFESOR = "idprofesor";
+    public static String INFORMEALUMNONOTAS = "InformeNotasAlumnos.ftl";
+    public static final String VIEWTABLA = "VIEWTABLA";
+    public static final String ASIGNATURA = "asignatura";
+    
 }//fin clase

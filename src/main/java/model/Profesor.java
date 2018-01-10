@@ -5,6 +5,8 @@
  */
 package model;
 
+import java.util.Date;
+
 /**
  *
  * @author Gato
@@ -12,7 +14,8 @@ package model;
 public class Profesor {
     private long id;
     private String nombre;
-
+    private Date fecha_nacimiento;
+    private Date fecha_entrada;
     public Profesor() {
     }
 

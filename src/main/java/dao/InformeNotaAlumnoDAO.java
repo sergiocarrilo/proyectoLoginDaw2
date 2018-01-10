@@ -5,8 +5,16 @@
  */
 package dao;
 
+import java.sql.Connection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Asignatura;
+import model.InformeNotasAlumnos;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.ResultSetHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
+import utils.SqlQuery;
 
 /**
  *
@@ -14,9 +22,42 @@ import model.Asignatura;
  */
 public class InformeNotaAlumnoDAO {
 
-    public List<Asignatura> getAsigntaruasProfe() {
+    public List<Asignatura> getAsigntaruasProfe(long id) {
         List<Asignatura> lista = null;
+        Connection con = null;
+        try {
+            con = DBConnection.getInstance().getConnection();
+
+            QueryRunner qr = new QueryRunner();
+            ResultSetHandler<List<Asignatura>> handler
+                    = new BeanListHandler<>(Asignatura.class);
+            lista = qr.query(con, SqlQuery.QUERYASIGNATURASPROFE, handler,id);
+
+        } catch (Exception ex) {
+            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBConnection.getInstance().cerrarConexion(con);
+        }
+        return lista;
         
+    }
+
+    public List<InformeNotasAlumnos> getNotasAsignatura(long id_asignatura) {
+        List<InformeNotasAlumnos> lista = null;
+        Connection con = null;
+        try {
+            con = DBConnection.getInstance().getConnection();
+
+            QueryRunner qr = new QueryRunner();
+            ResultSetHandler<List<InformeNotasAlumnos>> handler
+                    = new BeanListHandler<>(InformeNotasAlumnos.class);
+            lista = qr.query(con, SqlQuery.QUERYGETNOTASASIOGNATURA, handler,id_asignatura);
+
+        } catch (Exception ex) {
+            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBConnection.getInstance().cerrarConexion(con);
+        }
         return lista;
     }
     
