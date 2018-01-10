@@ -5,10 +5,19 @@
  */
 package dao;
 
+import java.util.List;
+import model.Asignatura;
+
 /**
  *
  * @author DAW
  */
 public class InformeNotaAlumnoDAO {
+
+    public List<Asignatura> getAsigntaruasProfe() {
+        List<Asignatura> lista = null;
+        
+        return lista;
+    }
     
 }

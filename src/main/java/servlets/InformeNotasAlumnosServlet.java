@@ -7,6 +7,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.InformeNotasAlumnos;
+import servicios.AsignaturasServicios;
 import servicios.InformeNotasAlumnosService;
 import utils.Constantes;
 /**
@@ -37,15 +39,23 @@ public class InformeNotasAlumnosServlet extends HttpServlet {
         InformeNotasAlumnosService service = new InformeNotasAlumnosService();
         List<InformeNotasAlumnos> list = null;
         String action;
+        HashMap plantilla = new HashMap();
+        String messageToUser = null;
+
         if (request.getParameter(Constantes.actionTemplate) == null) {
             action = Constantes.VIEW;
-            
         } else {
             action = request.getParameter(Constantes.actionTemplate);
         }
+        
+        switch (action) {
+            case Constantes.VIEW:
+                   
+                break;
 
+        }
+        plantilla.put("asignaturas", service.getAsignaturasProfe());
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -84,5 +94,5 @@ public class InformeNotasAlumnosServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    
 }

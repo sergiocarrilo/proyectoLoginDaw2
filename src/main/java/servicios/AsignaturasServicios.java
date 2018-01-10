@@ -24,9 +24,7 @@ import utils.Constantes;
  */
 public class AsignaturasServicios {
 
-    public AsignaturasServicios() {
-
-    }
+    
 
     public List<AsignaturaCurso> getAllAsignaturasCursosdbUtils() {
         AsignaturasDAO dao = new AsignaturasDAO();

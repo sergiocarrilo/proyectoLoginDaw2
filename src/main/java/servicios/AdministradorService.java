@@ -34,12 +34,12 @@ public class AdministradorService {
         Administrador compadmin = dao.insertProfessor(admin);
 
         if (String.valueOf(compadmin.getId()) == null || compadmin.getId() == 0) {
-            return dao.insertProfessor(admin);
+            return compadmin;
 
         } else {
 
             mail.mandarMail(admin.getEmail(), Constantes.PASSWORDPROFESOR, "CONTRASEÑA");
-            return dao.insertProfessor(admin);
+            return compadmin;
         }
 
     }
@@ -49,13 +49,13 @@ public class AdministradorService {
         admin.setPassword(passHash);
         MandarMail mail = new MandarMail();
         AdministradorDAO dao = new AdministradorDAO();
-        Administrador compadmin = dao.insertProfessor(admin);
+        Administrador compadmin = dao.insertAlumno(admin);
 
         if (String.valueOf(compadmin.getId()) == null || compadmin.getId() == 0) {
-            return dao.insertAlumno(admin);
+            return compadmin;
         } else {
             mail.mandarMail(admin.getEmail(), Constantes.PASSWORDALUMNO, "CONTRASEÑA");
-            return dao.insertAlumno(admin);
+            return compadmin;
         }
 
     }

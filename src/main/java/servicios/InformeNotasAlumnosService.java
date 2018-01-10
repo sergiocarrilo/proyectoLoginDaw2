@@ -5,10 +5,18 @@
  */
 package servicios;
 
+import java.util.List;
+import model.Asignatura;
+import dao.InformeNotaAlumnoDAO;
 /**
  *
  * @author DAW
  */
 public class InformeNotasAlumnosService {
+
+    public List<Asignatura> getAsignaturasProfe() {
+       InformeNotaAlumnoDAO dao = new InformeNotaAlumnoDAO();
+       return dao.getAsigntaruasProfe();
+    }
     
 }

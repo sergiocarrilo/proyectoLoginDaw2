@@ -146,7 +146,7 @@ public class AdministradorDAO {
             QueryRunner qr = new QueryRunner();
             ResultSetHandler<List<Administrador>> handler
                     = new BeanListHandler<>(Administrador.class);
-            lista = qr.query(con, SqlQuery.QUERYGETALLPROFESSORS, handler);
+            lista = qr.query(con, SqlQuery.QUERYGETALLPROFESSORS, handler,offset);
 
         } catch (Exception ex) {
             Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -166,7 +166,7 @@ public class AdministradorDAO {
             QueryRunner qr = new QueryRunner();
             ResultSetHandler<List<Administrador>> handler
                     = new BeanListHandler<>(Administrador.class);
-            lista = qr.query(con, SqlQuery.QUERYGETALLALUMNOS, handler);
+            lista = qr.query(con, SqlQuery.QUERYGETALLALUMNOS, handler,offset);
 
         } catch (Exception ex) {
             Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -186,7 +186,7 @@ public class AdministradorDAO {
             QueryRunner qr = new QueryRunner();
             ResultSetHandler<List<Administrador>> handler
                     = new BeanListHandler<>(Administrador.class);
-            lista = qr.query(con, SqlQuery.QUERYGETALLASIGNATURAS, handler);
+            lista = qr.query(con, SqlQuery.QUERYGETALLASIGNATURAS, handler,offset);
 
         } catch (Exception ex) {
             Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
