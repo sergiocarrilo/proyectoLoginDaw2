@@ -16,6 +16,7 @@ public class Alumno {
     private long id;
     private String nombre;
     private Date fecha_nacimiento;
+    private Date fecha_entrada;
     private Boolean mayor_edad;
 
     public long getId() {

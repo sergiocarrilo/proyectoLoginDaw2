@@ -5,24 +5,34 @@
  */
 package servlets;
 
+import config.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.InformeNotasAlumnos;
+import model.Profesor;
 import servicios.AsignaturasServicios;
 import servicios.InformeNotasAlumnosService;
+import servicios.UrlService;
 import utils.Constantes;
+import utils.UrlsPaths;
+
 /**
  *
  * @author DAW
  */
-@WebServlet(name = "InformeNotasAlumnosServlet", urlPatterns = {"/InformeNotasAlumnosServlet"})
+@WebServlet(name = "InformeNotasAlumnosServlet", urlPatterns = {UrlsPaths.INFORME_NOTAS_ALUMNOS})
 public class InformeNotasAlumnosServlet extends HttpServlet {
 
     /**
@@ -41,21 +51,42 @@ public class InformeNotasAlumnosServlet extends HttpServlet {
         String action;
         HashMap plantilla = new HashMap();
         String messageToUser = null;
-
+        Profesor profesor = new Profesor();
+        Map<String, String[]> parametros = request.getParameterMap();
+        
+        if (request.getSession().getAttribute(Constantes.IDPROFESOR) == null) {
+            profesor.setId(70);
+        } else {
+            profesor.setId((long) request.getSession().getAttribute(Constantes.IDPROFESOR));
+        }
+        
         if (request.getParameter(Constantes.actionTemplate) == null) {
             action = Constantes.VIEW;
         } else {
             action = request.getParameter(Constantes.actionTemplate);
         }
-        
+
         switch (action) {
             case Constantes.VIEW:
-                   
                 break;
-
+            case Constantes.VIEWTABLA:
+                InformeNotasAlumnos informe = service.recogerParametros(parametros);
+                plantilla.put("informeNotasAlumnos", service.getNotasAsignatura(informe.getId_asignatura()));
+                plantilla.put("nombreAsignatura", informe.getNombre_asignatura());
+                break;
         }
-        plantilla.put("asignaturas", service.getAsignaturasProfe());
+        try {
+            Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.INFORMEALUMNONOTAS);
+            UrlService urlServicios = new UrlService();
+            plantilla.put("asignaturas", service.getAsignaturasProfe(profesor.getId()));
+            
+            plantilla.putAll(urlServicios.addConstantsEndPoints(request));
+            temp.process(plantilla, response.getWriter());
+        } catch (TemplateException ex) {
+            Logger.getLogger(InformeNotasAlumnosServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -94,5 +125,5 @@ public class InformeNotasAlumnosServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
+
 }
