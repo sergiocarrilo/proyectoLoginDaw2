@@ -19,8 +19,17 @@ public class InformeNotasAlumnos {
     private Date fecha_entrada;
     private long id_asignatura;
     private long id_alumno;
+    private long id_profe;
     private Boolean mayor_edad;
-    
+    private String nombre_asignatura;
+
+    public String getNombre_asignatura() {
+        return nombre_asignatura;
+    }
+
+    public void setNombre_asignatura(String nombre_asignatura) {
+        this.nombre_asignatura = nombre_asignatura;
+    }
 
     public long getId() {
         return id;

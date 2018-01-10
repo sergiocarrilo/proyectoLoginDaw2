@@ -72,12 +72,14 @@ public class InformeNotasAlumnosServlet extends HttpServlet {
             case Constantes.VIEWTABLA:
                 InformeNotasAlumnos informe = service.recogerParametros(parametros);
                 plantilla.put("informeNotasAlumnos", service.getNotasAsignatura(informe.getId_asignatura()));
+                plantilla.put("nombreAsignatura", informe.getNombre_asignatura());
                 break;
         }
         try {
             Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.INFORMEALUMNONOTAS);
             UrlService urlServicios = new UrlService();
             plantilla.put("asignaturas", service.getAsignaturasProfe(profesor.getId()));
+            
             plantilla.putAll(urlServicios.addConstantsEndPoints(request));
             temp.process(plantilla, response.getWriter());
         } catch (TemplateException ex) {

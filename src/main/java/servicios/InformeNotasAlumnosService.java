@@ -20,7 +20,7 @@ import utils.Constantes;
  */
 public class InformeNotasAlumnosService {
 
-    public List<Asignatura> getAsignaturasProfe(long id) {
+    public List<InformeNotasAlumnos> getAsignaturasProfe(long id) {
        InformeNotaAlumnoDAO dao = new InformeNotaAlumnoDAO();
        return dao.getAsigntaruasProfe(id);
     }
@@ -37,8 +37,10 @@ public class InformeNotasAlumnosService {
                 String key = (String) it.next();
                 String[] values = (String[]) parametros.get(key);
                 if (values[0] != null && !values[0].isEmpty()) {
-                    if (Constantes.ASIGNATURA.equalsIgnoreCase(key)) {
+                    if (Constantes.IDASIGNATURA.equalsIgnoreCase(key)) {
                         informe.setId_asignatura(Long.valueOf(values[0]));
+                    }else  if (Constantes.ASIGNATURA.equalsIgnoreCase(key)) {
+                        informe.setNombre_asignatura(String.valueOf(values[0]));
                     }
                 }
             }

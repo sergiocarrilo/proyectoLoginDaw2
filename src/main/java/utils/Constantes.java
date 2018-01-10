@@ -163,5 +163,5 @@ public class Constantes {
     public static String INFORMEALUMNONOTAS = "InformeNotasAlumnos.ftl";
     public static final String VIEWTABLA = "VIEWTABLA";
     public static final String ASIGNATURA = "asignatura";
-    
+    public static final String IDASIGNATURA = "idasignatura";
 }//fin clase

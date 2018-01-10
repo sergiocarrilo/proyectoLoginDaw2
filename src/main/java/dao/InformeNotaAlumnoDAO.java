@@ -22,15 +22,15 @@ import utils.SqlQuery;
  */
 public class InformeNotaAlumnoDAO {
 
-    public List<Asignatura> getAsigntaruasProfe(long id) {
-        List<Asignatura> lista = null;
+    public List<InformeNotasAlumnos> getAsigntaruasProfe(long id) {
+        List<InformeNotasAlumnos> lista = null;
         Connection con = null;
         try {
             con = DBConnection.getInstance().getConnection();
 
             QueryRunner qr = new QueryRunner();
-            ResultSetHandler<List<Asignatura>> handler
-                    = new BeanListHandler<>(Asignatura.class);
+            ResultSetHandler<List<InformeNotasAlumnos>> handler
+                    = new BeanListHandler<>(InformeNotasAlumnos.class);
             lista = qr.query(con, SqlQuery.QUERYASIGNATURASPROFE, handler,id);
 
         } catch (Exception ex) {

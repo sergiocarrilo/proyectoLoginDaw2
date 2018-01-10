@@ -15,8 +15,10 @@
         <script>
                  function mostrarListaAlumno(){
                     var id = document.getElementById("id_asig_lista").value;
-                    document.getElementById("asignatura").value = id; 
-                    document.getElementById("ACTION").value="VIEWTABLA"
+                    var text = document.getElementById("id_asig_lista").options[document.getElementById('id_asig_lista').selectedIndex].text;
+                    document.getElementById("idasignatura").value = id; 
+                    document.getElementById("asignatura").value=text;
+                    document.getElementById("ACTION").value="VIEWTABLA";
                     document.getElementById("formasignatura").submit(); 
                 }
             </script>
@@ -32,10 +34,11 @@
                         <select name="id_asig" id="id_asig_lista" onchange="mostrarListaAlumno()" >
                             <option disabled selected value> -- selecciona una Asignatura -- </option>
                 <#list asignaturas as asignatura>
-                            <option id ="asignatura.id" value="${asignatura.id}">${asignatura.nombre}</option>
+                            <option id ="asignatura.id_asignatura" value="${asignatura.id_asignatura}">${asignatura.nombre}</option>
                  </#list>                
                             </select> 
                         <input type="hidden" name="ACTION" id="ACTION" value="VIEW"/>
+                        <input type="hidden" name="idasignatura" id="idasignatura" />
                         <input type="hidden" name="asignatura" id="asignatura" />
                     </form>        
                     </div>
@@ -43,6 +46,10 @@
                 
             </br>            <div class="row justify-content-center">
                 <div class="col-sm-10">
+                <#if nombreAsignatura??>
+                     <h2>${nombreAsignatura}</h2>
+                </#if>
+                     
                 <#if messageToUser??>
                     <div class="alert alert-primary" role="alert">
                         ${messageToUser?js_string}  
@@ -65,7 +72,7 @@
                                    ${informe.nombre}
                                     </td> 
                                 <td>
-                                    ${informe.asignatura}
+                                    ${informe.nota}
                                     </td>
                                 
                                 </tr>
