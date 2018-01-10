@@ -256,12 +256,10 @@
             <button onclick="nextPage();">Next &rarr;</button>
         </div>
         <form id="formtabla" action="administrador?"> 
-            <div>
                 <input type="hidden" name="ACTION" class="form-control" id="ACTIONTABLA" value=""/>  
                 <input type="hidden" id="offset"  name="offset" value="${offset}"/>
                 <input type="hidden" name="ACTIONVIEWS" class="form-control" id="ACTIONVIEWS" value="${actionview}"/>
-                </div>
-            </form>
+        </form>
    
         </body>
     </html>
