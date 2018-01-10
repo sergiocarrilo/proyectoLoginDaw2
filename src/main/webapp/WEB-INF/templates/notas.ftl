@@ -111,6 +111,15 @@
             <div class="container">
             <div class="col-xs-8 col-xs-offset-2">
                 <h1>Notas</h1>
+                <h5>Selectiona la asignatura que deseas poner Notas</h5>
+                <span>Asignatura: </span>
+                <select id="asignatura" onchange="cargarAsignatura(this.value, this.options[this.selectedIndex].innerHTML)">
+                    <option disabled selected>Selecciona una asignatura</option>
+                    <option disabled>-------------------------</option>
+                    <#list asignaturas as asignatura> 
+                        <option value="${asignatura.id_asignatura}">${asignatura.nombre_asignatura}</option>
+                    </#list>
+                </select>
 
                 <span>Alumno: </span>
                 <select id="alumno" onchange="cargarAlumno(this.value, this.options[this.selectedIndex].innerHTML)">
@@ -121,14 +130,7 @@
                     </#list>
                 </select>
 
-                <span>Asignatura: </span>
-                <select id="asignatura" onchange="cargarAsignatura(this.value, this.options[this.selectedIndex].innerHTML)">
-                    <option disabled selected>Selecciona una asignatura</option>
-                    <option disabled>-------------------------</option>
-                    <#list asignaturas as asignatura> 
-                        <option value="${asignatura.id}">${asignatura.nombre}</option>
-                    </#list>
-                </select>
+                
                 <br>
                 <br>
                 <br>

@@ -16,6 +16,7 @@ import model.Asignatura;
 
 import model.AsignaturaCurso;
 import model.Curso;
+import model.ProfesorAsignatura;
 import utils.Constantes;
 
 /**
@@ -23,8 +24,6 @@ import utils.Constantes;
  * @author daw
  */
 public class AsignaturasServicios {
-
-    
 
     public List<AsignaturaCurso> getAllAsignaturasCursosdbUtils() {
         AsignaturasDAO dao = new AsignaturasDAO();
@@ -150,6 +149,11 @@ public class AsignaturasServicios {
     public List<AsignaturaCurso> getAllAsignaturasdbUtils() {
         AsignaturasDAO dao = new AsignaturasDAO();
         return dao.getAllAsignaturasdbUtilsNotas();
+    }
+
+    public List<ProfesorAsignatura> getAllAsignaturasByIdProfesor(long id_profesor) {
+        AsignaturasDAO dao = new AsignaturasDAO();
+        return dao.getAllAsignaturasByIdProfesordbUtils(id_profesor);
     }
 
 }//FIN CLASE

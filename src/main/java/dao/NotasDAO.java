@@ -18,9 +18,11 @@ import java.util.logging.Logger;
 import model.Nota;
 import model.Asignatura;
 import model.Alumno;
+import model.ProfesorAsignatura;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import utils.Constantes;
 import utils.SqlQuery;
@@ -120,5 +122,5 @@ public class NotasDAO {
             DBConnection.getInstance().cerrarConexion(con);
         }
         return lista;
-    }
-}
+    }   
+}//FIN CLASE

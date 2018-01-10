@@ -14,6 +14,7 @@ import model.Asignatura;
 
 import model.AsignaturaCurso;
 import model.Curso;
+import model.ProfesorAsignatura;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
@@ -41,6 +42,25 @@ public class AsignaturasDAO {
 
         } catch (Exception ex) {
             Logger.getLogger(AsignaturasDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBConnection.getInstance().cerrarConexion(con);
+        }
+        return lista;
+    }
+    public List<ProfesorAsignatura> getAllAsignaturasByIdProfesordbUtils(long id_profesor) {
+        List<ProfesorAsignatura> lista = null;
+
+        Connection con = null;
+        try {
+            con = DBConnection.getInstance().getConnection();
+            QueryRunner qr = new QueryRunner();
+            Object params[] = {id_profesor};
+            ResultSetHandler<List<ProfesorAsignatura>> handler
+                    = new BeanListHandler<ProfesorAsignatura>(ProfesorAsignatura.class);
+            lista = qr.query(con, SqlQuery.SELECT_ALL_ASIGNATURAS_BY_ID_PROFESOR, handler,params);
+
+        } catch (Exception ex) {
+            Logger.getLogger(ProfesorAsignaturaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             DBConnection.getInstance().cerrarConexion(con);
         }

@@ -18,8 +18,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Asignatura;
 import model.Nota;
+import model.User;
 import servicios.AlumnosServicios;
 import servicios.AsignaturasServicios;
 import servicios.NotasServicios;
@@ -57,7 +57,11 @@ public class NotasServlet extends HttpServlet {
         String messageToUser = null;
         HashMap plantilla = new HashMap();
         Map<String, String[]> parametros = request.getParameterMap();
-        
+        //recupera el usuario de la session
+        User profesor = (User) request.getSession().getAttribute(Constantes.LOGIN_ON);
+        profesor = new User();//TODO - temporal quitar después
+        profesor.setId(70);
+       
         if (request.getParameter(Constantes.actionTemplate) == null) {
             action = Constantes.VIEW;
         } else {
@@ -122,14 +126,14 @@ public class NotasServlet extends HttpServlet {
         // getAll siempre se hace
         
         plantilla.put("notas", ns.getAllNotas(offset));
-        plantilla.put("asignaturas", asigs.getAllAsignaturasdbUtils());
+        plantilla.put("asignaturas", asigs.getAllAsignaturasByIdProfesor(profesor.getId()));
         plantilla.put("alumnos", alums.getAllAlumnos());
         plantilla.put("nomAlu", nomAlu);
         plantilla.put("idAlu", idAlu);
         plantilla.put("nomAsig", nomAsig);
         plantilla.put("idAsig", idAsig);
         plantilla.put("offset", offset);
-        plantilla.put(Constantes.messageToUser, messageToUser);
+        plantilla.put(Constantes.messageToUser, messageToUser);        
         UrlService urlServicios = new UrlService();
         plantilla.putAll(urlServicios.addConstantsEndPoints(request));
         Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.NOTASTEMPLATE);

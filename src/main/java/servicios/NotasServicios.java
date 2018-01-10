@@ -8,10 +8,6 @@ package servicios;
 import dao.NotasDAO;
 import model.Nota;
 import java.util.List;
-import java.util.Map;
-import utils.Constantes;
-import java.io.UnsupportedEncodingException;
-import java.util.Iterator;
 
 public class NotasServicios {
     public Nota guardarNota(Nota n){
@@ -39,5 +35,5 @@ public class NotasServicios {
         NotasDAO notas = new NotasDAO();
         return notas.getAllNotas(offset);
     }
-    
+        
 }

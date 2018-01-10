@@ -106,7 +106,7 @@ public class Constantes {
     public static final String OFFSET = "offset";
 
     //NotasServlet
-    public static String NOTASTEMPLATE = "notas.ftl";
+    public static String NOTASTEMPLATE = "notas.ftl";    
 
     //SuperuserServlet
     public static String SUPERUSERTEMPLATE = "superuser.ftl";
