@@ -38,12 +38,13 @@
                 }else{
                     var operacion = document.getElementById("ACTIONVIEWS").value ;
                     document.getElementById("offset").value = offsetacutal - 10;
-                    if(operacion == "VIEWPROFESSOR")
-                        document.getElementById("ACTION").value = "VIEWPROFESSOR";
-                    else if(operacion == "VIEWALUMNO")
-                        document.getElementById("ACTION").value = "VIEWALUMNO";
-                    else if(operacion == "VIEWASIGNATURA")
-                    document.getElementById("ACTION").value = "VIEWASIGNATURA";
+                    if(operacion == "VIEWPROFESSOR"){
+                        document.getElementById("ACTIONTABLA").value = "VIEWPROFESSOR";
+                    }else if(operacion == "VIEWALUMNO"){
+                        document.getElementById("ACTIONTABLA").value = "VIEWALUMNO";
+                    }else if(operacion == "VIEWASIGNATURA"){
+                        document.getElementById("ACTIONTABLA").value = "VIEWASIGNATURA";
+                    }
                     document.getElementById("formtabla").submit();
                 }
 
@@ -53,12 +54,13 @@
                 var operacion = document.getElementById("ACTIONVIEWS").value ;
                 var offsetacutal =  parseInt(document.getElementById("offset").value);
                 document.getElementById("offset").value = offsetacutal + 10;
-                if(operacion == "VIEWPROFESSOR")
-                    document.getElementById("ACTION").value = "VIEWPROFESSOR";
-                else if(operacion == "VIEWALUMNO")
-                    document.getElementById("ACTION").value = "VIEWALUMNO";
-                else if(operacion == "VIEWASIGNATURA")
-                    document.getElementById("ACTION").value = "VIEWASIGNATURA";
+                if(operacion == "VIEWPROFESSOR"){
+                    document.getElementById("ACTIONTABLA").value = "VIEWPROFESSOR";
+                }else if(operacion == "VIEWALUMNO"){
+                    document.getElementById("ACTIONTABLA").value = "VIEWALUMNO";
+                }else if(operacion == "VIEWASIGNATURA"){
+                    document.getElementById("ACTIONTABLA").value = "VIEWASIGNATURA";
+                }
                 document.getElementById("formtabla").submit();
             }
         </script>
