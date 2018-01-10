@@ -106,7 +106,7 @@ public class Constantes {
     public static final String OFFSET = "offset";
 
     //NotasServlet
-    public static String NOTASTEMPLATE = "notas.ftl";    
+    public static String NOTASTEMPLATE = "notas.ftl";
 
     //SuperuserServlet
     public static String SUPERUSERTEMPLATE = "superuser.ftl";
@@ -128,6 +128,7 @@ public class Constantes {
     public static final String MAYOR = "mayor";
     public static final String VIEWPROFESSOR = "VIEWPROFESSOR";
     public static final String VIEWALUMNO = "VIEWALUMNO";
+    public static final String VIEW_ALUMNOS = "VIEW_ALUMNOS";
     public static final String VIEWASIGNATURA = "VIEWASIGNATURA";
     public static final String MESSAGEPROFESORNOINSERTADO = "No se ha podido insertar el profesor";
     public static final String MESSAGEPROFESORINSERTADO = "El profesor se ha insertado correctamente";

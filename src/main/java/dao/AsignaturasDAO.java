@@ -60,7 +60,7 @@ public class AsignaturasDAO {
             lista = qr.query(con, SqlQuery.SELECT_ALL_ASIGNATURAS_BY_ID_PROFESOR, handler,params);
 
         } catch (Exception ex) {
-            Logger.getLogger(ProfesorAsignaturaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AsignaturasDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             DBConnection.getInstance().cerrarConexion(con);
         }
