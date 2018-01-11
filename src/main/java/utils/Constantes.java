@@ -170,8 +170,7 @@ public class Constantes {
     public static final String MESSAGETAREAPUESTA = "La tarea fue puesta correctamente";
     public static final String MESSAGETAREAFAIL = "No se ha podido añadir la tarea, prueba otra vez";
     public static final String PONERTAREA = "PONERTAREA";
-
     public static final String FECHA_ENTREGA ="fecha_entrega";
-
+    public static final String TABLATAREAS ="tablatareas";
         
 }//fin clase

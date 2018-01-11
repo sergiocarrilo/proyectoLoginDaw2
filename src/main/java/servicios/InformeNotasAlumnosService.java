@@ -49,10 +49,12 @@ public class InformeNotasAlumnosService {
         return informe;
     }
 
-    public Object getNotasAsignatura(long id_asignatura) {
+    public List<InformeNotasAlumnos> getNotasAsignatura(long id_asignatura) {
         InformeNotaAlumnoDAO dao = new InformeNotaAlumnoDAO();
-        return dao.getNotasAsignatura(id_asignatura);
+        return  dao.getNotasAsignatura(id_asignatura);
     }
+
+   
 
     
 }

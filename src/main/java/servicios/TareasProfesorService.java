@@ -8,6 +8,7 @@ package servicios;
 import dao.TareasProfesorDAO;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import model.TareasProfesor;
 import utils.Constantes;
@@ -17,6 +18,14 @@ import utils.Constantes;
  * @author DAW
  */
 public class TareasProfesorService {
+    
+
+    public TareasProfesor insertarTarea(TareasProfesor tareas) {
+        TareasProfesorDAO dao = new TareasProfesorDAO();
+        return dao.insertarTarea(tareas);
+    }
+
+    
     public TareasProfesor recogerParametros(Map<String, String[]> parametros) {
         TareasProfesor tarea = null;
         if (parametros != null && !parametros.isEmpty()) {
@@ -41,10 +50,5 @@ public class TareasProfesorService {
         
         }
         return tarea;
-    }
-
-    public TareasProfesor insertarTarea(TareasProfesor tareas) {
-        TareasProfesorDAO dao = new TareasProfesorDAO();
-        return dao.insertarTarea(tareas);
     }
 }
