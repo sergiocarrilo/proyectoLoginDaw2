@@ -62,7 +62,9 @@ public class UsersDAO {
                 return rs.next() ? rs.getLong(Constantes.ID_PERMISO) : null;
             }
         });
-    id_permiso = (long)4;//TODO borrar más tarde
+        if (id_permiso == null) {
+         id_permiso = (long)4;//TODO borrar más tarde   
+        }
         return id_permiso;
     }
 }//fin class
