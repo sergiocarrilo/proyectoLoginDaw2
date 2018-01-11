@@ -45,11 +45,11 @@ public class AdministradorServlet extends HttpServlet {
 
         String action;
 
-        if (request.getParameter(Constantes.actionTemplate) == null) {
+        if (request.getParameter(Constantes.ACTION_TEMPLATE) == null) {
             action = Constantes.VIEWPROFESSOR;
             
         } else {
-            action = request.getParameter(Constantes.actionTemplate);
+            action = request.getParameter(Constantes.ACTION_TEMPLATE);
         }
 
         int offset;
@@ -117,7 +117,7 @@ public class AdministradorServlet extends HttpServlet {
             Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.ADMINTEMPLATE);
             UrlService urlServicios = new UrlService();
             plantilla.put(Constantes.LISTA, lista);
-            plantilla.put(Constantes.messageToUser, messageToUser);
+            plantilla.put(Constantes.MESSAGE_TO_USER, messageToUser);
             plantilla.put("actionview", action);
             plantilla.put("offset", offset);
             plantilla.putAll(urlServicios.addConstantsEndPoints(request));

@@ -48,7 +48,7 @@ public class AsignaturasServlet extends HttpServlet {
             throws ServletException, IOException, TemplateException {
         AsignaturasServicios servicios = new AsignaturasServicios();
 
-        String action = request.getParameter(Constantes.actionTemplate);
+        String action = request.getParameter(Constantes.ACTION_TEMPLATE);
         String messageToUser = null;
         AsignaturaCurso asignaturaCurso = null;
         HashMap paramentrosPlantilla = null;
@@ -60,7 +60,7 @@ public class AsignaturasServlet extends HttpServlet {
 
                     asignaturaCurso = servicios.tratarParametros(parametros);
                     int filas = servicios.updateAsignaturaCursodbUtils(asignaturaCurso);
-                    messageToUser = (filas > 0) ? Constantes.messageQueryAsignaturaUpdated : Constantes.messageQueryAsignaturaUpdateFailed;
+                    messageToUser = (filas > 0) ? Constantes.MESSAGE_QUERY_ASIGNATURA_UPDATED : Constantes.MESSAGE_QUERY_ASIGNATURA_UPDATE_FAILED;
 
                     break;
                 case Constantes.UPDATE_ASIGNATURA:
@@ -69,7 +69,7 @@ public class AsignaturasServlet extends HttpServlet {
                     Asignatura asignatura = servicios.toAsignatura(asignaturaCurso);
                     int filasAs = servicios.updateAsignaturadbUtils(asignatura);
 
-                    messageToUser = (filasAs > 0) ? Constantes.messageQueryAsignaturaUpdated : Constantes.messageQueryAsignaturaUpdateFailed;
+                    messageToUser = (filasAs > 0) ? Constantes.MESSAGE_QUERY_ASIGNATURA_UPDATED : Constantes.MESSAGE_QUERY_ASIGNATURA_UPDATE_FAILED;
 
                     break;
                 case Constantes.UPDATE_CURSO:
@@ -78,14 +78,14 @@ public class AsignaturasServlet extends HttpServlet {
                     Curso cursoUp = servicios.toCurso(asignaturaCurso);
                     int filasUp = servicios.updateCursodbUtils(cursoUp);
 
-                    messageToUser = (filasUp > 0) ? Constantes.messageQueryAsignaturaUpdated : Constantes.messageQueryAsignaturaUpdateFailed;
+                    messageToUser = (filasUp > 0) ? Constantes.MESSAGE_QUERY_ASIGNATURA_UPDATED : Constantes.MESSAGE_QUERY_ASIGNATURA_UPDATE_FAILED;
 
                     break;
                 case Constantes.INSERT:
 
                     asignaturaCurso = servicios.tratarParametros(parametros);
                     messageToUser = (servicios.insertAsignaturaCursodbUtils(asignaturaCurso))
-                            ? Constantes.messageQueryAsignaturaInserted : Constantes.messageQueryAsignaturaInsertFailed;
+                            ? Constantes.MESSAGE_QUERY_ASIGNATURA_INSERTED : Constantes.MESSAGE_QUERY_ASIGNATURA_INSERT_FAILED;
 
                     break;
                 case Constantes.INSERT_ASIGNATURA:
@@ -101,7 +101,7 @@ public class AsignaturasServlet extends HttpServlet {
                     asignaturaCurso = servicios.tratarParametros(parametros);
                     Curso curso = servicios.toCurso(asignaturaCurso);
                     messageToUser = (servicios.insertCursodbUtils(curso))
-                            ? Constantes.messageQueryAsignaturaInserted : Constantes.messageQueryAsignaturaInsertFailed;
+                            ? Constantes.MESSAGE_QUERY_ASIGNATURA_INSERTED : Constantes.MESSAGE_QUERY_ASIGNATURA_INSERT_FAILED;
 
                     break;
                 case Constantes.DELETE:
@@ -116,10 +116,10 @@ public class AsignaturasServlet extends HttpServlet {
 
                         asignaturaCurso = servicios.tratarParametros(parametros);
 
-                        messageToUser = Constantes.messageQueryAsignaturaDeletedFail;
+                        messageToUser = Constantes.MESSAGE_QUERY_ASIGNATURA_DELETED_FAIL;
 
                     } else if (deleted > 0 && deleted < ConstantesError.CodeErrorClaveForanea) {
-                        messageToUser = Constantes.messageQueryAsignaturaDeleted;
+                        messageToUser = Constantes.MESSAGE_QUERY_ASIGNATURA_DELETED;
                     }
                     break;
                 case Constantes.DELETE_ASIGNATURA:
@@ -134,10 +134,10 @@ public class AsignaturasServlet extends HttpServlet {
 
                         asignaturaCurso = servicios.tratarParametros(parametros);
 
-                        messageToUser = Constantes.messageQueryAsignaturaDeletedFail;
+                        messageToUser = Constantes.MESSAGE_QUERY_ASIGNATURA_DELETED_FAIL;
 
                     } else if (deletedAs > 0 && deletedAs < ConstantesError.CodeErrorClaveForanea) {
-                        messageToUser = Constantes.messageQueryAsignaturaDeleted;
+                        messageToUser = Constantes.MESSAGE_QUERY_ASIGNATURA_DELETED;
                     }
                     break;
                 case Constantes.DELETE_CURSO:
@@ -152,10 +152,10 @@ public class AsignaturasServlet extends HttpServlet {
 
                         asignaturaCurso = servicios.tratarParametros(parametros);
 
-                        messageToUser = Constantes.messageQueryAsignaturaDeletedFail;
+                        messageToUser = Constantes.MESSAGE_QUERY_ASIGNATURA_DELETED_FAIL;
 
                     } else if (deletedCu > 0 && deletedCu < ConstantesError.CodeErrorClaveForanea) {
-                        messageToUser = Constantes.messageQueryAsignaturaDeleted;
+                        messageToUser = Constantes.MESSAGE_QUERY_ASIGNATURA_DELETED;
                     }
                     break;
 
@@ -163,14 +163,14 @@ public class AsignaturasServlet extends HttpServlet {
         }
         paramentrosPlantilla = new HashMap();
         if (messageToUser != null) {
-            paramentrosPlantilla.put(Constantes.messageToUser, messageToUser);
+            paramentrosPlantilla.put(Constantes.MESSAGE_TO_USER, messageToUser);
         }
         int offset = servicios.getOffset(parametros);
         paramentrosPlantilla.put(Constantes.OFFSET, offset);
-        paramentrosPlantilla.put(Constantes.listaAsignaturaCurso, servicios.getAllAsignaturasCursosdbUtils(offset));
-        paramentrosPlantilla.put(Constantes.listaCursos, servicios.getAllCursosdbUtils());
-        paramentrosPlantilla.put(Constantes.listaAsignaturas, servicios.getAllAsignaturadbUtils());
-        Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.asignaturasTemplate);
+        paramentrosPlantilla.put(Constantes.LISTA_ASIGNATURA_CURSO, servicios.getAllAsignaturasCursosdbUtils(offset));
+        paramentrosPlantilla.put(Constantes.LISTA_CURSOS, servicios.getAllCursosdbUtils());
+        paramentrosPlantilla.put(Constantes.LISTA_ASIGNATURAS, servicios.getAllAsignaturadbUtils());
+        Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.ASIGNATURAS_TEMPLATE);
         plantilla.process(paramentrosPlantilla, response.getWriter());
 
     }

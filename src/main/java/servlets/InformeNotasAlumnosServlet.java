@@ -60,10 +60,10 @@ public class InformeNotasAlumnosServlet extends HttpServlet {
             profesor.setId((long) request.getSession().getAttribute(Constantes.IDPROFESOR));
         }
         
-        if (request.getParameter(Constantes.actionTemplate) == null) {
+        if (request.getParameter(Constantes.ACTION_TEMPLATE) == null) {
             action = Constantes.VIEW;
         } else {
-            action = request.getParameter(Constantes.actionTemplate);
+            action = request.getParameter(Constantes.ACTION_TEMPLATE);
         }
 
         switch (action) {
