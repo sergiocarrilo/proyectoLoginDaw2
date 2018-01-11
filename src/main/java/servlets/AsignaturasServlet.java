@@ -24,6 +24,7 @@ import model.Asignatura;
 import model.AsignaturaCurso;
 import model.Curso;
 import servicios.AsignaturasServicios;
+import servicios.UrlService;
 import utils.Constantes;
 import utils.ConstantesError;
 import utils.UrlsPaths;
@@ -164,8 +165,8 @@ public class AsignaturasServlet extends HttpServlet {
         paramentrosPlantilla = new HashMap();
         if (messageToUser != null) {
             paramentrosPlantilla.put(Constantes.MESSAGE_TO_USER, messageToUser);
-        }
-        int offset = servicios.getOffset(parametros);
+        }        
+        int offset = new UrlService().getOffset(parametros);        
         paramentrosPlantilla.put(Constantes.OFFSET, offset);
         paramentrosPlantilla.put(Constantes.LISTA_ASIGNATURA_CURSO, servicios.getAllAsignaturasCursosdbUtils(offset));
         paramentrosPlantilla.put(Constantes.LISTA_CURSOS, servicios.getAllCursosdbUtils());

@@ -20,9 +20,9 @@ public class ProfesorAsignaturaServicios {
     public ProfesorAsignaturaServicios() {
     }
 
-    public List<ProfesorAsignatura> getAllProfesoresAsignaturas() {
+    public List<ProfesorAsignatura> getAllProfesoresAsignaturas(long offset) {
         ProfesorAsignaturaDAO dao = new ProfesorAsignaturaDAO();
-        return dao.getAllProfesorAsignaturadbUtils();
+        return dao.getAllProfesorAsignaturadbUtils(offset);
     }
 
     public boolean insertProfesorAsignatura(ProfesorAsignatura profesorAsignatura) {

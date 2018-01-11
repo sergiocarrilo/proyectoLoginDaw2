@@ -22,6 +22,7 @@ import model.ProfesorAsignatura;
 import servicios.AsignaturasServicios;
 import servicios.ProfesorAsignaturaServicios;
 import servicios.ProfesorServicios;
+import servicios.UrlService;
 import utils.Constantes;
 import utils.UrlsPaths;
 
@@ -76,8 +77,8 @@ public class ProfesorAsignaturaServlet extends HttpServlet {
             if (messageToUser != null) {
                 paramentrosPlantilla.put(Constantes.MESSAGE_TO_USER, messageToUser);
             }
-           
-            paramentrosPlantilla.put(Constantes.LISTA_PROFESORES_ASIGNATURAS, serviciosPA.getAllProfesoresAsignaturas());
+           int offset = new UrlService().getOffset(parametros);        
+            paramentrosPlantilla.put(Constantes.LISTA_PROFESORES_ASIGNATURAS, serviciosPA.getAllProfesoresAsignaturas(offset));
             paramentrosPlantilla.put(Constantes.LISTA_PROFESORES, serviciosProfesor.getAllProfesores());
             paramentrosPlantilla.put(Constantes.LISTA_ASIGNATURAS, serviciosAsignatura.getAllAsignaturadbUtils());
             Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.PROFESOR_ASIGNATURA_TEMPLATE);
