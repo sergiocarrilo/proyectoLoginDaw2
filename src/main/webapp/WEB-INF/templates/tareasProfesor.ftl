@@ -8,6 +8,7 @@
         <title>${title}</title>
         <meta charset="${charset}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <#include "/libreria.ftl">
         <script>
                  function cogerDatosAsig(){
                     var id = document.getElementById("id_asig_lista").value;
@@ -22,6 +23,7 @@
         </script>
     </head>
     <body>
+        
         <#escape x as x?html>
         <div class="container">
             <#include "/menuTemplate.ftl">
@@ -88,7 +90,8 @@
             </div>
         </div>
         </#escape>
-        <#include "/footBootstrap.ftl">
+        
 
     </body>
+    
     </html>
