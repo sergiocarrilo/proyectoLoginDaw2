@@ -46,7 +46,7 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            String action = request.getParameter(Constantes.actionTemplate);
+            String action = request.getParameter(Constantes.ACTION_TEMPLATE);
             Map<String, String[]> parametros = request.getParameterMap();
             String messageToUser = null;
             LoginServicios servicios = new LoginServicios();
@@ -72,17 +72,17 @@ public class LoginServlet extends HttpServlet {
                                         request.getSession().setAttribute(Constantes.LOGIN_ON, usuario);
 
                                     } else {
-                                        messageToUser = Constantes.messageUserLoginFailPassword;
+                                        messageToUser = Constantes.MESSAGE_USER_LOGIN_FAIL_PASSWORD;
                                     }
                                 } else {
-                                    messageToUser = Constantes.messageUserLoginFailActivo;
+                                    messageToUser = Constantes.MESSAGE_USER_LOGIN_FAIL_ACTIVO;
                                 }
 
                             } else {
-                                messageToUser = Constantes.messageUserLoginFailNombre;
+                                messageToUser = Constantes.MESSAGE_USER_LOGIN_FAIL_NOMBRE;
                             }
                         } else {
-                            messageToUser = Constantes.messageUserMissingFields;
+                            messageToUser = Constantes.MESSAGE_USER_MISSING_FIELDS;
                         }
 
                         break;
@@ -95,7 +95,7 @@ public class LoginServlet extends HttpServlet {
             }
             HashMap paramentrosPlantilla = new HashMap();
             if (messageToUser != null) {
-                paramentrosPlantilla.put(Constantes.messageToUser, messageToUser);
+                paramentrosPlantilla.put(Constantes.MESSAGE_TO_USER, messageToUser);
             }
                                   
            
@@ -105,7 +105,7 @@ public class LoginServlet extends HttpServlet {
                 Configuration.getInstance().getFreeMarker().setSharedVariable(Constantes.LEVEL_ACCESS, levelAccessUser);
             }
 
-            Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.IndexTemplate);           
+            Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.INDEX_TEMPLATE);           
             plantilla.process(paramentrosPlantilla, response.getWriter());            
         } catch (TemplateException ex) {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);

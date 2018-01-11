@@ -56,10 +56,10 @@ public class SuperuserServlet extends HttpServlet {
 
         String action;
 
-        if (request.getParameter(Constantes.actionTemplate) == null) {
+        if (request.getParameter(Constantes.ACTION_TEMPLATE) == null) {
             action = Constantes.VIEW;
         } else {
-            action = request.getParameter(Constantes.actionTemplate);
+            action = request.getParameter(Constantes.ACTION_TEMPLATE);
         }
 
         int offset;
@@ -98,7 +98,7 @@ public class SuperuserServlet extends HttpServlet {
 
             plantilla.put("usuarios", service.getAllUsers(offset));
             plantilla.put("offset", offset);
-            plantilla.put(Constantes.messageToUser, messageToUser);
+            plantilla.put(Constantes.MESSAGE_TO_USER, messageToUser);
             UrlService urlServicios = new UrlService();
             plantilla.putAll(urlServicios.addConstantsEndPoints(request));
             Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.SUPERUSERTEMPLATE);

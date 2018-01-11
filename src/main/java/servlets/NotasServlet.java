@@ -53,7 +53,7 @@ public class NotasServlet extends HttpServlet {
         String nota = request.getParameter("nota");
         boolean cargar = false;
 
-        String action = request.getParameter(Constantes.actionTemplate);
+        String action = request.getParameter(Constantes.ACTION_TEMPLATE);
         String messageToUser = null;
         HashMap plantilla = new HashMap();
         Map<String, String[]> parametros = request.getParameterMap();
@@ -62,10 +62,10 @@ public class NotasServlet extends HttpServlet {
         //profesor = new User();//TODO - temporal quitar después
         //profesor.setId(70);
 
-        if (request.getParameter(Constantes.actionTemplate) == null) {
+        if (request.getParameter(Constantes.ACTION_TEMPLATE) == null) {
             action = Constantes.VIEW;
         } else {
-            action = request.getParameter(Constantes.actionTemplate);
+            action = request.getParameter(Constantes.ACTION_TEMPLATE);
         }
 
         int offset;
@@ -138,7 +138,7 @@ public class NotasServlet extends HttpServlet {
             plantilla.put("idAsig", Integer.valueOf(idAsig));
         }
         plantilla.put("offset", offset);
-        plantilla.put(Constantes.messageToUser, messageToUser);
+        plantilla.put(Constantes.MESSAGE_TO_USER, messageToUser);
         UrlService urlServicios = new UrlService();
         plantilla.putAll(urlServicios.addConstantsEndPoints(request));
         Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.NOTASTEMPLATE);

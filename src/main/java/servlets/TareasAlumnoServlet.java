@@ -43,7 +43,7 @@ public class TareasAlumnoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            String action = request.getParameter(Constantes.actionTemplate);
+            String action = request.getParameter(Constantes.ACTION_TEMPLATE);
             Map<String, String[]> parametros = request.getParameterMap();
             TareasServicios servicios = new TareasServicios();
             HashMap paramentrosPlantilla = new HashMap();
@@ -55,7 +55,7 @@ public class TareasAlumnoServlet extends HttpServlet {
                     case Constantes.UPDATE:
                         TareaAlumno tarea = servicios.tratarParametrosTareaAlumno(parametros);
                         if (tarea != null) {
-                            messageToUser = (servicios.updateTareaAlumno(tarea)) ? Constantes.messageTareaAlumnoUpdated : Constantes.messageTareaAlumnoFail;
+                            messageToUser = (servicios.updateTareaAlumno(tarea)) ? Constantes.MESSAGE_TAREA_ALUMNO_UPDATED : Constantes.MESSAGE_TAREA_ALUMNO_FAIL;
                         }
 
                         break;
@@ -63,15 +63,15 @@ public class TareasAlumnoServlet extends HttpServlet {
             }//fin if action
 
             if (messageToUser != null) {
-                paramentrosPlantilla.put(Constantes.messageToUser, messageToUser);
+                paramentrosPlantilla.put(Constantes.MESSAGE_TO_USER, messageToUser);
             }
             if (alumno != null) {
 
-                paramentrosPlantilla.put(Constantes.listaTareasAlumno, servicios.getAllTareasOfAlumno(alumno.getId()));
+                paramentrosPlantilla.put(Constantes.LISTA_TAREAS_ALUMNO, servicios.getAllTareasOfAlumno(alumno.getId()));
 
             }
 
-            Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.TareasAlumnoTemplate);
+            Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.TAREAS_ALUMNO_TEMPLATE);
             plantilla.process(paramentrosPlantilla, response.getWriter());
         } catch (TemplateException ex) {
             Logger.getLogger(TareasAlumnoServlet.class.getName()).log(Level.SEVERE, null, ex);

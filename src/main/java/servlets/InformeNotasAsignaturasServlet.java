@@ -50,7 +50,7 @@ public class InformeNotasAsignaturasServlet extends HttpServlet {
             AsignaturasServicios serviciosAsignatura = new AsignaturasServicios();
             InformeNotasAsignaturasServicios notasAsignaturasServicios = new InformeNotasAsignaturasServicios();
             List<InformeNotaAsignatura> informe = null;
-            String action = request.getParameter(Constantes.actionTemplate);
+            String action = request.getParameter(Constantes.ACTION_TEMPLATE);
             Map<String, String[]> parametros = request.getParameterMap();
             String messageToUser = null;
             Curso curso = null;
@@ -66,18 +66,18 @@ public class InformeNotasAsignaturasServlet extends HttpServlet {
             }//fin if action
             HashMap paramentrosPlantilla = new HashMap();
             if (messageToUser != null) {
-                paramentrosPlantilla.put(Constantes.messageToUser, messageToUser);
+                paramentrosPlantilla.put(Constantes.MESSAGE_TO_USER, messageToUser);
             }
             if (informe != null && curso != null) {
-                paramentrosPlantilla.put(Constantes.ListadoInformeNotasAsig, informe);
-                paramentrosPlantilla.put(Constantes.CursoSeleccionado, curso.getCurso());
+                paramentrosPlantilla.put(Constantes.LISTADO_INFORME_NOTASASIG, informe);
+                paramentrosPlantilla.put(Constantes.CURSO_SELECCIONADO, curso.getCurso());
 
             }
             //UrlService urlServicios = new UrlService();
            // paramentrosPlantilla.putAll(urlServicios.addConstantsEndPoints(request));
             
-            paramentrosPlantilla.put(Constantes.listaCursos, serviciosAsignatura.getAllCursosdbUtils());            
-            Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.InformeNotasAsignaturas);                                    
+            paramentrosPlantilla.put(Constantes.LISTA_CURSOS, serviciosAsignatura.getAllCursosdbUtils());            
+            Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.INFORME_NOTAS_ASIGNATURAS);                                    
             plantilla.process(paramentrosPlantilla, response.getWriter());
         } catch (TemplateException ex) {
             Logger.getLogger(InformeNotasAsignaturasServlet.class.getName()).log(Level.SEVERE, null, ex);
