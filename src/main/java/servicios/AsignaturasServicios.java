@@ -16,6 +16,7 @@ import model.Asignatura;
 
 import model.AsignaturaCurso;
 import model.Curso;
+import model.ProfesorAsignatura;
 import utils.Constantes;
 
 /**
@@ -24,11 +25,9 @@ import utils.Constantes;
  */
 public class AsignaturasServicios {
 
-    
-
-    public List<AsignaturaCurso> getAllAsignaturasCursosdbUtils() {
+    public List<AsignaturaCurso> getAllAsignaturasCursosdbUtils(long offset) {
         AsignaturasDAO dao = new AsignaturasDAO();
-        return dao.getAllAsignaturasCursosdbUtils();
+        return dao.getAllAsignaturasCursosdbUtils(offset);
     }
 
     public List<Curso> getAllCursosdbUtils() {
@@ -132,6 +131,18 @@ public class AsignaturasServicios {
         return asignatura;
     }
 
+    public int getOffset(Map<String, String[]> parametros) {
+        int offset = 0;
+        if (parametros != null && !parametros.isEmpty()) {
+
+            if (parametros.get(Constantes.OFFSET) != null && !parametros.get(Constantes.OFFSET)[0].isEmpty()) {
+                offset = Integer.valueOf(parametros.get(Constantes.OFFSET)[0]);
+            }
+        }
+
+        return offset;
+    }
+
     public Asignatura toAsignatura(AsignaturaCurso as) {
         Asignatura asignatura = new Asignatura();
         asignatura.setId(as.getId_asignatura());
@@ -150,6 +161,11 @@ public class AsignaturasServicios {
     public List<AsignaturaCurso> getAllAsignaturasdbUtils() {
         AsignaturasDAO dao = new AsignaturasDAO();
         return dao.getAllAsignaturasdbUtilsNotas();
+    }
+
+    public List<ProfesorAsignatura> getAllAsignaturasByIdProfesor(long id_profesor) {
+        AsignaturasDAO dao = new AsignaturasDAO();
+        return dao.getAllAsignaturasByIdProfesordbUtils(id_profesor);
     }
 
 }//FIN CLASE

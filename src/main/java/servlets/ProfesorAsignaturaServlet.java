@@ -22,7 +22,6 @@ import model.ProfesorAsignatura;
 import servicios.AsignaturasServicios;
 import servicios.ProfesorAsignaturaServicios;
 import servicios.ProfesorServicios;
-import servicios.UrlService;
 import utils.Constantes;
 import utils.UrlsPaths;
 
@@ -48,7 +47,7 @@ public class ProfesorAsignaturaServlet extends HttpServlet {
             AsignaturasServicios serviciosAsignatura = new AsignaturasServicios();
             ProfesorServicios serviciosProfesor = new ProfesorServicios();
             ProfesorAsignaturaServicios serviciosPA = new ProfesorAsignaturaServicios();
-            String action = request.getParameter(Constantes.actionTemplate);
+            String action = request.getParameter(Constantes.ACTION_TEMPLATE);
             String messageToUser = null;
             ProfesorAsignatura profesorAsignatura = null;
             HashMap paramentrosPlantilla = null;
@@ -59,14 +58,14 @@ public class ProfesorAsignaturaServlet extends HttpServlet {
                     case Constantes.INSERT:
                         profesorAsignatura = serviciosPA.tratarParametro(parametros);
                         messageToUser = (serviciosPA.insertProfesorAsignatura(profesorAsignatura))
-                                ? Constantes.messageQueryProfeAsignaturaInserted : Constantes.messageQueryProfeAsignaturaInsertFailed;
+                                ? Constantes.MESSAGE_QUERY_PROFEASIGNATURA_INSERTED : Constantes.MESSAGE_QUERY_PROFEASIGNATURA_INSERT_FAILED;
                         ;
 
                         break;
                     case Constantes.DELETE:
                         profesorAsignatura = serviciosPA.tratarParametro(parametros);
                         messageToUser = (serviciosPA.deleteProfesorAsignaturas(profesorAsignatura))
-                                ? Constantes.messageQueryProfesorAsignaturaDeleted : Constantes.messageQueryProfesorAsignaturaDeletedFail;
+                                ? Constantes.MESSAGE_QUERY_PROFEASIGNATURA_DELETED : Constantes.MESSAGE_QUERY_PROFEASIGNATURA_DELETED_FAIL;
 
                         break;
 
@@ -75,15 +74,13 @@ public class ProfesorAsignaturaServlet extends HttpServlet {
 
             paramentrosPlantilla = new HashMap();
             if (messageToUser != null) {
-                paramentrosPlantilla.put(Constantes.messageToUser, messageToUser);
+                paramentrosPlantilla.put(Constantes.MESSAGE_TO_USER, messageToUser);
             }
-            //UrlService urlServicios = new UrlService();
-            //paramentrosPlantilla.putAll(urlServicios.addConstantsEndPoints(request));
-
-            paramentrosPlantilla.put(Constantes.listaProfesoresAsignaturas, serviciosPA.getAllProfesoresAsignaturas());
-            paramentrosPlantilla.put(Constantes.listaProfesores, serviciosProfesor.getAllProfesores());
-            paramentrosPlantilla.put(Constantes.listaAsignaturas, serviciosAsignatura.getAllAsignaturadbUtils());
-            Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.ProfesorAsignaturaTemplate);
+           
+            paramentrosPlantilla.put(Constantes.LISTA_PROFESORES_ASIGNATURAS, serviciosPA.getAllProfesoresAsignaturas());
+            paramentrosPlantilla.put(Constantes.LISTA_PROFESORES, serviciosProfesor.getAllProfesores());
+            paramentrosPlantilla.put(Constantes.LISTA_ASIGNATURAS, serviciosAsignatura.getAllAsignaturadbUtils());
+            Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.PROFESOR_ASIGNATURA_TEMPLATE);
             plantilla.process(paramentrosPlantilla, response.getWriter());
         } catch (TemplateException ex) {
             Logger.getLogger(ProfesorAsignaturaServlet.class.getName()).log(Level.SEVERE, null, ex);

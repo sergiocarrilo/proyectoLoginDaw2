@@ -8,21 +8,16 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Nota;
-import model.Asignatura;
-import model.Alumno;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
-import utils.Constantes;
 import utils.SqlQuery;
 
 public class NotasDAO {
@@ -83,8 +78,8 @@ public class NotasDAO {
         }
         return n;
     }
-    
-    public List<Nota> getAllNotas(int offset) {
+
+    public List<Nota> getAllNotas(long id_asignatura, int offset) {
         List<Nota> lista = new ArrayList<>();
         Nota nota = null;
         Connection con = null;
@@ -92,10 +87,10 @@ public class NotasDAO {
         ResultSet rs = null;
         try {
             con = DBConnection.getInstance().getConnection();
-            stmt = con.prepareStatement(SqlQuery.QUERYGETALLNOTAS, Statement.RETURN_GENERATED_KEYS);
-            stmt.setLong(1, offset);
+            stmt = con.prepareStatement(SqlQuery.QUERYGETALLNOTAS_BY_ID_ASIGNATURA, Statement.RETURN_GENERATED_KEYS);
+            stmt.setLong(1, id_asignatura);
+            stmt.setLong(2, offset);
             rs = stmt.executeQuery();
-
 
             while (rs.next()) {
                 //Retrieve by column name
@@ -105,8 +100,8 @@ public class NotasDAO {
                 String asignatura = rs.getString("ASIGNATURAS.NOMBRE");
                 int notita = rs.getInt("NOTAS.NOTA");
                 nota = new Nota();
-                nota.setIdAlumno((long)idAlumno);
-                nota.setIdAsignatura((long)idAsignatura);
+                nota.setIdAlumno((long) idAlumno);
+                nota.setIdAsignatura((long) idAsignatura);
                 nota.setAlumno(alumno);
                 nota.setAsignatura(asignatura);
                 nota.setNota(notita);
@@ -121,4 +116,4 @@ public class NotasDAO {
         }
         return lista;
     }
-}
+}//FIN CLASE

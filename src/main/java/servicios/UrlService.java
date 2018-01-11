@@ -45,7 +45,7 @@ public class UrlService {
         try {
             //Ejemplo final Endpoint: endpoint_alumnos
             String PreEndPoint = "endpoint_";
-            paramentros.put(Constantes.BaseUrlServer, getBaseUrlServer(request));
+            paramentros.put(Constantes.BASE_URL_SERVER, getBaseUrlServer(request));
 
             Field[] constantesEndpoints = UrlsPaths.class.getDeclaredFields();
 

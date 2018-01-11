@@ -21,10 +21,18 @@
                     </div>
                 </div>
             <div class="row">    
-                <div class="container">    
+                <div class="container">                       
                     <div class="row justify-content-center">    
 
-                        <div class="col-sm-5">    
+                        <div class="col-sm-5">  
+                            <#if loginOnFromServer??>   
+                                <#if (loginOnFromServer.nombre)??>
+                            <div class="alert alert-primary" role="alert">                                
+                                Bienvenid@ ${loginOnFromServer.nombre}
+                                </div>
+                                </#if>
+                            <#else>
+
                             <form>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Nombre de Usuario</label>
@@ -34,17 +42,17 @@
                                     <label for="exampleInputPassword1">Contraseña</label>
                                     <input type="password" class="form-control" name="PASSWORD" id="exampleInputPassword1" placeholder="Password">
                                     </div>
-                               
+
                                 <button type="submit" class="btn btn-primary" name="ACTION" value="LOGIN">Login</button>
                                 <a href="#" class="badge badge-info">Recuperar Contraseña</a>
                                 </form>
-
+                            </#if>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        <#include "/footBootstrap.ftl">
+        <#include "/libreria.ftl">
 
         </body>
     </html>

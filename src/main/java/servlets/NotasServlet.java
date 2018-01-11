@@ -18,8 +18,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Asignatura;
 import model.Nota;
+import model.User;
 import servicios.AlumnosServicios;
 import servicios.AsignaturasServicios;
 import servicios.NotasServicios;
@@ -53,52 +53,55 @@ public class NotasServlet extends HttpServlet {
         String nota = request.getParameter("nota");
         boolean cargar = false;
 
-        String action = request.getParameter(Constantes.actionTemplate);
+        String action = request.getParameter(Constantes.ACTION_TEMPLATE);
         String messageToUser = null;
         HashMap plantilla = new HashMap();
         Map<String, String[]> parametros = request.getParameterMap();
-        
-        if (request.getParameter(Constantes.actionTemplate) == null) {
+        //recupera el usuario de la session
+        User profesor = (User) request.getSession().getAttribute(Constantes.LOGIN_ON);
+        //profesor = new User();//TODO - temporal quitar después
+        //profesor.setId(70);
+
+        if (request.getParameter(Constantes.ACTION_TEMPLATE) == null) {
             action = Constantes.VIEW;
         } else {
-            action = request.getParameter(Constantes.actionTemplate);
+            action = request.getParameter(Constantes.ACTION_TEMPLATE);
         }
 
         int offset;
-        
+
         if (request.getParameter("offset") == null) {
             offset = 0;
         } else {
             offset = Integer.parseInt(request.getParameter("offset"));
         }
-        
+
         if (op != null) {
             Nota n = new Nota();
-            if (idAlu != null) {
-                idAlu = idAlu.replace(" ","");
+            if (idAlu != null && !idAlu.isEmpty()) {
+                idAlu = idAlu.replace(" ", "");
             }
-            else {
-                plantilla.put("mensaje", "ERROR AL SELECCIONAR");
+            if (idAlu != null && !idAlu.isEmpty()) {
+                n.setIdAlumno(Long.valueOf(idAlu));
+                idAsig = idAsig.replace(" ", "");
             }
-            n.setIdAlumno(Long.valueOf(idAlu));
-            idAsig = idAsig.replace(" ","");
+
             n.setIdAsignatura(Long.parseLong(idAsig));
             int filas = 0;
 
             switch (op) {
                 case "guardar":
-                    if (nota != ""){
+                    if (nota != "") {
                         n.setNota(Integer.parseInt(nota));
                         n = ns.guardarNota(n);
                         if (n != null) {
                             filas = 1;
                         }
-                        plantilla.put("nota",n);
-                    }
-                    else {
+                        plantilla.put("nota", n);
+                    } else {
                         plantilla.put("mensaje", "ERROR AL SELECCIONAR");
                     }
-                    
+
                     break;
                 case "borrar":
                     filas = ns.delNota(n);
@@ -108,9 +111,13 @@ public class NotasServlet extends HttpServlet {
                     cargar = true;
                     if (n == null) {
                         plantilla.put("mensaje", "No hay notas");
-                    }else{
-                        plantilla.put("nota",n);
+                    } else {
+                        plantilla.put("nota", n);
                     }
+                    break;
+                case Constantes.VIEW_ALUMNOS:
+                    plantilla.put("alumnos", alums.getAllAlumnosByIdAsignatura(Long.valueOf(idAsig)));
+                    plantilla.put("notas", ns.getAllNotas(Long.valueOf(idAsig), offset));
                     break;
             }
             if (filas != 0 && cargar == false) {
@@ -120,16 +127,18 @@ public class NotasServlet extends HttpServlet {
             }
         }
         // getAll siempre se hace
-        
-        plantilla.put("notas", ns.getAllNotas(offset));
-        plantilla.put("asignaturas", asigs.getAllAsignaturasdbUtils());
-        plantilla.put("alumnos", alums.getAllAlumnos());
+        if (profesor != null) {
+        plantilla.put("asignaturas", asigs.getAllAsignaturasByIdProfesor(profesor.getId()));
+        }
         plantilla.put("nomAlu", nomAlu);
         plantilla.put("idAlu", idAlu);
         plantilla.put("nomAsig", nomAsig);
-        plantilla.put("idAsig", idAsig);
+        if (idAsig != null && !idAsig.isEmpty()) {
+            plantilla.put("notas", ns.getAllNotas(Long.valueOf(idAsig), offset));
+            plantilla.put("idAsig", Integer.valueOf(idAsig));
+        }
         plantilla.put("offset", offset);
-        plantilla.put(Constantes.messageToUser, messageToUser);
+        plantilla.put(Constantes.MESSAGE_TO_USER, messageToUser);
         UrlService urlServicios = new UrlService();
         plantilla.putAll(urlServicios.addConstantsEndPoints(request));
         Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.NOTASTEMPLATE);

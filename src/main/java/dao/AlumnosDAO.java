@@ -17,6 +17,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.ResultSetHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
+import utils.SqlQuery;
 
 public class AlumnosDAO {
 
@@ -66,6 +70,26 @@ public class AlumnosDAO {
         }
         return lista;
 
+    }
+
+    public List<Alumno> getAllAlumnosByIdAsignaturadbUtils(long id_asignatura) {
+        List<Alumno> lista = null;
+
+        Connection con = null;
+        try {
+            con = DBConnection.getInstance().getConnection();
+            QueryRunner qr = new QueryRunner();
+            Object params[] = {id_asignatura};
+            ResultSetHandler<List<Alumno>> handler
+                    = new BeanListHandler<Alumno>(Alumno.class);
+            lista = qr.query(con, SqlQuery.SELECT_ALL_ALUMNOS_BY_ID_ASIGNATURA, handler, params);
+
+        } catch (Exception ex) {
+            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBConnection.getInstance().cerrarConexion(con);
+        }
+        return lista;
     }
 
     public Alumno insertAlumnoJDBC(Alumno a) {
@@ -139,32 +163,33 @@ public class AlumnosDAO {
         }
         return filas;
     }
-    
-    public int delUser2(Alumno a){
+
+    public int delUser2(Alumno a) {
         Connection con = null;
         int filas = 0;
         try {
-            
+
             con = DBConnection.getInstance().getConnection();
             con.setAutoCommit(false);
             String sql = "DELETE FROM NOTAS WHERE ID_ALUMNO = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setLong(1, a.getId());
-            
+
             filas += stmt.executeUpdate();
-            
+
             sql = "DELETE FROM ALUMNOS WHERE ID = ?";
             stmt = con.prepareStatement(sql);
             stmt.setLong(1, a.getId());
 
             filas += stmt.executeUpdate();
             con.commit();
-            
+
         } catch (Exception ex) {
             Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
             try {
-                if (con!=null)
+                if (con != null) {
                     con.rollback();
+                }
             } catch (SQLException ex1) {
                 Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex1);
             }
