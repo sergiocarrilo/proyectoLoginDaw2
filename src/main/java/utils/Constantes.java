@@ -11,7 +11,7 @@ package utils;
  */
 public class Constantes {
 
-    public static final String  registroJSP = "registroJsp.jsp";
+    public static final String  REGISTRO_TEMPLATE = "registroTemplate.ftl";
     public static final String  ACTION_TEMPLATE = "ACTION";
     public static final String  DEFAULT_ENCODING = "UTF-8";
     public static final String  CONTENT_TYPE = "text/html; charset=UTF-8";
@@ -151,8 +151,20 @@ public class Constantes {
     public static final String  MESSAGE_USER_LOGIN_FAIL_ACTIVO = "Quieto parado! Este Usuario no ha sido validado";    
     public static final String  MESSAGE_USER_LOGIN_FAIL_NOMBRE = "Error en las credenciales, El Usuario no existe";    
     public static final String  MESSAGE_USER_MISSING_FIELDS = "Te faltan campos por rellenar";
+    
+    //servlet Registro
+    public static final String  EMAIL_SUBJECT_VALIDATE = "CRUD: Hola %s - Correo de Activación";    
+    public static final String MESSAGE_USER_REGISTER_SUBMIT_EMAIL = "Estás a un paso de completar tu registro, por favor, revisa tu correo";
+    public static final String MESSAGE_USER_REGISTER_SUBMIT_EMAIL_FAIL = "Tenemos problemas para enviarte un correo de confirmación";    
+    public static final String MESSAGE_USER_EXIST = "Ya tenemos un usuario con un Nombre o Email igual";            
+    public static final String MESSAGE_USER_ERROR_INSERT = "Tenemos un problema en el servicio, Intentalo más tarde";    
+    public static final String MESSAGE_USER_VALIDATE_EMAIL_FAIL = "Tenemos problemas validando tu Email, enlace de Validación Erróneo, faltan parametros";
+    public static final String MESSAGE_USER_VALIDATE_EMAIL_FAIL_ID = "Tenemos problemas validando tu Email, enlace de Validación Erróneo";
+    public static final String MESSAGE_USER_VALIDATE_FAIL = "No podemos Validar tu cuenta intentalo más tarde.";
+    public static final String MESSAGE_USER_VALIDATE_OK = "Felicidades, Hemos validado tu cuenta.";
+    public static final String MESSAGE_USER_VALIDATE_EMAIL_TIME_OUT = "Has sobrepasado el tiempo de validación";
 
-    //Servlet Tareas Alumno    
+    //Servlet Tareas Alumno        
     public static final String  TAREAS_ALUMNO_TEMPLATE = "tareasAlumnoTemplate.ftl";    
     public static final String  LISTA_TAREAS_ALUMNO = "listaTareasAlumno";    
     public static final String  MESSAGE_TAREA_ALUMNO_UPDATED = "La tarea fue actualizada correctamente";    

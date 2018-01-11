@@ -38,7 +38,9 @@ public class LoginServicios {
     public long getIdTipoPermiso(long id_usuario) {
         UsersDAO dao = new UsersDAO();
 
-        return dao.getIdPermisoUserJDBCTemplate(id_usuario);
+        Long id_permiso = dao.getIdPermisoUserJDBCTemplate(id_usuario);
+        
+        return (id_permiso != null) ? id_permiso : -1;
     }
 
     public User tratarParametro(Map<String, String[]> parametros) {

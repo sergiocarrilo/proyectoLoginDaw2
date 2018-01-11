@@ -78,7 +78,7 @@ public class LoginFiltro implements Filter {
 
                 chain.doFilter(request, response);
             } else {
-                request.getRequestDispatcher("/" + Constantes.registroJSP).forward(request, response);
+                request.getRequestDispatcher("/" + Constantes.REGISTRO_TEMPLATE).forward(request, response);
             }
         } catch (Throwable t) {
             // If an exception is thrown somewhere down the filter chain,

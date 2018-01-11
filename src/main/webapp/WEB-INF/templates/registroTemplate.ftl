@@ -1,5 +1,5 @@
 <#assign charset="UTF-8">
-<#assign title="CRUD - JAVA">
+<#assign title="CRUD - Registro JAVA">
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,6 +24,7 @@
                 <div class="container">                       
                     <div class="row justify-content-center">    
 
+
                         <div class="col-sm-5">  
                             <#if loginOnFromServer??>   
                                 <#if (loginOnFromServer.nombre)??>
@@ -32,20 +33,27 @@
                                 </div>
                                 </#if>
                             <#else>
+                            <div class="col-sm-12"> 
+                                <div class="alert alert-info" role="alert">                                
+                                    <h5>Zona de Registro</h5>  
 
+                                    </div> 
+                                </div> 
                             <form>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Nombre de Usuario</label>
-                                    <input type="text" class="form-control" name="NOMBRE" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username">                                    
+                                    <input type="text" class="form-control" name="NOMBRE" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username" required >                                    
+                                    </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email:</label>
+                                    <input type="email" class="form-control" name="EMAIL" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="user@gmail.com" required>                                    
                                     </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Contraseña</label>
                                     <input type="password" class="form-control" name="PASSWORD" id="exampleInputPassword1" placeholder="Password">
                                     </div>
 
-                                <button type="submit" class="btn btn-primary" name="ACTION" value="LOGIN">Login</button>
-                                <a href="#" class="badge badge-info">Recuperar Contraseña</a>
-                                <a href="${baseUrl}${endpoint_registro}" class="badge badge-dark">Registrar Usuario</a>
+                                <button type="submit" class="btn btn-primary" name="ACTION" value="REGISTRAR">Registrar</button>                                
                                 </form>
                             </#if>
                             </div>
