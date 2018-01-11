@@ -26,6 +26,7 @@ public class SqlQuery {
     public static final String QUERYGETALLPROFESSORS = "SELECT * FROM PROFESORES LIMIT 10  OFFSET ?";
     public static final String QUERYGETALLALUMNOS = "SELECT * FROM ALUMNOS LIMIT 10  OFFSET ?";
     public static final String QUERYGETALLASIGNATURAS = "SELECT * FROM ASIGNATURAS LIMIT 10  OFFSET ?";
+    public static final String QUERYGETUSER = "SELECT ID FROM USERS WHERE NOMBRE = ?";
 
     //USER DAO
     public static String SELECT_USER_BY_NAME = "SELECT * FROM USERS WHERE NOMBRE = ?";

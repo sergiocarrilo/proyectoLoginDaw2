@@ -139,7 +139,8 @@ public class Constantes {
     public static final String MESSAGEALUMNOINSERTADO = "El alumno se ha insertado correctamente";
     public static final String MESSAGEASIGNATURANOINSERTADA = "No se ha podido insertar la asignatura";
     public static final String MESSAGEASIGNATURAINSERTADO = "La asignatura se ha insertado correctamente";
-    public static final String  PASSWORDALUMNO = "tiernogalvan";
+    public static final String MESSAGEUSUARIOREPETIDO = "El nombre de usuario esta en uso";
+    public static final String PASSWORDALUMNO = "tiernogalvan";
     public static final String PROFESORES = "profe";
     public static final String ALUMNOS = "alumno";
     public static final String ASIGNATURAS = "asignaturas";

@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Administrador;
+import model.User;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
@@ -194,5 +195,23 @@ public class AdministradorDAO {
             DBConnection.getInstance().cerrarConexion(con);
         }
         return lista;
+    }
+    
+    public long getUser(Administrador admin){
+        long user= 0;
+        Connection con = null;
+        try {
+            con = DBConnection.getInstance().getConnection();
+
+            QueryRunner qr = new QueryRunner();
+            ScalarHandler<Long> scalar = new ScalarHandler<Long>();
+            user = qr.query(con, SqlQuery.QUERYGETUSER, scalar, admin.getNombre());
+
+        } catch (Exception ex) {
+            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBConnection.getInstance().cerrarConexion(con);
+        }
+        return user;
     }
 }

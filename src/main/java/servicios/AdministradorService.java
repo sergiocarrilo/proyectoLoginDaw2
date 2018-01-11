@@ -25,37 +25,48 @@ import utils.PasswordHash;
  * @author DAW
  */
 public class AdministradorService {
+    
 
     public Administrador insertProfesor(Administrador admin) throws SQLException, NoSuchAlgorithmException, InvalidKeySpecException {
-        String passHash = PasswordHash.getInstance().createHash(admin.getPassword());
-        admin.setPassword(passHash);
-        MandarMail mail = new MandarMail();
-        AdministradorDAO dao = new AdministradorDAO();
-        Administrador compadmin = dao.insertProfessor(admin);
+        if(this.comprobarUser(admin)){
+            String passHash = PasswordHash.getInstance().createHash(admin.getPassword());
+            admin.setPassword(passHash);
+            MandarMail mail = new MandarMail();
+            AdministradorDAO dao = new AdministradorDAO();
+            Administrador compadmin = dao.insertProfessor(admin);
 
-        if (String.valueOf(compadmin.getId()) == null || compadmin.getId() == 0) {
-            return compadmin;
+            if (String.valueOf(compadmin.getId()) == null || compadmin.getId() == 0) {
+                return compadmin;
 
-        } else {
+            } else {
 
-            mail.mandarMail(admin.getEmail(), Constantes.PASSWORDPROFESOR, "CONTRASEÑA");
-            return compadmin;
+                mail.mandarMail(admin.getEmail(), Constantes.PASSWORDPROFESOR, "CONTRASEÑA");
+                return compadmin;
+            }
+        }else{
+            admin.setId(-1);
+            return admin;
         }
 
     }
     
      public Administrador insertAlumno(Administrador admin) throws NoSuchAlgorithmException, InvalidKeySpecException, SQLException {
-        String passHash = PasswordHash.getInstance().createHash(admin.getPassword());
-        admin.setPassword(passHash);
-        MandarMail mail = new MandarMail();
-        AdministradorDAO dao = new AdministradorDAO();
-        Administrador compadmin = dao.insertAlumno(admin);
+        if(this.comprobarUser(admin)){
+            String passHash = PasswordHash.getInstance().createHash(admin.getPassword());
+            admin.setPassword(passHash);
+            MandarMail mail = new MandarMail();
+            AdministradorDAO dao = new AdministradorDAO();
+            Administrador compadmin = dao.insertAlumno(admin);
 
-        if (String.valueOf(compadmin.getId()) == null || compadmin.getId() == 0) {
-            return compadmin;
-        } else {
-            mail.mandarMail(admin.getEmail(), Constantes.PASSWORDALUMNO, "CONTRASEÑA");
-            return compadmin;
+            if (String.valueOf(compadmin.getId()) == null || compadmin.getId() == 0) {
+                return compadmin;
+            } else {
+                mail.mandarMail(admin.getEmail(), Constantes.PASSWORDALUMNO, "CONTRASEÑA");
+                return compadmin;
+            }
+        }else{
+            admin.setId(-1);
+            return admin;
         }
 
     }
@@ -113,6 +124,16 @@ public class AdministradorService {
     public List<Administrador> getAllAsignaturas(int offset) {
         AdministradorDAO dao = new AdministradorDAO();
         return dao.getAllAsignaturas(offset);
+    }
+    
+    public Boolean comprobarUser(Administrador admin) {
+        AdministradorDAO dao = new AdministradorDAO();
+        long iduser = dao.getUser(admin);
+        if(String.valueOf(iduser) ==null){
+            return true;
+        }else{
+            return false;
+         }
     }
 
 }

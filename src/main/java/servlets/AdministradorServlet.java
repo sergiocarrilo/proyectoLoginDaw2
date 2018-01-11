@@ -84,7 +84,9 @@ public class AdministradorServlet extends HttpServlet {
                 if (String.valueOf(insertprofe.getId()) == null || insertprofe.getId() == 0) {
                     messageToUser = Constantes.MESSAGEPROFESORNOINSERTADO;
 
-                } else {
+                }else if(insertprofe.getId() == -1){
+                    messageToUser = Constantes.MESSAGEUSUARIOREPETIDO;
+                }else {
                     messageToUser = Constantes.MESSAGEPROFESORINSERTADO;
                 }
                 break;
@@ -97,7 +99,9 @@ public class AdministradorServlet extends HttpServlet {
                 if (String.valueOf(insertalumno.getId()) == null || insertalumno.getId()==0) {
                     messageToUser = Constantes.MESSAGEALUMNONOINSERTADO;
 
-                } else {
+                } else if(insertalumno.getId() == -1){
+                    messageToUser = Constantes.MESSAGEUSUARIOREPETIDO;
+                }else {
                     messageToUser = Constantes.MESSAGEALUMNOINSERTADO;
                 }
                 break;
