@@ -77,7 +77,9 @@ public class Constantes {
     public static final String  LISTA_ASIGNATURA_CURSO = "listaAsignaturaCurso";    
     public static final String  LISTA_CURSOS = "listaCursos";    
     public static final String  MESSAGE_TO_USER = "messageToUser";
-
+    
+    //Filtro
+    public static final String  MESSAGE_TO_USER_OUT_OF_RANGE = "No tienes Acceso al Contenido";
     //Servlet Profesor - si lo hubiese     
     public static final String  LISTA_PROFESORES = "listaProfesores";
 

@@ -9,6 +9,18 @@
             30
         </session-timeout>
     </session-config>
+    <filter-mapping>
+        <filter-name>EncodeUTF8Filtro</filter-name>
+        <url-pattern />
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>ProfesoresFiltro</filter-name>
+        <url-pattern />
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>Login</filter-name>
+        <url-pattern />
+    </filter-mapping>
     <jsp-config>
         <jsp-property-group>
             <url-pattern>*.jsp</url-pattern>

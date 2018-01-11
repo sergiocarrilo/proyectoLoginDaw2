@@ -70,6 +70,7 @@ public class LoginServlet extends HttpServlet {
 
                                         levelAccessUser = servicios.getIdTipoPermiso(usuario.getId());
                                         request.getSession().setAttribute(Constantes.LOGIN_ON, usuario);
+                                        request.getSession().setAttribute(Constantes.LEVEL_ACCESS, levelAccessUser);
 
                                     } else {
                                         messageToUser = Constantes.MESSAGE_USER_LOGIN_FAIL_PASSWORD;

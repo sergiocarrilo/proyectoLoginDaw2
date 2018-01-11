@@ -5,10 +5,13 @@
  */
 package filtros;
 
+import config.Configuration;
+import freemarker.template.Template;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.HashMap;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -24,7 +27,7 @@ import utils.UrlsPaths;
  *
  * @author daw
  */
-@WebFilter(filterName = "Login", urlPatterns = {UrlsPaths.SECURE})
+@WebFilter(filterName = "Login", urlPatterns = {UrlsPaths.SECURE_SUPER})
 public class LoginFiltro implements Filter {
 
     private static final boolean debug = true;
@@ -78,7 +81,10 @@ public class LoginFiltro implements Filter {
 
                 chain.doFilter(request, response);
             } else {
-                request.getRequestDispatcher("/" + Constantes.REGISTRO_TEMPLATE).forward(request, response);
+                HashMap paramentrosPlantilla = new HashMap();
+                paramentrosPlantilla.put(Constantes.MESSAGE_TO_USER, Constantes.MESSAGE_TO_USER_OUT_OF_RANGE);
+                Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.INDEX_TEMPLATE);
+                plantilla.process(paramentrosPlantilla, response.getWriter());                
             }
         } catch (Throwable t) {
             // If an exception is thrown somewhere down the filter chain,

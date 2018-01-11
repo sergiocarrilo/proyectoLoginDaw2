@@ -6,17 +6,12 @@
 package filtros;
 
 import config.Configuration;
-import freemarker.template.SimpleCollection;
-import freemarker.template.SimpleScalar;
-import freemarker.template.TemplateCollectionModel;
-import freemarker.template.TemplateHashModelEx;
-import freemarker.template.TemplateModel;
-import freemarker.template.TemplateModelException;
+import freemarker.template.Template;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Map;
+import java.util.HashMap;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -25,15 +20,17 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
-import servicios.UrlService;
+import model.User;
 import utils.Constantes;
+import utils.LevelAccessUser;
+import utils.UrlsPaths;
 
 /**
  *
- * @author daw
+ * @author Gato
  */
-@WebFilter(filterName = "EncodeUTF8Filtro", urlPatterns = {"/*"})
-public class EncodeUTF8Filtro implements Filter {
+@WebFilter(filterName = "ProfesoresFiltro", urlPatterns = {UrlsPaths.SECURE_PROFE})
+public class ProfesoresFiltro implements Filter {
 
     private static final boolean debug = true;
 
@@ -42,25 +39,23 @@ public class EncodeUTF8Filtro implements Filter {
     // configured. 
     private FilterConfig filterConfig = null;
 
-    public EncodeUTF8Filtro() {
+    public ProfesoresFiltro() {
     }
 
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("EncodeUTF8Filtro:DoBeforeProcessing");
+            log("ProfesoresFiltro:DoBeforeProcessing");
         }
 
-       
     }
 
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("EncodeUTF8Filtro:DoAfterProcessing");
+            log("ProfesoresFiltro:DoAfterProcessing");
         }
 
-       
     }
 
     /**
@@ -77,51 +72,29 @@ public class EncodeUTF8Filtro implements Filter {
             throws IOException, ServletException {
 
         if (debug) {
-            log("EncodeUTF8Filtro:doFilter()");
+            log("ProfesoresFiltro:doFilter()");
         }
 
         doBeforeProcessing(request, response);
 
         Throwable problem = null;
         try {
-            request.setCharacterEncoding(Constantes.DEFAULT_ENCODING);
-            response.setCharacterEncoding(Constantes.DEFAULT_ENCODING);
-            response.setContentType(Constantes.CONTENT_TYPE);
-            
-            UrlService service = new UrlService();
-            final Map<String, String> resultMap = service.addConstantsEndPoints((HttpServletRequest) request);
-            Configuration.getInstance().getFreeMarker().setAllSharedVariables(new TemplateHashModelEx() {
-                @Override
-                public int size() throws TemplateModelException {
-                    return resultMap.size();
+
+            User profesor = (User) ((HttpServletRequest) request).getSession().getAttribute(Constantes.LOGIN_ON);
+            Long levelAccess = (Long) ((HttpServletRequest) request).getSession().getAttribute(Constantes.LEVEL_ACCESS);
+
+            if (profesor != null && levelAccess != null) {
+                if (levelAccess.intValue() == LevelAccessUser.PROFESOR.ordinal()) {
+                    chain.doFilter(request, response);
                 }
 
-                @Override
-                public TemplateCollectionModel keys() throws TemplateModelException {
-                    return new SimpleCollection(resultMap.keySet());
-                }
+            } else {
+                HashMap paramentrosPlantilla = new HashMap();
+                paramentrosPlantilla.put(Constantes.MESSAGE_TO_USER, Constantes.MESSAGE_TO_USER_OUT_OF_RANGE);
+                Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.REGISTRO_TEMPLATE);
+                plantilla.process(paramentrosPlantilla, response.getWriter());
+            }
 
-                @Override
-                public TemplateCollectionModel values() throws TemplateModelException {
-                    return new SimpleCollection(resultMap.values());
-                }
-
-                @Override
-                public TemplateModel get(String string) throws TemplateModelException {
-                    String val = resultMap.get(string);
-                    if (val == null) {
-                        return null;
-                    }
-                    return new SimpleScalar(val);
-                }
-
-                @Override
-                public boolean isEmpty() throws TemplateModelException {
-                    return resultMap.isEmpty();
-                }
-            });
-
-            chain.doFilter(request, response);
         } catch (Throwable t) {
             // If an exception is thrown somewhere down the filter chain,
             // we still want to execute our after processing, and then
@@ -174,7 +147,7 @@ public class EncodeUTF8Filtro implements Filter {
         this.filterConfig = filterConfig;
         if (filterConfig != null) {
             if (debug) {
-                log("EncodeUTF8Filtro:Initializing filter");
+                log("ProfesoresFiltro:Initializing filter");
             }
         }
     }
@@ -185,9 +158,9 @@ public class EncodeUTF8Filtro implements Filter {
     @Override
     public String toString() {
         if (filterConfig == null) {
-            return ("EncodeUTF8Filtro()");
+            return ("ProfesoresFiltro()");
         }
-        StringBuffer sb = new StringBuffer("EncodeUTF8Filtro(");
+        StringBuffer sb = new StringBuffer("ProfesoresFiltro(");
         sb.append(filterConfig);
         sb.append(")");
         return (sb.toString());
