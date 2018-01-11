@@ -5,6 +5,7 @@
  */
 package servicios;
 
+import dao.TareasProfesorDAO;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
@@ -40,5 +41,10 @@ public class TareasProfesorService {
         
         }
         return tarea;
+    }
+
+    public TareasProfesor insertarTarea(TareasProfesor tareas) {
+        TareasProfesorDAO dao = new TareasProfesorDAO();
+        return dao.insertarTarea(tareas);
     }
 }

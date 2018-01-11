@@ -247,11 +247,12 @@
                     </div>
                 </div>
             </div>
+        </br>
      <#if messageToUser??>
         <div class="alert alert-primary" role="alert">
                 ${messageToUser?js_string}    
-            </div>
-
+        </div>
+        </br>
         </#if>
         <div class="pagination">
             <button onclick="previousPage();">&larr; Previous</button>

@@ -42,44 +42,50 @@
                     </form>   
             </br>
             <button type="button" class="btn btn-primary" onclick="cogerDatosAsig();" data-toggle="modal" data-target="#modalTarea">Insertar Asignatura</button>
-            <div class="modal fade" id="modalTarea" tabindex="-1" role="dialog" aria-labelledby="modalTarea" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" >Insertar Tarea</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form id="formtarea" action="">
-                                    <div class="form-group">
-                                        <label for="recipient-name" class="col-form-label">Nombre Tarea:</label>
-                                        <input type="text" name="name" class="form-control" id="tarea">
+                    <div class="modal fade" id="modalTarea" tabindex="-1" role="dialog" aria-labelledby="modalTarea" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" >Insertar Tarea</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="formtarea" action="">
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Nombre Tarea:</label>
+                                            <input type="text" name="name" class="form-control" id="tarea">
                                         </div>
 
-                                   <div class="form-group">
-                                        <label for="recipient-name" class="col-form-label">Fecha de Entrega:</label>
-                                        <input type="date" name="fecha_entrega" class="form-control" id="fechaentrega">
-
-                                    </div>
-                                        <input type="hidden" name="ACTION" class="form-control" id="ACTION" value="VIEW">   
-                                        <input type="hidden" name="idasignatura" id="idasignatura" />
-                                    </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Fecha de Entrega:</label>
+                                            <input type="date" name="fecha_entrega" class="form-control" id="fechaentrega">
+                                        </div>
+                                        <div>
+                                            <input type="hidden" name="ACTION" class="form-control" id="ACTION" value="VIEW">   
+                                            <input type="hidden" name="idasignatura" id="idasignatura" />
+                                        </div>
                                     <div class="modal-footer">
                                         <div class="form-group">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                             <button type="button" onclick="crearTarea();" class="btn btn-primary">INSERTAR</button>
-                                            </div>
                                         </div>
-                                    </form>
                                     </div>
-
+                                    </form>
+                                </div>
                             </div>
+                        </div>
                     </div>
+                    <br>
+                    <#if messageToUser??>
+                        <div class="alert alert-primary" role="alert">
+                            ${messageToUser?js_string}    
+                        </div>
+                        </br>
+                    </#if>
                 </div>
             </div>
-           </div>
         </div>
         </#escape>
         <#include "/footBootstrap.ftl">

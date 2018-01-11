@@ -21,8 +21,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Profesor;
+import model.TareasProfesor;
 import model.User;
 import servicios.InformeNotasAlumnosService;
+import servicios.TareasProfesorService;
 import servicios.UrlService;
 import utils.Constantes;
 
@@ -44,7 +46,9 @@ public class TareasProfesorServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        InformeNotasAlumnosService service = new InformeNotasAlumnosService();
+        InformeNotasAlumnosService asignaturasprofe = new InformeNotasAlumnosService();
+        TareasProfesorService service = new TareasProfesorService();
+        TareasProfesor tareas = null;
         String action;
         HashMap plantilla = new HashMap();
         String messageToUser = null;
@@ -69,13 +73,20 @@ public class TareasProfesorServlet extends HttpServlet {
             case Constantes.VIEW:
                 break;
             case Constantes.PONERTAREA:
+                tareas = service.recogerParametros(parametros);
+                TareasProfesor tarea = service.insertarTarea(tareas);
+                if(String.valueOf(tarea.getId_tarea())==null || tarea.getId_tarea() == 0){
+                    messageToUser = Constantes.MESSAGETAREAFAIL;
+                }else{
+                    messageToUser = Constantes.MESSAGETAREAPUESTA;
+                }
                 break;
         }
         try {
             Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.TAREASPROFESOR);
             UrlService urlServicios = new UrlService();
-            plantilla.put("asignaturas", service.getAsignaturasProfe(profesor.getId()));
-            
+            plantilla.put("asignaturas", asignaturasprofe.getAsignaturasProfe(profesor.getId()));
+            plantilla.put(Constantes.MESSAGE_TO_USER, messageToUser);
             plantilla.putAll(urlServicios.addConstantsEndPoints(request));
             temp.process(plantilla, response.getWriter());
         } catch (TemplateException ex) {
