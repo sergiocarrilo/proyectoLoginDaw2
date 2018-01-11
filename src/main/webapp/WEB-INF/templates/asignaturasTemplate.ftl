@@ -87,10 +87,7 @@
                         </table>
 
                     </div>
-                <form id="formPagination" action="">
-                    <input type="hidden" id="iduser" name="iduser"/>
-                    <input type="hidden" id="idpermiso" name="idpermiso"/>
-                    <input type="hidden" id="ACTION"  name="ACTION"/>
+                <form id="formPagination" action="">                    
                     <input type="hidden" id="offset"  name="offset" value="${offset}"/>
 
                     </form>

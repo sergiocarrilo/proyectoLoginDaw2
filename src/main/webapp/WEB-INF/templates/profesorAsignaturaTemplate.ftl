@@ -14,6 +14,23 @@
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <script src="//code.jquery.com/jquery-1.10.2.js"></script>
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <script>
+             var formPagination = "formPagination";
+            function previousPage(){
+                    var offsetacutal =  document.getElementById("offset").value;
+
+                    if(offsetacutal!=0){
+                        document.getElementById("offset").value = offsetacutal - 10;                
+                        document.getElementById(formPagination).submit();                          
+                }
+             }   
+                function nextPage(){
+                    var offsetacutal =  parseInt(document.getElementById("offset").value);
+                    document.getElementById("offset").value = offsetacutal + 10;            
+                    document.getElementById(formPagination).submit();
+                }
+            
+            </script>
 
         </head>
     <body>
@@ -58,8 +75,20 @@
 
                     </div>
                 </div>
+            <form id="formPagination" action="">                    
+                <input type="hidden" id="offset"  name="offset" value="${offset}"/>
+
+                </form>
             <div class="row justify-content-center">
                 <div class="col-sm-6 ">
+                    <div class="pagination">
+                        <#if (offset > 0)>
+                        <button class="btn btn-info" onclick="previousPage();">&larr; Previous</button>                        
+                        </#if>                           
+                        <#if (listaProfesoresAsignaturas?size > 9)>
+                        <button class="btn btn-info" onclick="nextPage();">Next &rarr;</button>
+                        </#if>                       
+                        </div>
         <#if messageToUser??>
                     <div class="alert alert-primary" role="alert">
                 ${messageToUser?js_string}    

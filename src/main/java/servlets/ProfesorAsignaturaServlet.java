@@ -78,6 +78,7 @@ public class ProfesorAsignaturaServlet extends HttpServlet {
                 paramentrosPlantilla.put(Constantes.MESSAGE_TO_USER, messageToUser);
             }
            int offset = new UrlService().getOffset(parametros);        
+           paramentrosPlantilla.put(Constantes.OFFSET, offset);
             paramentrosPlantilla.put(Constantes.LISTA_PROFESORES_ASIGNATURAS, serviciosPA.getAllProfesoresAsignaturas(offset));
             paramentrosPlantilla.put(Constantes.LISTA_PROFESORES, serviciosProfesor.getAllProfesores());
             paramentrosPlantilla.put(Constantes.LISTA_ASIGNATURAS, serviciosAsignatura.getAllAsignaturadbUtils());

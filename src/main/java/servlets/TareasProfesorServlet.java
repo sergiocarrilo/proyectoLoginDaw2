@@ -27,13 +27,14 @@ import servicios.InformeNotasAlumnosService;
 import servicios.TareasProfesorService;
 import servicios.UrlService;
 import utils.Constantes;
+import utils.UrlsPaths;
 
 /**
  *
  * @author DAW
  */
-@WebServlet(name = "TareasProfesorServlet", urlPatterns = {"/TareasProfesorServlet"})
-public class TareasProfesorServlet extends HttpServlet {
+@WebServlet(name = "TareasProfesorServlet", urlPatterns = {UrlsPaths.TAREAS_PROFESOR})
+public class TareasProfesorServlet extends HttpServlet {   
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

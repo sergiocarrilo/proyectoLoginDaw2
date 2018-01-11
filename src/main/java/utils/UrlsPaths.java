@@ -23,6 +23,7 @@ public class UrlsPaths {
     public static final String ADMINISTRADOR = "/administrador";
     public static final String SUPERUSER = "/superuser";
     public static final String TAREAS_ALUMNO = "/tareas-alumno";
+    public static final String TAREAS_PROFESOR = "/tareas-profesor";
     
 
     

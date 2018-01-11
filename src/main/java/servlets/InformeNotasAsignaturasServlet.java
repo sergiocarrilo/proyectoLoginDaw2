@@ -23,7 +23,6 @@ import model.Curso;
 import model.InformeNotaAsignatura;
 import servicios.AsignaturasServicios;
 import servicios.InformeNotasAsignaturasServicios;
-import servicios.UrlService;
 import utils.Constantes;
 import utils.UrlsPaths;
 
@@ -73,8 +72,7 @@ public class InformeNotasAsignaturasServlet extends HttpServlet {
                 paramentrosPlantilla.put(Constantes.CURSO_SELECCIONADO, curso.getCurso());
 
             }
-            //UrlService urlServicios = new UrlService();
-           // paramentrosPlantilla.putAll(urlServicios.addConstantsEndPoints(request));
+           
             
             paramentrosPlantilla.put(Constantes.LISTA_CURSOS, serviciosAsignatura.getAllCursosdbUtils());            
             Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.INFORME_NOTAS_ASIGNATURAS);                                    

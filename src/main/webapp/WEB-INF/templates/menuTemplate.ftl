@@ -37,10 +37,7 @@
         <span class="navbar-toggler-icon"></span>
         </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-            <li class="nav-item ">
-                <a class="nav-link" href="#">Alumnos <span class="sr-only">(current)</span></a>
-                </li>           
+        <ul class="navbar-nav">                      
             <li class="nav-item">
                 <a class="nav-link" href="${baseUrl}${endpoint_notas}">Notas</a>
                 </li>
@@ -54,7 +51,7 @@
                 <a class="nav-link" href="#">Cambiar Contraseña</a>
                 </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Crear Tareas(profe)</a>
+                <a class="nav-link" href="${baseUrl}${endpoint_tareas_profesor}">Crear Tareas(profe)</a>
                 </li>
             <li class="nav-item">
                 <a class="nav-link" href="${baseUrl}${endpoint_tareas_alumno}">Ver Tareas(alum)</a>
@@ -78,7 +75,7 @@
                     </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="${baseUrl}${endpoint_informe_notas_asignaturas}">Notas Asignaturas</a>
-                    <a class="dropdown-item" href="#">Notas Alumnos</a>
+                    <a class="dropdown-item" href="${baseUrl}${endpoint_informe_notas_alumnos}">Notas Alumnos</a>
                     <a class="dropdown-item" href="#">Notas Alumno</a>
                     </div>
                 </li>
