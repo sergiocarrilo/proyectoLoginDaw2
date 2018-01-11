@@ -11,10 +11,10 @@ package utils;
  */
 public class Constantes {
 
-    public static String registroJSP = "registroJsp.jsp";
-    public static String actionTemplate = "ACTION";
-    public static String DEFAULT_ENCODING = "UTF-8";
-    public static String CONTENT_TYPE = "text/html; charset=UTF-8";
+    public static final String registroJSP = "registroJsp.jsp";
+    public static final String actionTemplate = "ACTION";
+    public static final String DEFAULT_ENCODING = "UTF-8";
+    public static final String CONTENT_TYPE = "text/html; charset=UTF-8";
 
     public static final String INSERT = "INSERT";
     public static final String UPDATE = "UPDATE";
@@ -62,43 +62,43 @@ public class Constantes {
     public static final String UPDATE_CURSO = "UPDATE_CURSO";
     public static final String DELETE_ASIGNATURA = "DELETE_ASIGNATURA";
     public static final String DELETE_CURSO = "DELETE_CURSO";
-    public static String messageQueryAsignaturaInserted = "Asignatura fue insertado en la lista";
-    public static String messageQueryAsignaturaInsertFailed = "Asignatura no agregada a la base de datos";
-    public static String messageQueryAsignaturaUpdated = "Asignatura actualizada correctamente";
-    public static String messageQueryAsignaturaUpdateFailed = "Error en la actualización de Asignatura";
-    public static String messageQueryAsignaturaDeleted = "Asignatura eliminada correctamente";
-    public static String messageQueryAsignaturaDeletedFail = "Cuidado! Tienes alumnos que estan cursando esta asignatura. Estás Seguro?";
-    public static String messageQueryAsignaturaDeletedFailedAgain = "Problemas graves, no pudimos borrar la Asignatura";
-    public static String asignaturaResult = "asignaturaResult";
-    public static String resultadoQuery = "resultado";
-    public static String asignaturasList = "asignaturasList";
-    public static String asignaturasTemplate = "asignaturasTemplate.ftl";
-    public static String listaAsignaturas = "listaAsignaturas";
-    public static String listaAsignaturaCurso = "listaAsignaturaCurso";
-    public static String listaCursos = "listaCursos";
-    public static String messageToUser = "messageToUser";
+    public static final String messageQueryAsignaturaInserted = "Asignatura fue insertado en la lista";
+    public static final String messageQueryAsignaturaInsertFailed = "Asignatura no agregada a la base de datos";
+    public static final String messageQueryAsignaturaUpdated = "Asignatura actualizada correctamente";
+    public static final String messageQueryAsignaturaUpdateFailed = "Error en la actualización de Asignatura";
+    public static final String messageQueryAsignaturaDeleted = "Asignatura eliminada correctamente";
+    public static final String messageQueryAsignaturaDeletedFail = "Cuidado! Tienes alumnos que estan cursando esta asignatura. Estás Seguro?";
+    public static final String messageQueryAsignaturaDeletedFailedAgain = "Problemas graves, no pudimos borrar la Asignatura";
+    public static final String asignaturaResult = "asignaturaResult";
+    public static final String resultadoQuery = "resultado";
+    public static final String asignaturasList = "asignaturasList";
+    public static final String asignaturasTemplate = "asignaturasTemplate.ftl";
+    public static final String listaAsignaturas = "listaAsignaturas";
+    public static final String listaAsignaturaCurso = "listaAsignaturaCurso";
+    public static final String listaCursos = "listaCursos";
+    public static final String messageToUser = "messageToUser";
 
     //Servlet Profesor - si lo hubiese 
-    public static String listaProfesores = "listaProfesores";
+    public static final String listaProfesores = "listaProfesores";
 
     //Servlet Asignaturas-Profesor 
-    public static String ProfesorAsignaturaTemplate = "profesorAsignaturaTemplate.ftl";
-    public static String listaProfesoresAsignaturas = "listaProfesoresAsignaturas";
-    public static String messageQueryProfeAsignaturaInsertFailed = "Tenemos problemas agregando esta relación, inténtalo otra vez";
-    public static String messageQueryProfeAsignaturaInserted = "Relación agregada correctamente";
-    public static String messageQueryProfesorAsignaturaDeleted = "Relación borrada correctamente";
-    public static String messageQueryProfesorAsignaturaDeletedFail = "Tenemos problemas borrando esta relación, inténtalo más tarde";
+    public static final String ProfesorAsignaturaTemplate = "profesorAsignaturaTemplate.ftl";
+    public static final String listaProfesoresAsignaturas = "listaProfesoresAsignaturas";
+    public static final String messageQueryProfeAsignaturaInsertFailed = "Tenemos problemas agregando esta relación, inténtalo otra vez";
+    public static final String messageQueryProfeAsignaturaInserted = "Relación agregada correctamente";
+    public static final String messageQueryProfesorAsignaturaDeleted = "Relación borrada correctamente";
+    public static final String messageQueryProfesorAsignaturaDeletedFail = "Tenemos problemas borrando esta relación, inténtalo más tarde";
 
     //modelo Profesor-Asignatura - PLANTILLA
-    public static String ID_PROFESOR = "id_profesor";
+    public static final String ID_PROFESOR = "id_profesor";
 
     //Servlet Informe Notas - Asignaturas
-    public static String InformeNotasAsignaturas = "informeNotasAsignaturas.ftl";
-    public static String ListadoInformeNotasAsig = "listadoInformeNotasAsig";
-    public static String CursoSeleccionado = "cursoSeleccionado";
+    public static final String InformeNotasAsignaturas = "informeNotasAsignaturas.ftl";
+    public static final String ListadoInformeNotasAsig = "listadoInformeNotasAsig";
+    public static final String CursoSeleccionado = "cursoSeleccionado";
 
-    public static String LOGIN_ON = "loginOnFromServer";
-    public static String LEVEL_ACCESS = "levelAccess";
+    public static final String LOGIN_ON = "loginOnFromServer";
+    public static final String LEVEL_ACCESS = "levelAccess";
 
     //parametros  plantilla SuperUser 
     public static final String IDUSER = "iduser";
@@ -106,15 +106,15 @@ public class Constantes {
     public static final String OFFSET = "offset";
 
     //NotasServlet
-    public static String NOTASTEMPLATE = "notas.ftl";
+    public static final String NOTASTEMPLATE = "notas.ftl";
 
     //SuperuserServlet
-    public static String SUPERUSERTEMPLATE = "superuser.ftl";
+    public static final String SUPERUSERTEMPLATE = "superuser.ftl";
     public static final String HACERADMIN = "HACERADMIN";
     public static final String QUITARADMIN = "QUITARADMIN";
     //mensajes superuser
-    public static String MESSAGEPERMISOCAMBIADO = "Se ha cambiado el permiso del usuario correctamente";
-    public static String MESSAGEPERMISONOCAMBIADO = "No se ha podido cambiar el permiso del usuario";
+    public static final String MESSAGEPERMISOCAMBIADO = "Se ha cambiado el permiso del usuario correctamente";
+    public static final String MESSAGEPERMISONOCAMBIADO = "No se ha podido cambiar el permiso del usuario";
 
     //AdminServlet
     public static String ADMINTEMPLATE = "admin.ftl";
@@ -132,36 +132,46 @@ public class Constantes {
     public static final String VIEWASIGNATURA = "VIEWASIGNATURA";
     public static final String MESSAGEPROFESORNOINSERTADO = "No se ha podido insertar el profesor";
     public static final String MESSAGEPROFESORINSERTADO = "El profesor se ha insertado correctamente";
-    public static String PASSWORDPROFESOR = "nohay2sin3";
+    public static final String PASSWORDPROFESOR = "nohay2sin3";
     public static final String MESSAGEALUMNONOINSERTADO = "No se ha podido insertar el alumno";
     public static final String MESSAGEALUMNOINSERTADO = "El alumno se ha insertado correctamente";
     public static final String MESSAGEASIGNATURANOINSERTADA = "No se ha podido insertar la asignatura";
     public static final String MESSAGEASIGNATURAINSERTADO = "La asignatura se ha insertado correctamente";
-    public static String PASSWORDALUMNO = "tiernogalvan";
+    public static final String PASSWORDALUMNO = "tiernogalvan";
     public static final String PROFESORES = "profe";
     public static final String ALUMNOS = "alumno";
     public static final String ASIGNATURAS = "asignaturas";
 
     //URL
-    public static String BaseUrlServer = "baseUrlServer";
+    public static final String BaseUrlServer = "baseUrlServer";
 
     //servlet Login
-    public static String IndexTemplate = "index.ftl";
-    public static String messageUserLoginFailPassword = "Contraseña Errónea";
-    public static String messageUserLoginFailActivo = "Quieto parado! Este Usuario no ha sido validado";
-    public static String messageUserLoginFailNombre = "Error en las credenciales, El Usuario no existe";
-    public static String messageUserMissingFields = "Te faltan campos por rellenar";
+    public static final String IndexTemplate = "index.ftl";
+    public static final String messageUserLoginFailPassword = "Contraseña Errónea";
+    public static final String messageUserLoginFailActivo = "Quieto parado! Este Usuario no ha sido validado";
+    public static final String messageUserLoginFailNombre = "Error en las credenciales, El Usuario no existe";
+    public static final String messageUserMissingFields = "Te faltan campos por rellenar";
 
     //Servlet Tareas Alumno
-    public static String TareasAlumnoTemplate = "tareasAlumnoTemplate.ftl";
-    public static String listaTareasAlumno = "listaTareasAlumno";
-    public static String messageTareaAlumnoUpdated = "La tarea fue actualizada correctamente";
-    public static String messageTareaAlumnoFail = "Tenemos problemas Actualizando el estado de la tarea, prueba otra vez";
+    public static final String TareasAlumnoTemplate = "tareasAlumnoTemplate.ftl";
+    public static final String listaTareasAlumno = "listaTareasAlumno";
+    public static final String messageTareaAlumnoUpdated = "La tarea fue actualizada correctamente";
+    public static final String messageTareaAlumnoFail = "Tenemos problemas Actualizando el estado de la tarea, prueba otra vez";
 
     //Servlet Informe Notas Alumnos
-    public static String IDPROFESOR = "idprofesor";
-    public static String INFORMEALUMNONOTAS = "InformeNotasAlumnos.ftl";
+    public static final String IDPROFESOR = "idprofesor";
+    public static final String INFORMEALUMNONOTAS = "InformeNotasAlumnos.ftl";
     public static final String VIEWTABLA = "VIEWTABLA";
     public static final String ASIGNATURA = "asignatura";
     public static final String IDASIGNATURA = "idasignatura";
+    
+    //Servlet tareas profesor
+    public static final String TAREASPROFESOR = "tareasProfesor.ftl";
+    public static final String MESSAGETAREAPUESTA = "La tarea fue puesta correctamente";
+    public static final String MESSAGETAREAFAIL = "No se ha podido añadir la tarea, prueba otra vez";
+    public static final String PONERTAREA = "PONERTAREA";
+
+    public static final String FECHA_ENTREGA ="fecha_entrega";
+
+        
 }//fin clase

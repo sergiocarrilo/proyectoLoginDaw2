@@ -1,6 +1,4 @@
 <#ftl strip_whitespace = true>
-
-
 <#assign charset="UTF-8">
 <#assign title="Informe notas alumnos-asig">
 
@@ -21,7 +19,7 @@
                     document.getElementById("ACTION").value="VIEWTABLA";
                     document.getElementById("formasignatura").submit(); 
                 }
-            </script>
+        </script>
     <body>
         <#escape x as x?html>
         <div class="container">

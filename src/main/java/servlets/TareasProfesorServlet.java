@@ -7,12 +7,12 @@ package servlets;
 
 import config.Configuration;
 import freemarker.template.Template;
-import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -20,21 +20,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.InformeNotasAlumnos;
 import model.Profesor;
 import model.User;
-import servicios.AsignaturasServicios;
 import servicios.InformeNotasAlumnosService;
 import servicios.UrlService;
 import utils.Constantes;
-import utils.UrlsPaths;
 
 /**
  *
  * @author DAW
  */
-@WebServlet(name = "InformeNotasAlumnosServlet", urlPatterns = {UrlsPaths.INFORME_NOTAS_ALUMNOS})
-public class InformeNotasAlumnosServlet extends HttpServlet {
+@WebServlet(name = "TareasProfesorServlet", urlPatterns = {"/TareasProfesorServlet"})
+public class TareasProfesorServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,7 +45,6 @@ public class InformeNotasAlumnosServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         InformeNotasAlumnosService service = new InformeNotasAlumnosService();
-        List<InformeNotasAlumnos> list = null;
         String action;
         HashMap plantilla = new HashMap();
         String messageToUser = null;
@@ -68,18 +64,15 @@ public class InformeNotasAlumnosServlet extends HttpServlet {
         } else {
             action = request.getParameter(Constantes.actionTemplate);
         }
-
+        
         switch (action) {
             case Constantes.VIEW:
                 break;
-            case Constantes.VIEWTABLA:
-                InformeNotasAlumnos informe = service.recogerParametros(parametros);
-                plantilla.put("informeNotasAlumnos", service.getNotasAsignatura(informe.getId_asignatura()));
-                plantilla.put("nombreAsignatura", informe.getNombre_asignatura());
+            case Constantes.PONERTAREA:
                 break;
         }
         try {
-            Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.INFORMEALUMNONOTAS);
+            Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.TAREASPROFESOR);
             UrlService urlServicios = new UrlService();
             plantilla.put("asignaturas", service.getAsignaturasProfe(profesor.getId()));
             
@@ -88,6 +81,9 @@ public class InformeNotasAlumnosServlet extends HttpServlet {
         } catch (TemplateException ex) {
             Logger.getLogger(InformeNotasAlumnosServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+       
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
