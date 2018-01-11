@@ -189,6 +189,6 @@
 
 
 </#escape>
-        <#include "/footBootstrap.ftl">
+        <#include "/libreria.ftl">
         </body>
     </html>
