@@ -18,14 +18,12 @@ public class UrlsPaths {
     public static final String SECURE = "/privado-filtro-desactivado/*";
     public static final String PROFESOR_ASIGNATURAS = "/src/profesor-asignaturas";
     public static final String INFORME_NOTAS_ASIGNATURAS = "/src/informe-notas-asignaturas";
+    public static final String INFORME_ALUMNO_NOTAS = "/informe-alumno-notas";
     public static final String INFORME_NOTAS_ALUMNOS = "/src/informe-notas-alumnos";
     public static final String INDEX = "/index";
     public static final String ADMINISTRADOR = "/administrador";
     public static final String SUPERUSER = "/superuser";
     public static final String TAREAS_ALUMNO = "/tareas-alumno";
     public static final String TAREAS_PROFESOR = "/tareas-profesor";
-    
-
-    
 
 }//fin clase

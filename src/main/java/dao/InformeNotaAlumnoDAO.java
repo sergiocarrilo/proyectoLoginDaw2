@@ -22,7 +22,7 @@ import utils.SqlQuery;
  */
 public class InformeNotaAlumnoDAO {
 
-    public List<InformeNotasAlumnos> getAsigntaruasProfe(long id) {
+    public List<InformeNotasAlumnos> getAsignaturasProfe(long id) {
         List<InformeNotasAlumnos> lista = null;
         Connection con = null;
         try {

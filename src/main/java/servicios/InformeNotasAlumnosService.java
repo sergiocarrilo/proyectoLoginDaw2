@@ -22,7 +22,7 @@ public class InformeNotasAlumnosService {
 
     public List<InformeNotasAlumnos> getAsignaturasProfe(long id) {
        InformeNotaAlumnoDAO dao = new InformeNotaAlumnoDAO();
-       return dao.getAsigntaruasProfe(id);
+       return dao.getAsignaturasProfe(id);
     }
     
     public InformeNotasAlumnos recogerParametros(Map<String, String[]> parametros) {
