@@ -1,7 +1,7 @@
 <#ftl strip_whitespace = true>
 
 <#assign charset="UTF-8">
-<#assign title="ProyectoLogin">
+<#assign title="Administracion">
 <!DOCTYPE html>
 <html>
     <head>

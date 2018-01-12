@@ -192,4 +192,11 @@ public class Constantes {
     public static final String FECHA_ENTREGA ="fecha_entrega";
     public static final String TABLATAREAS ="tablatareas";
         
+    
+    //Servlet recuperar contraseña
+    public static final String RECUPERARCONTRASEÑA = "RECUPERAR";
+    public static final String MESSAGECONTRASEÑANOENVIADA = "Lo sentimos. No se ha podido enviar la contraseña, vuelva a intentarlo";
+    public static final String MESSAGECONTRASEÑAENVIADA = "La contraseña ha sido enviada revise su correo";
+    public static final String MESSAGEDATOSINCORRECTOS = "Los datos introducidos no son correctos";
+
 }//fin clase
