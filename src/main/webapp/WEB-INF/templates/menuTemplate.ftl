@@ -76,7 +76,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="${baseUrl}${endpoint_informe_notas_asignaturas}">Notas Asignaturas</a>
                     <a class="dropdown-item" href="${baseUrl}${endpoint_informe_notas_alumnos}">Notas Alumnos</a>
-                    <a class="dropdown-item" href="#">Notas Alumno</a>
+                    <a class="dropdown-item" href="${baseUrl}${endpoint_informe_alumno_notas}">Notas Alumno</a>
                     </div>
                 </li>
             

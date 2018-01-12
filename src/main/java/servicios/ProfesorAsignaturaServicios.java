@@ -44,14 +44,29 @@ public class ProfesorAsignaturaServicios {
             }
             if (parametros.get(Constantes.ID_PROFESOR) != null && !parametros.get(Constantes.ID_PROFESOR)[0].isEmpty()) {
                 profesorAsignatura.setId_profe(Long.valueOf(parametros.get(Constantes.ID_PROFESOR)[0]));
+            } else {
+                profesorAsignatura.setId_profe(-1);
             }
             if (parametros.get(Constantes.ID_ASIGNATURA.toLowerCase()) != null && !parametros.get(Constantes.ID_ASIGNATURA.toLowerCase())[0].isEmpty()) {
                 profesorAsignatura.setId_asignatura(Long.valueOf(parametros.get(Constantes.ID_ASIGNATURA.toLowerCase())[0]));
+            } else {
+                profesorAsignatura.setId_asignatura(-1);
             }
 
         }
         return profesorAsignatura;
 
+    }
+
+    public ProfesorAsignatura getDuplicateRelacion(ProfesorAsignatura relacion) {
+        ProfesorAsignaturaDAO dao = new ProfesorAsignaturaDAO();
+
+        return (relacion.getId_asignatura() != -1 && relacion.getId_profe() != -1) ? dao.getDuplicateRelacionProfeAsignaturaJDBCTemplate(relacion) : null;
+    }
+
+    public boolean thisRelacionExist(ProfesorAsignatura relaciom) {
+
+        return getDuplicateRelacion(relaciom) != null;
     }
 
 }//fin clase

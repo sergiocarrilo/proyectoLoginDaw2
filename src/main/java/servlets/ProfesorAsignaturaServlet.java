@@ -50,21 +50,22 @@ public class ProfesorAsignaturaServlet extends HttpServlet {
             ProfesorAsignaturaServicios serviciosPA = new ProfesorAsignaturaServicios();
             String action = request.getParameter(Constantes.ACTION_TEMPLATE);
             String messageToUser = null;
-            ProfesorAsignatura profesorAsignatura = null;
-            HashMap paramentrosPlantilla = null;
             Map<String, String[]> parametros = request.getParameterMap();
+            ProfesorAsignatura profesorAsignatura = serviciosPA.tratarParametro(parametros);
+            HashMap paramentrosPlantilla = null;
             if (action != null && !action.isEmpty()) {
 
                 switch (action) {
                     case Constantes.INSERT:
-                        profesorAsignatura = serviciosPA.tratarParametro(parametros);
-                        messageToUser = (serviciosPA.insertProfesorAsignatura(profesorAsignatura))
-                                ? Constantes.MESSAGE_QUERY_PROFEASIGNATURA_INSERTED : Constantes.MESSAGE_QUERY_PROFEASIGNATURA_INSERT_FAILED;
-                        ;
-
+                        if (!serviciosPA.thisRelacionExist(profesorAsignatura)) {
+                            messageToUser = (serviciosPA.insertProfesorAsignatura(profesorAsignatura))
+                                    ? Constantes.MESSAGE_QUERY_PROFEASIGNATURA_INSERTED : Constantes.MESSAGE_QUERY_PROFEASIGNATURA_INSERT_FAILED;
+                        } else {
+                            messageToUser = Constantes.MESSAGE_RELACION_EXIST;
+                        }
                         break;
                     case Constantes.DELETE:
-                        profesorAsignatura = serviciosPA.tratarParametro(parametros);
+
                         messageToUser = (serviciosPA.deleteProfesorAsignaturas(profesorAsignatura))
                                 ? Constantes.MESSAGE_QUERY_PROFEASIGNATURA_DELETED : Constantes.MESSAGE_QUERY_PROFEASIGNATURA_DELETED_FAIL;
 
@@ -77,8 +78,8 @@ public class ProfesorAsignaturaServlet extends HttpServlet {
             if (messageToUser != null) {
                 paramentrosPlantilla.put(Constantes.MESSAGE_TO_USER, messageToUser);
             }
-           int offset = new UrlService().getOffset(parametros);        
-           paramentrosPlantilla.put(Constantes.OFFSET, offset);
+            int offset = new UrlService().getOffset(parametros);
+            paramentrosPlantilla.put(Constantes.OFFSET, offset);
             paramentrosPlantilla.put(Constantes.LISTA_PROFESORES_ASIGNATURAS, serviciosPA.getAllProfesoresAsignaturas(offset));
             paramentrosPlantilla.put(Constantes.LISTA_PROFESORES, serviciosProfesor.getAllProfesores());
             paramentrosPlantilla.put(Constantes.LISTA_ASIGNATURAS, serviciosAsignatura.getAllAsignaturadbUtils());

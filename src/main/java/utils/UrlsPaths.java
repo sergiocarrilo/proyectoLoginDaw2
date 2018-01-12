@@ -20,8 +20,8 @@ public class UrlsPaths {
     public static final String INFORME_NOTAS_ASIGNATURAS = "/src/informe-notas-asignaturas";
     public static final String INFORME_ALUMNO_NOTAS = "/informe-alumno-notas";
     public static final String INFORME_NOTAS_ALUMNOS = "/src/informe-notas-alumnos";
-    public static final String SECURE_SUPER = "/src/*";
-    public static final String SECURE_SUPER_PRIVATE = "/src/super/*";
+    public static final String SECURE_SUPER = "/srrc/*";
+    public static final String SECURE_SUPER_PRIVATE = "/srrc/super/*";
     public static final String SECURE_PROFE = "/sec/profe/*";
     public static final String SECURE_ALUMNO = "/src/alumno/*";
     public static final String SECURE_ADMINISTRADOR = "/src/admin/*";

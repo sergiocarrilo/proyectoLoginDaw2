@@ -104,10 +104,14 @@ public class AsignaturasServicios {
                 String[] values = (String[]) parametros.get(key);
                 if (values[0] != null && !values[0].isEmpty()) {
 
-                    if (Constantes.ID_ASIGNATURA.equalsIgnoreCase(key)) {
+                    if (Constantes.ID_ASIGNATURA.equalsIgnoreCase(key) && !values[0].isEmpty()) {
                         asignatura.setId_asignatura(Long.valueOf(values[0]));
+                    } else if (Constantes.ID_ASIGNATURA.equalsIgnoreCase(key) && values[0].isEmpty()) {
+                        asignatura.setId_asignatura(-1);
                     } else if (Constantes.ID_CURSO.equalsIgnoreCase(key)) {
                         asignatura.setId_curso(Long.valueOf(values[0]));
+                    } else if (Constantes.ID_CURSO.equalsIgnoreCase(key) && values[0].isEmpty()) {
+                        asignatura.setId_curso(-1);
                     } else if (Constantes.NOMBRE.equalsIgnoreCase(key)) {
                         asignatura.setNombre(values[0]);
                     } else if (Constantes.CURSO.equalsIgnoreCase(key)) {
@@ -131,6 +135,16 @@ public class AsignaturasServicios {
         return asignatura;
     }
 
+    public AsignaturaCurso getDuplicateRelacion(AsignaturaCurso relacion) {
+        AsignaturasDAO dao = new AsignaturasDAO();
+
+        return (relacion.getId_asignatura() != -1 && relacion.getId_curso() != -1) ? dao.getDuplicateRelacionAsignaturaCursoJDBCTemplate(relacion) : null;
+    }
+
+    public boolean thisRelacionExist(AsignaturaCurso relaciom) {
+
+        return getDuplicateRelacion(relaciom) != null;
+    }
 
     public Asignatura toAsignatura(AsignaturaCurso as) {
         Asignatura asignatura = new Asignatura();

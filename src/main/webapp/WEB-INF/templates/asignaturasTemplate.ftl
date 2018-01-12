@@ -64,7 +64,7 @@
 
                             </tr>
 
-
+        <#if listaAsignaturaCurso??>
             <#list listaAsignaturaCurso as asignatura>
                         <tr>
 
@@ -82,8 +82,8 @@
 
 
 
-  </#list>
-
+            </#list>
+        </#if>
                         </table>
 
                     </div>

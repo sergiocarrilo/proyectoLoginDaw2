@@ -93,6 +93,7 @@ public class Constantes {
 
     //modelo Profesor-Asignatura - PLANTILLA
     public static final String  ID_PROFESOR = "id_profesor";
+    public static final String MESSAGE_RELACION_EXIST = "Ya tenemos una relación con esa combinación";            
 
     //Servlet Informe Notas - Asignaturas    
     public static final String  INFORME_NOTAS_ASIGNATURAS = "informeNotasAsignaturas.ftl";    

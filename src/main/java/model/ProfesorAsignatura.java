@@ -28,6 +28,13 @@ public class ProfesorAsignatura {
         this.nombre_asignatura = nombre_asignatura;
     }
 
+    public ProfesorAsignatura(long id, long id_profe, long id_asignatura) {
+        this.id = id;
+        this.id_profe = id_profe;
+        this.id_asignatura = id_asignatura;
+    }
+    
+
     public long getId() {
         return id;
     }

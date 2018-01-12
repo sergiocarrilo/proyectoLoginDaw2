@@ -85,8 +85,12 @@ public class AsignaturasServlet extends HttpServlet {
                 case Constantes.INSERT:
 
                     asignaturaCurso = servicios.tratarParametros(parametros);
-                    messageToUser = (servicios.insertAsignaturaCursodbUtils(asignaturaCurso))
-                            ? Constantes.MESSAGE_QUERY_ASIGNATURA_INSERTED : Constantes.MESSAGE_QUERY_ASIGNATURA_INSERT_FAILED;
+                    if (!servicios.thisRelacionExist(asignaturaCurso)) {
+                        messageToUser = (servicios.insertAsignaturaCursodbUtils(asignaturaCurso))
+                                ? Constantes.MESSAGE_QUERY_ASIGNATURA_INSERTED : Constantes.MESSAGE_QUERY_ASIGNATURA_INSERT_FAILED;
+                    } else {
+                        messageToUser = Constantes.MESSAGE_RELACION_EXIST;
+                    }
 
                     break;
                 case Constantes.INSERT_ASIGNATURA:
@@ -165,8 +169,8 @@ public class AsignaturasServlet extends HttpServlet {
         paramentrosPlantilla = new HashMap();
         if (messageToUser != null) {
             paramentrosPlantilla.put(Constantes.MESSAGE_TO_USER, messageToUser);
-        }        
-        int offset = new UrlService().getOffset(parametros);        
+        }
+        int offset = new UrlService().getOffset(parametros);
         paramentrosPlantilla.put(Constantes.OFFSET, offset);
         paramentrosPlantilla.put(Constantes.LISTA_ASIGNATURA_CURSO, servicios.getAllAsignaturasCursosdbUtils(offset));
         paramentrosPlantilla.put(Constantes.LISTA_CURSOS, servicios.getAllCursosdbUtils());

@@ -6,6 +6,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -19,7 +20,10 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
+import utils.Constantes;
 import utils.ConstantesError;
 import utils.SqlQuery;
 
@@ -39,7 +43,7 @@ public class AsignaturasDAO {
             Object params[] = {offset};
             ResultSetHandler<List<AsignaturaCurso>> handler
                     = new BeanListHandler<AsignaturaCurso>(AsignaturaCurso.class);
-            lista = qr.query(con, SqlQuery.SELECT_ALL_ASIGNATURAS_CURSOS, handler,params);
+            lista = qr.query(con, SqlQuery.SELECT_ALL_ASIGNATURAS_CURSOS, handler, params);
 
         } catch (Exception ex) {
             Logger.getLogger(AsignaturasDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -48,6 +52,7 @@ public class AsignaturasDAO {
         }
         return lista;
     }
+
     public List<ProfesorAsignatura> getAllAsignaturasByIdProfesordbUtils(long id_profesor) {
         List<ProfesorAsignatura> lista = null;
 
@@ -58,7 +63,7 @@ public class AsignaturasDAO {
             Object params[] = {id_profesor};
             ResultSetHandler<List<ProfesorAsignatura>> handler
                     = new BeanListHandler<ProfesorAsignatura>(ProfesorAsignatura.class);
-            lista = qr.query(con, SqlQuery.SELECT_ALL_ASIGNATURAS_BY_ID_PROFESOR, handler,params);
+            lista = qr.query(con, SqlQuery.SELECT_ALL_ASIGNATURAS_BY_ID_PROFESOR, handler, params);
 
         } catch (Exception ex) {
             Logger.getLogger(AsignaturasDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -124,6 +129,26 @@ public class AsignaturasDAO {
             DBConnection.getInstance().cerrarConexion(con);
         }
         return lista;
+    }
+
+    public AsignaturaCurso getDuplicateRelacionAsignaturaCursoJDBCTemplate(AsignaturaCurso relacion) {
+
+        JdbcTemplate jtm = new JdbcTemplate(
+                DBConnection.getInstance().getDataSource());
+        AsignaturaCurso AsigCurso = null;
+
+        Long idRelacion = jtm.query(SqlQuery.SELECT_ALL_ASIGNATURA_CURSO_BY_ID_ASIGNATURA_AND_ID_CURSO,
+                new Object[]{relacion.getId_asignatura(), relacion.getId_curso()}, new ResultSetExtractor<Long>() {
+            @Override
+            public Long extractData(ResultSet rs) throws SQLException, DataAccessException {
+                return rs.next() ? rs.getLong(Constantes.ID) : null;
+            }
+        });
+        if (idRelacion != null) {
+            AsigCurso = relacion;
+        }
+
+        return AsigCurso;
     }
 
     public boolean insertAsignaturaCursodbUtils(AsignaturaCurso asCu) {
