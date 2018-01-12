@@ -62,7 +62,7 @@
             }
         </script>
     <body>
-       
+       <#escape x as x?html>
         <#include "/menuTemplate.ftl">
         <ul class="nav nav-tabs">
             <li class="nav-item">
@@ -260,6 +260,6 @@
                 <input type="hidden" id="offset"  name="offset" value="${offset}"/>
                 <input type="hidden" name="ACTIONVIEWS" class="form-control" id="ACTIONVIEWS" value="${actionview}"/>
         </form>
-   
+   </#escape>
         </body>
     </html>

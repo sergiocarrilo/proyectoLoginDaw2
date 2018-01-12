@@ -21,7 +21,7 @@ public class UrlsPaths {
     public static final String SECURE_ALUMNO = "/src/alumno/*";
     public static final String SECURE_ADMINISTRADOR = "/src/admin/*";
     public static final String PROFESOR_ASIGNATURAS = "/secure/admin/profesor-asignaturas";
-    public static final String INFORME_NOTAS_ASIGNATURAS = "/secure/admin/informe-notas-asignaturas";
+    public static final String INFORME_NOTAS_ASIGNATURAS = "/secure/profe/informe-notas-asignaturas";
     public static final String INFORME_NOTAS_ALUMNOS = "/secure/admin/informe-notas-alumnos";
     public static final String INDEX = "/index";
     public static final String ADMINISTRADOR = "/secure/admin/administrador";
