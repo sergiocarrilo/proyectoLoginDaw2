@@ -175,7 +175,7 @@ public class Constantes {
 
     //Servlet Informe Notas Alumnos
     public static final String  IDPROFESOR = "idprofesor";
-    public static final String  INFORMEALUMNONOTAS = "InformeNotasAlumnos.ftl";
+    public static final String  INFORMEALUMNONOTAS = "informeNotasAlumnos.ftl";
     public static final String VIEWTABLA = "VIEWTABLA";
     public static final String ASIGNATURA = "asignatura";
     public static final String IDASIGNATURA = "idasignatura";

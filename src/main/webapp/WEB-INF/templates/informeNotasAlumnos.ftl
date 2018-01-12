@@ -8,7 +8,7 @@
         <title>${title}</title>
         <meta charset="${charset}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <#include "/libreira.ftl">
+        <#include "/libreria.ftl">
         </head>
         <script>
                  function mostrarListaAlumno(){
