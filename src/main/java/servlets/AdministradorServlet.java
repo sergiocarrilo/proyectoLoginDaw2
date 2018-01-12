@@ -83,9 +83,10 @@ public class AdministradorServlet extends HttpServlet {
                 lista = service.getAllProfessors(offset);
                 if (String.valueOf(insertprofe.getId()) == null || insertprofe.getId() == 0) {
                     messageToUser = Constantes.MESSAGEPROFESORNOINSERTADO;
-
                 }else if(insertprofe.getId() == -1){
                     messageToUser = Constantes.MESSAGEUSUARIOREPETIDO;
+                }else if(insertprofe.getId() == -2){
+                    messageToUser = Constantes.MESSAGECORREOREPETIDO;
                 }else {
                     messageToUser = Constantes.MESSAGEPROFESORINSERTADO;
                 }
@@ -98,9 +99,10 @@ public class AdministradorServlet extends HttpServlet {
                 lista = service.getAllAlumnos(offset);
                 if (String.valueOf(insertalumno.getId()) == null || insertalumno.getId()==0) {
                     messageToUser = Constantes.MESSAGEALUMNONOINSERTADO;
-
-                } else if(insertalumno.getId() == -1){
+                }else if(insertalumno.getId() == -1){
                     messageToUser = Constantes.MESSAGEUSUARIOREPETIDO;
+                }else if(insertalumno.getId() == -2){
+                    messageToUser = Constantes.MESSAGECORREOREPETIDO;
                 }else {
                     messageToUser = Constantes.MESSAGEALUMNOINSERTADO;
                 }

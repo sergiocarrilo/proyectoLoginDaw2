@@ -28,7 +28,7 @@ public class AdministradorService {
     
 
     public Administrador insertProfesor(Administrador admin) throws SQLException, NoSuchAlgorithmException, InvalidKeySpecException {
-        if(this.comprobarUser(admin)){
+        if(this.comprobarUser(admin) && this.comprobarCorreo(admin)){
             String passHash = PasswordHash.getInstance().createHash(admin.getPassword());
             admin.setPassword(passHash);
             MandarMail mail = new MandarMail();
@@ -43,11 +43,14 @@ public class AdministradorService {
                 mail.mandarMail(admin.getEmail(), Constantes.PASSWORDPROFESOR, "CONTRASEÑA");
                 return compadmin;
             }
-        }else{
+        }else if(!this.comprobarCorreo(admin)){
+            admin.setId(-2);
+            
+        }else if(!this.comprobarUser(admin)){
             admin.setId(-1);
-            return admin;
+            
         }
-
+        return admin;
     }
     
      public Administrador insertAlumno(Administrador admin) throws NoSuchAlgorithmException, InvalidKeySpecException, SQLException {
@@ -64,10 +67,14 @@ public class AdministradorService {
                 mail.mandarMail(admin.getEmail(), Constantes.PASSWORDALUMNO, "CONTRASEÑA");
                 return compadmin;
             }
-        }else{
+        }else if(!this.comprobarCorreo(admin)){
+            admin.setId(-2);
+            
+        }else if(!this.comprobarUser(admin)){
             admin.setId(-1);
-            return admin;
+            
         }
+        return admin;
 
     }
 
@@ -128,8 +135,18 @@ public class AdministradorService {
     
     public Boolean comprobarUser(Administrador admin) {
         AdministradorDAO dao = new AdministradorDAO();
-        long iduser = dao.getUser(admin);
-        if(String.valueOf(iduser) ==null){
+        long comprobacion = dao.comprobarUser(admin);
+        if(comprobacion == 0){
+            return true;
+        }else{
+            return false;
+         }
+    }
+    
+    public Boolean comprobarCorreo(Administrador admin) {
+        AdministradorDAO dao = new AdministradorDAO();
+        long comprobacion = dao.comprobarCorreo(admin);
+        if(comprobacion == 0){
             return true;
         }else{
             return false;

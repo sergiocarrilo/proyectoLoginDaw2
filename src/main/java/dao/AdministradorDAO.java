@@ -197,20 +197,42 @@ public class AdministradorDAO {
         return lista;
     }
     
-    public long getUser(Administrador admin){
+    public long comprobarUser(Administrador admin){
         long user= 0;
         Connection con = null;
         try {
             con = DBConnection.getInstance().getConnection();
 
             QueryRunner qr = new QueryRunner();
-            ScalarHandler<Long> scalar = new ScalarHandler<Long>();
-            user = qr.query(con, SqlQuery.QUERYGETUSER, scalar, admin.getNombre());
+            ScalarHandler<Long> scalar = new ScalarHandler<>();
+            user = qr.query(con, SqlQuery.QUERYCOMPUSER, scalar, admin.getNombre());
 
         } catch (Exception ex) {
             Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+            
         } finally {
             DBConnection.getInstance().cerrarConexion(con);
+            
+        }
+        return user;
+    }
+    
+    public long comprobarCorreo(Administrador admin){
+        long user= 0;
+        Connection con = null;
+        try {
+            con = DBConnection.getInstance().getConnection();
+
+            QueryRunner qr = new QueryRunner();
+            ScalarHandler<Long> scalar = new ScalarHandler<>();
+            user = qr.query(con, SqlQuery.QUERYCOMPCORREO, scalar, admin.getNombre());
+
+        } catch (Exception ex) {
+            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+            
+        } finally {
+            DBConnection.getInstance().cerrarConexion(con);
+            
         }
         return user;
     }

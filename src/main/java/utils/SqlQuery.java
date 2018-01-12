@@ -26,8 +26,8 @@ public class SqlQuery {
     public static final String QUERYGETALLPROFESSORS = "SELECT * FROM PROFESORES LIMIT 10  OFFSET ?";
     public static final String QUERYGETALLALUMNOS = "SELECT * FROM ALUMNOS LIMIT 10  OFFSET ?";
     public static final String QUERYGETALLASIGNATURAS = "SELECT * FROM ASIGNATURAS LIMIT 10  OFFSET ?";
-    public static final String QUERYGETUSER = "SELECT ID FROM USERS WHERE NOMBRE = ?";
-
+    public static final String QUERYCOMPUSER = "SELECT ID FROM USERS WHERE NOMBRE = ?";
+    public static final String QUERYCOMPCORREO = "SELECT ID FROM USERS WHERE EMAIL = ?";
     //USER DAO
     public static String SELECT_USER_BY_NAME = "SELECT * FROM USERS WHERE NOMBRE = ?";
     public static String SELECT_ID_PERMISO_BY_ID_USER = "SELECT ID_PERMISOS FROM USER_PERMISOS WHERE ID_USER = ?";
