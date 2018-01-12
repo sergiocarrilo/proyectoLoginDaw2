@@ -14,9 +14,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Nota;
+import model.TareaAlumno;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import utils.SqlQuery;
 
@@ -111,6 +113,25 @@ public class NotasDAO {
 
         } catch (Exception ex) {
             Logger.getLogger(NotasDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBConnection.getInstance().cerrarConexion(con);
+        }
+        return lista;
+    }
+    public List<Nota> getNotasByIdAlumnodbUtils(long id_alumno) {
+        List<Nota> lista = null;
+
+        Connection con = null;
+        try {
+            con = DBConnection.getInstance().getConnection();
+            QueryRunner qr = new QueryRunner();
+            Object params[] = {id_alumno};
+            ResultSetHandler<List<Nota>> handler
+                    = new BeanListHandler<Nota>(Nota.class);
+            lista = qr.query(con, SqlQuery.SELECT_NOTAS_ALUMNO_BY_ID_ALUMNO, handler, params);
+
+        } catch (Exception ex) {
+            Logger.getLogger(ProfesoresDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             DBConnection.getInstance().cerrarConexion(con);
         }

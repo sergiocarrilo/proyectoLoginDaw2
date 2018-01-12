@@ -27,6 +27,7 @@ public class UrlsPaths {
     public static final String ADMINISTRADOR = "/secure/admin/administrador";
     public static final String SUPERUSER = "/secure/super/superuser";
     public static final String TAREAS_ALUMNO = "/secure/alumno/tareas-alumno";
+    public static final String NOTAS_ALUMNO = "/secure/alumno/notas";
     public static final String TAREAS_PROFESOR = "/secure/profe/tareas-profesor";
     
 
