@@ -196,6 +196,7 @@ public class Constantes {
         
     
     //Servlet recuperar contraseña
+    public static final String RECUPERARTEMPLATE = "recuperarContraseña.ftl";
     public static final String RECUPERARCONTRASEÑA = "RECUPERAR";
     public static final String MESSAGECONTRASEÑANOENVIADA = "Lo sentimos. No se ha podido enviar la contraseña, vuelva a intentarlo";
     public static final String MESSAGECONTRASEÑAENVIADA = "La contraseña ha sido enviada revise su correo";

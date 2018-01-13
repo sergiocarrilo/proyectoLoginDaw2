@@ -5,6 +5,9 @@
  */
 package servlets;
 
+import config.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
@@ -21,6 +24,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.User;
+import servicios.UrlService;
 
 
 
@@ -41,7 +45,7 @@ public class RecuperarContraseñaServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+            throws ServletException, IOException, NoSuchAlgorithmException, InvalidKeySpecException, TemplateException {
         RecuperarContraseñaService service = new RecuperarContraseñaService();
         HashMap plantilla = new HashMap();
         String messageToUser = null;
@@ -70,6 +74,16 @@ public class RecuperarContraseñaServlet extends HttpServlet {
                 }
                 break;
         }
+        
+        
+
+            Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.RECUPERARTEMPLATE);
+            UrlService urlServicios = new UrlService();
+            plantilla.put(Constantes.MESSAGE_TO_USER, messageToUser);
+            plantilla.putAll(urlServicios.addConstantsEndPoints(request));
+            temp.process(plantilla, response.getWriter());
+
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -90,6 +104,8 @@ public class RecuperarContraseñaServlet extends HttpServlet {
             Logger.getLogger(RecuperarContraseñaServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidKeySpecException ex) {
             Logger.getLogger(RecuperarContraseñaServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (TemplateException ex) {
+            Logger.getLogger(RecuperarContraseñaServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -109,6 +125,8 @@ public class RecuperarContraseñaServlet extends HttpServlet {
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(RecuperarContraseñaServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidKeySpecException ex) {
+            Logger.getLogger(RecuperarContraseñaServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (TemplateException ex) {
             Logger.getLogger(RecuperarContraseñaServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

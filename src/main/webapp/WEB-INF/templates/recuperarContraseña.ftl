@@ -11,13 +11,16 @@
         <#include "/libreria.ftl">
         </head>
     <body>
+        <div class="container">
+            <#include "/menuTemplate.ftl">
+        <div class="row justify-content-center">
         <form id="formrecuperacion" action="recuperar?">
             <div class="form-group">
-                <label for="recipient-name" class="col-form-label">Introduzca su nombre de usuario:</label>
+                <h3><label for="recipient-name" class="col-form-label">Introduzca su nombre de usuario:</label></h3>
                 <input type="text" name="name" class="form-control" id="name">
             </div>
             <div class="form-group">
-                <label for="recipient-name" class="col-form-label">Introduzca su nombre de correo:</label>
+                <h3><label for="recipient-name" class="col-form-label">Introduzca su nombre de correo:</label></h3>
                 <input type="text" name="email" class="form-control" id="email">
                 </div>
             <div>
@@ -35,5 +38,7 @@
         </div>
         </br>
         </#if>
+        </div>
+        </div>
     </body>
     </html>
