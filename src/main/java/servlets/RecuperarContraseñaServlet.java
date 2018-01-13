@@ -9,7 +9,6 @@ import config.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Map;
@@ -25,6 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.User;
 import servicios.UrlService;
+import utils.UrlsPaths;
 
 
 
@@ -32,7 +32,7 @@ import servicios.UrlService;
  *
  * @author DAW
  */
-@WebServlet(name = "RecuperarContraseña", urlPatterns = {"/recuperar-contrasena"})
+@WebServlet(name = "RecuperarContraseña", urlPatterns = {UrlsPaths.RECUPERAR_PASSWORD})
 public class RecuperarContraseñaServlet extends HttpServlet {
 
     /**

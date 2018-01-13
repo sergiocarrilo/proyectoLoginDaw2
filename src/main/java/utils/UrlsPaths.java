@@ -30,5 +30,6 @@ public class UrlsPaths {
     public static final String TAREAS_ALUMNO = "/secure/alumno/tareas-alumno";
     public static final String NOTAS_ALUMNO = "/secure/alumno/notas";
     public static final String TAREAS_PROFESOR = "/secure/profe/tareas-profesor";
+    public static final String RECUPERAR_PASSWORD = "/recuperar-contrasena";
 
 }//fin clase

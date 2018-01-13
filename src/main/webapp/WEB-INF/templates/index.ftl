@@ -44,7 +44,7 @@
                                     </div>
 
                                 <button type="submit" class="btn btn-primary" name="ACTION" value="LOGIN">Login</button>
-                                <a href="#" class="badge badge-info">Recuperar Contraseña</a>
+                                <a href="${baseUrl}${endpoint_recuperar_password}" class="badge badge-info">Recuperar Contraseña</a>
                                 <a href="${baseUrl}${endpoint_registro}" class="badge badge-dark">Registrar Usuario</a>
                                 </form>
                             </#if>
