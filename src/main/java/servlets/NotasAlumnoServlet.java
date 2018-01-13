@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.User;
 import servicios.NotasServicios;
 import utils.Constantes;
+import utils.LevelAccessUser;
 import utils.UrlsPaths;
 
 /**
@@ -46,16 +47,17 @@ public class NotasAlumnoServlet extends HttpServlet {
             HashMap paramentrosPlantilla = new HashMap();
             String messageToUser = null;
             User alumno = (User) request.getSession().getAttribute(Constantes.LOGIN_ON);
-            alumno = new User();
-            alumno.setId(7);//TODO temporal 
+            Long levelAccess = (Long) ((HttpServletRequest) request).getSession().getAttribute(Constantes.LEVEL_ACCESS);
 
+            if (alumno != null && levelAccess != null) {
+                if (levelAccess.intValue() == LevelAccessUser.ALUMNO.ordinal()) {
+                    paramentrosPlantilla.put(Constantes.LISTA_NOTAS_ALUMNO, servicios.getAllNotasByIdAlumno(alumno.getId()));
+                } else {
+                    messageToUser = Constantes.MESSAGE_NO_ALUMNO_NOTAS;
+                }
+            }
             if (messageToUser != null) {
                 paramentrosPlantilla.put(Constantes.MESSAGE_TO_USER, messageToUser);
-            }
-            if (alumno != null) {
-
-                paramentrosPlantilla.put(Constantes.LISTA_NOTAS_ALUMNO, servicios.getAllNotasByIdAlumno(alumno.getId()));
-
             }
 
             Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.NOTAS_ALUMNO_TEMPLATE);

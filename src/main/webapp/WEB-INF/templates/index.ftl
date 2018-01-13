@@ -33,7 +33,7 @@
                                 </#if>
                             <#else>
 
-                            <form>
+                            <form action="${baseUrl}${endpoint_index}">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Nombre de Usuario</label>
                                     <input type="text" class="form-control" name="NOMBRE" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username">                                    

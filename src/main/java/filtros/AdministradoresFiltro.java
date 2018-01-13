@@ -16,20 +16,23 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import model.User;
 import servicios.UrlService;
 import utils.Constantes;
 import utils.LevelAccessUser;
+import static utils.NamesFilters.FILTRO_ADMIN;
 import utils.UrlsPaths;
 
 /**
  *
  * @author Gato
  */
-@WebFilter(filterName = "ProfesoresFiltro", urlPatterns = {UrlsPaths.SECURE_PROFE})
-public class ProfesoresFiltro implements Filter {
+@WebFilter(filterName = FILTRO_ADMIN, urlPatterns = {UrlsPaths.SECURE_ADMINISTRADOR}, initParams = {
+    @WebInitParam(name = "Name", value = "Value")})
+public class AdministradoresFiltro implements Filter {
 
     private static final boolean debug = true;
 
@@ -38,13 +41,13 @@ public class ProfesoresFiltro implements Filter {
     // configured. 
     private FilterConfig filterConfig = null;
 
-    public ProfesoresFiltro() {
+    public AdministradoresFiltro() {
     }
 
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("ProfesoresFiltro:DoBeforeProcessing");
+            log("AdministradoresFiltro:DoBeforeProcessing");
         }
 
     }
@@ -52,9 +55,8 @@ public class ProfesoresFiltro implements Filter {
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("ProfesoresFiltro:DoAfterProcessing");
+            log("AdministradoresFiltro:DoAfterProcessing");
         }
-
     }
 
     /**
@@ -71,22 +73,20 @@ public class ProfesoresFiltro implements Filter {
             throws IOException, ServletException {
 
         if (debug) {
-            log("ProfesoresFiltro:doFilter()");
+            log("AdministradoresFiltro:doFilter()");
         }
 
         doBeforeProcessing(request, response);
 
         Throwable problem = null;
         try {
-
             HttpSession session = ((HttpServletRequest) request).getSession();
-            User profesor = (User) session.getAttribute(Constantes.LOGIN_ON);
+            User admin = (User) session.getAttribute(Constantes.LOGIN_ON);
             Long levelAccess = (Long) session.getAttribute(Constantes.LEVEL_ACCESS);
 
-            if (profesor != null && levelAccess != null) {
-                if (levelAccess.intValue() == LevelAccessUser.PROFESOR.ordinal()
-                        || levelAccess.intValue() == LevelAccessUser.SUPER_ADMIN.ordinal()
-                        || levelAccess.intValue() == LevelAccessUser.ADMIN.ordinal()) {
+            if (admin != null && levelAccess != null) {
+                if (levelAccess.intValue() == LevelAccessUser.ADMIN.ordinal()
+                        || levelAccess.intValue() == LevelAccessUser.SUPER_ADMIN.ordinal()) {
 
                     chain.doFilter(request, response);
                 } else {
@@ -149,7 +149,7 @@ public class ProfesoresFiltro implements Filter {
         this.filterConfig = filterConfig;
         if (filterConfig != null) {
             if (debug) {
-                log("ProfesoresFiltro:Initializing filter");
+                log("AdministradoresFiltro:Initializing filter");
             }
         }
     }
@@ -160,9 +160,9 @@ public class ProfesoresFiltro implements Filter {
     @Override
     public String toString() {
         if (filterConfig == null) {
-            return ("ProfesoresFiltro()");
+            return ("AdministradoresFiltro()");
         }
-        StringBuffer sb = new StringBuffer("ProfesoresFiltro(");
+        StringBuffer sb = new StringBuffer("AdministradoresFiltro(");
         sb.append(filterConfig);
         sb.append(")");
         return (sb.toString());

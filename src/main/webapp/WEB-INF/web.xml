@@ -10,15 +10,23 @@
         </session-timeout>
     </session-config>
     <filter-mapping>
-        <filter-name>EncodeUTF8Filtro</filter-name>
+        <filter-name>EncodeUTF8</filter-name>
         <url-pattern />
     </filter-mapping>
     <filter-mapping>
-        <filter-name>ProfesoresFiltro</filter-name>
+        <filter-name>AlumnosF</filter-name>
         <url-pattern />
     </filter-mapping>
     <filter-mapping>
-        <filter-name>Login</filter-name>
+        <filter-name>ProfesoresF</filter-name>
+        <url-pattern />
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdministradoresF</filter-name>
+        <url-pattern />
+    </filter-mapping>  
+    <filter-mapping>
+        <filter-name>SuperF</filter-name>
         <url-pattern />
     </filter-mapping>
     <jsp-config>

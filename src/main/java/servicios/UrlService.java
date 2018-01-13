@@ -5,11 +5,16 @@
  */
 package servicios;
 
+import config.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import utils.Constantes;
 import utils.UrlsPaths;
@@ -74,6 +79,18 @@ public class UrlService {
             }
         }
         return offset;
+    }
+    public void outOfRangeTemplate(ServletResponse response){
+        try {
+            HashMap paramentrosPlantilla = new HashMap();
+            paramentrosPlantilla.put(Constantes.MESSAGE_TO_USER, Constantes.MESSAGE_TO_USER_OUT_OF_RANGE);
+            Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.INDEX_TEMPLATE);
+            plantilla.process(paramentrosPlantilla, response.getWriter());
+        } catch (IOException ex) {
+            Logger.getLogger(UrlService.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (TemplateException ex) {
+            Logger.getLogger(UrlService.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }//fin clase

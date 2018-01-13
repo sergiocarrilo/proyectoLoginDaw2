@@ -30,8 +30,7 @@
                                 ${loginOnFromServer.nombre}
                             </#if>
                         </#if>
-                        </h2>
-                    <p>Tiene que estar logueado para funcionar</p>
+                        </h2>                    
                     </div>
                 </div>
             <div class="row justify-content-center">

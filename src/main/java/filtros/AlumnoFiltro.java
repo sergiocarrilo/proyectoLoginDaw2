@@ -5,13 +5,10 @@
  */
 package filtros;
 
-import config.Configuration;
-import freemarker.template.Template;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.HashMap;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -20,15 +17,20 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import model.User;
+import servicios.UrlService;
 import utils.Constantes;
+import utils.LevelAccessUser;
+import static utils.NamesFilters.FILTRO_ALUMNO;
 import utils.UrlsPaths;
 
 /**
  *
  * @author daw
  */
-@WebFilter(filterName = "Login", urlPatterns = {UrlsPaths.SECURE_SUPER})
-public class LoginFiltro implements Filter {
+@WebFilter(filterName = FILTRO_ALUMNO, urlPatterns = {UrlsPaths.SECURE_ALUMNO})
+public class AlumnoFiltro implements Filter {
 
     private static final boolean debug = true;
 
@@ -37,7 +39,7 @@ public class LoginFiltro implements Filter {
     // configured. 
     private FilterConfig filterConfig = null;
 
-    public LoginFiltro() {
+    public AlumnoFiltro() {
     }
 
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
@@ -77,14 +79,21 @@ public class LoginFiltro implements Filter {
 
         Throwable problem = null;
         try {
-            if (((HttpServletRequest) request).getSession().getAttribute(Constantes.LOGIN_ON) != null) {
+            HttpSession session = ((HttpServletRequest) request).getSession();
+            User alumno = (User) session.getAttribute(Constantes.LOGIN_ON);
+            Long levelAccess = (Long) session.getAttribute(Constantes.LEVEL_ACCESS);
 
-                chain.doFilter(request, response);
+            if (alumno != null && levelAccess != null) {
+                if (levelAccess.intValue() == LevelAccessUser.ALUMNO.ordinal()
+                        || levelAccess.intValue() == LevelAccessUser.SUPER_ADMIN.ordinal()
+                        || levelAccess.intValue() == LevelAccessUser.ADMIN.ordinal()) {
+                    chain.doFilter(request, response);
+                } else {
+                    new UrlService().outOfRangeTemplate(response);
+                }
+
             } else {
-                HashMap paramentrosPlantilla = new HashMap();
-                paramentrosPlantilla.put(Constantes.MESSAGE_TO_USER, Constantes.MESSAGE_TO_USER_OUT_OF_RANGE);
-                Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.INDEX_TEMPLATE);
-                plantilla.process(paramentrosPlantilla, response.getWriter());                
+                new UrlService().outOfRangeTemplate(response);
             }
         } catch (Throwable t) {
             // If an exception is thrown somewhere down the filter chain,

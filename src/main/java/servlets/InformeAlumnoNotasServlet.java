@@ -100,9 +100,9 @@ public class InformeAlumnoNotasServlet extends HttpServlet {
         }
         try {
                 Template temp = Configuration.getInstance().getFreeMarker().getTemplate("informeAlumnoNotas.ftl");
-                UrlService urlServicios = new UrlService();
+                
                 plantilla.put("alumnos",nss.getAllAlumnos());
-                //plantilla.putAll(urlServicios.addConstantsEndPoints(request));
+                
                 temp.process(plantilla, response.getWriter());
             } catch (TemplateException ex) {
                 Logger.getLogger(InformeNotasAlumnosServlet.class.getName()).log(Level.SEVERE, null, ex);

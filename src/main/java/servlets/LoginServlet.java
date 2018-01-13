@@ -20,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.User;
 import servicios.LoginServicios;
 import utils.Constantes;
@@ -52,6 +53,8 @@ public class LoginServlet extends HttpServlet {
             LoginServicios servicios = new LoginServicios();
             User usuario = servicios.tratarParametro(parametros);
             long levelAccessUser = -1;
+            freemarker.template.Configuration freeMarker = Configuration.getInstance().getFreeMarker();
+            HttpSession session = request.getSession();
 
             if (action != null && !action.isEmpty()) {
                 switch (action) {
@@ -60,17 +63,14 @@ public class LoginServlet extends HttpServlet {
                             String passwordFromClient = usuario.getPassword();
                             usuario = servicios.selectLoginUser(usuario);//recupera el hash de DB
 
-                            request.getSession().setAttribute(Constantes.LOGIN_ON, usuario);//TODO - Temporal hasta implemetar el filtro
-                            levelAccessUser = servicios.getIdTipoPermiso(usuario.getId());//TODO - Temporal - Borrar después
-
                             if (usuario != null) {
                                 if (usuario.isActivo()) {
 
                                     if (PasswordHash.getInstance().validatePassword(passwordFromClient, usuario.getPassword())) {
 
                                         levelAccessUser = servicios.getIdTipoPermiso(usuario.getId());
-                                        request.getSession().setAttribute(Constantes.LOGIN_ON, usuario);
-                                        request.getSession().setAttribute(Constantes.LEVEL_ACCESS, levelAccessUser);
+                                        session.setAttribute(Constantes.LOGIN_ON, usuario);
+                                        session.setAttribute(Constantes.LEVEL_ACCESS, levelAccessUser);
 
                                     } else {
                                         messageToUser = Constantes.MESSAGE_USER_LOGIN_FAIL_PASSWORD;
@@ -88,9 +88,9 @@ public class LoginServlet extends HttpServlet {
 
                         break;
                     case Constantes.LOGOUT:
-                        request.getSession().setAttribute(Constantes.LOGIN_ON, null);
-                        Configuration.getInstance().getFreeMarker().setSharedVariable(Constantes.LOGIN_ON, null);
-                        Configuration.getInstance().getFreeMarker().setSharedVariable(Constantes.LEVEL_ACCESS, null);
+                        session.setAttribute(Constantes.LOGIN_ON, null);
+                        freeMarker.setSharedVariable(Constantes.LOGIN_ON, null);
+                        freeMarker.setSharedVariable(Constantes.LEVEL_ACCESS, null);
                         break;
                 }
             }
@@ -98,16 +98,15 @@ public class LoginServlet extends HttpServlet {
             if (messageToUser != null) {
                 paramentrosPlantilla.put(Constantes.MESSAGE_TO_USER, messageToUser);
             }
-                                  
-           
+
             paramentrosPlantilla.put(Constantes.LOGIN_ON, usuario);
-            if (request.getSession().getAttribute(Constantes.LOGIN_ON) != null && usuario != null) {
-                Configuration.getInstance().getFreeMarker().setSharedVariable(Constantes.LOGIN_ON, usuario);
-                Configuration.getInstance().getFreeMarker().setSharedVariable(Constantes.LEVEL_ACCESS, levelAccessUser);
+            if (session.getAttribute(Constantes.LOGIN_ON) != null && usuario != null) {
+                freeMarker.setSharedVariable(Constantes.LOGIN_ON, usuario);
+                freeMarker.setSharedVariable(Constantes.LEVEL_ACCESS, levelAccessUser);
             }
 
-            Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.INDEX_TEMPLATE);           
-            plantilla.process(paramentrosPlantilla, response.getWriter());            
+            Template plantilla = freeMarker.getTemplate(Constantes.INDEX_TEMPLATE);
+            plantilla.process(paramentrosPlantilla, response.getWriter());
         } catch (TemplateException ex) {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NoSuchAlgorithmException ex) {
@@ -129,7 +128,7 @@ public class LoginServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {       
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 

@@ -22,6 +22,7 @@ import model.TareaAlumno;
 import model.User;
 import servicios.TareasServicios;
 import utils.Constantes;
+import utils.LevelAccessUser;
 import utils.UrlsPaths;
 
 /**
@@ -49,6 +50,7 @@ public class TareasAlumnoServlet extends HttpServlet {
             HashMap paramentrosPlantilla = new HashMap();
             String messageToUser = null;
             User alumno = (User) request.getSession().getAttribute(Constantes.LOGIN_ON);
+            Long levelAccess = (Long) ((HttpServletRequest) request).getSession().getAttribute(Constantes.LEVEL_ACCESS);
 
             if (action != null && !action.isEmpty()) {
                 switch (action) {
@@ -62,13 +64,15 @@ public class TareasAlumnoServlet extends HttpServlet {
                 }//fin switch
             }//fin if action
 
+            if (alumno != null && levelAccess != null) {
+                if (levelAccess.intValue() == LevelAccessUser.ALUMNO.ordinal()) {
+                    paramentrosPlantilla.put(Constantes.LISTA_TAREAS_ALUMNO, servicios.getAllTareasOfAlumno(alumno.getId()));
+                } else {
+                    messageToUser = Constantes.MESSAGE_NO_ALUMNO_TAREAS;
+                }
+            }
             if (messageToUser != null) {
                 paramentrosPlantilla.put(Constantes.MESSAGE_TO_USER, messageToUser);
-            }
-            if (alumno != null) {
-
-                paramentrosPlantilla.put(Constantes.LISTA_TAREAS_ALUMNO, servicios.getAllTareasOfAlumno(alumno.getId()));
-
             }
 
             Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.TAREAS_ALUMNO_TEMPLATE);

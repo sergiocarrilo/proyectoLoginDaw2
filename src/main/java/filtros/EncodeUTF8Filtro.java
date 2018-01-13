@@ -27,12 +27,13 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import servicios.UrlService;
 import utils.Constantes;
+import static utils.NamesFilters.FILTRO_ENCODE;
 
 /**
  *
  * @author daw
  */
-@WebFilter(filterName = "EncodeUTF8Filtro", urlPatterns = {"/*"})
+@WebFilter(filterName = FILTRO_ENCODE, urlPatterns = {"/*"})
 public class EncodeUTF8Filtro implements Filter {
 
     private static final boolean debug = true;

@@ -174,9 +174,11 @@ public class Constantes {
     public static final String  LISTA_TAREAS_ALUMNO = "listaTareasAlumno";    
     public static final String  MESSAGE_TAREA_ALUMNO_UPDATED = "La tarea fue actualizada correctamente";    
     public static final String  MESSAGE_TAREA_ALUMNO_FAIL = "Tenemos problemas Actualizando el estado de la tarea, prueba otra vez";
+    public static final String  MESSAGE_NO_ALUMNO_TAREAS = "No eres Alumno, por lo tanto no tienes tareas pendientes";
     //Servlet Notas Alumno
     public static final String  NOTAS_ALUMNO_TEMPLATE = "notasAlumnoTemplate.ftl";    
     public static final String  LISTA_NOTAS_ALUMNO = "listaNotasAlumno";    
+    public static final String  MESSAGE_NO_ALUMNO_NOTAS = "No eres un Alumno, por lo tanto, no tienes notas";    
     //Servlet Informe Notas Alumnos
     public static final String  IDPROFESOR = "idprofesor";
     public static final String  INFORMEALUMNONOTAS = "informeNotasAlumnos.ftl";

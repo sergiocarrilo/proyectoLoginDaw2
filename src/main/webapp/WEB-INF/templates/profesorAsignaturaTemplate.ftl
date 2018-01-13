@@ -48,7 +48,7 @@
 
                             </tr>
 
-
+<#if listaProfesoresAsignaturas??>
             <#list listaProfesoresAsignaturas as profe_asig>
                         <form action="profesor-asignaturas">
                             <input type="hidden" name="id" id="id" value="${profe_asig.id}"/>
@@ -68,7 +68,7 @@
                             </form>
 
 
-  </#list>
+             </#list>
 
                         </table>
 
@@ -89,6 +89,7 @@
                         <button class="btn btn-info" onclick="nextPage();">Next &rarr;</button>
                         </#if>                       
                         </div>
+</#if>
         <#if messageToUser??>
                     <div class="alert alert-primary" role="alert">
                 ${messageToUser?js_string}    
@@ -99,6 +100,7 @@
                 </div>
             <div class="row justify-content-center">
                 <div class="col-sm-9">
+                    <#if listaProfesores??>
                     <h5>Selecciona un profesor y la asignatura que va impartir</h5>
                     <h4>Profesores</h4> 
                     <form action="profesor-asignaturas">
@@ -120,6 +122,7 @@
                         <input type="hidden" name="ACTION" id="ACTION" value="INSERT"/>
                         <button type="submit" class="btn btn-primary">Añadir Relación</button>
                         </from>
+                    </#if>
                     </div>
                 </div>
             </div>
