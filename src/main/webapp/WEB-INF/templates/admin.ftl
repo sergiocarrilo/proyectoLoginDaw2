@@ -27,6 +27,8 @@
                 document.getElementById("ACTIONTABLA").value=operacion;
                     document.getElementById("formtabla").submit();
             }
+                
+            
             function previousPage(){
                 var offsetacutal =  document.getElementById("offset").value;
 
@@ -66,13 +68,13 @@
         <#include "/menuTemplate.ftl">
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active"  href="javascript:mostrarTabla('VIEWPROFESSOR')">Profesores</a>
+                <a class="nav-link <#if actionview == "VIEWPROFESSOR">active</#if>"  href="javascript:mostrarTabla('VIEWPROFESSOR')">Profesores</a>
                 </li>
             <li class="nav-item">
-                <a class="nav-link"  href="javascript:mostrarTabla('VIEWALUMNO')">Alumnos</a>
+                <a class="nav-link <#if actionview == "VIEWALUMNO">active</#if>"  href="javascript:mostrarTabla('VIEWALUMNO')">Alumnos</a>
                 </li>
             <li class="nav-item">
-                <a class="nav-link" href="javascript:mostrarTabla('VIEWASIGNATURA')">Asignaturas</a>
+                <a class="nav-link <#if actionview == "VIEWASIGNATURA">active</#if>" href="javascript:mostrarTabla('VIEWASIGNATURA')">Asignaturas</a>
                 </li>
             </ul>
         <div>
