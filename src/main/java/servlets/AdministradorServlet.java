@@ -109,7 +109,7 @@ public class AdministradorServlet extends HttpServlet {
                 admin = service.recogerParametros(parametros);
                 Administrador insertasignatura = service.insertAsignatura(admin);
                 lista = service.getAllAsignaturas(offset);
-                if (String.valueOf(insertasignatura.getId()) == null || insertasignatura.getId() == 0) {
+                if (String.valueOf(insertasignatura.getId()) == null || insertasignatura.getId() == 0) {//Inserta Asignatura pero devuelve un mensaje erroneo 
                     messageToUser = Constantes.MESSAGEASIGNATURANOINSERTADA;
                 } else {
                     messageToUser = Constantes.MESSAGEASIGNATURAINSERTADO;

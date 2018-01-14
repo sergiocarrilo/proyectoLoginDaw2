@@ -216,7 +216,7 @@ public class AdministradorDAO {
             DBConnection.getInstance().cerrarConexion(con);
             
         }
-        return admin.getId();
+        return admin.getId();//Null pointer cuando no existe registro en la base de datos
     }
     
     public long comprobarCorreo(Administrador admin){
