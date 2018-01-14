@@ -50,24 +50,25 @@ public class RegistroServlet extends HttpServlet {
             HashMap paramentrosPlantilla = new HashMap();
             RegistroServicios servicios = new RegistroServicios();
             User usuario = servicios.tratarParametro(parametros);
-            
+
             if (action != null && !action.isEmpty()) {
                 switch (action) {
                     case Constantes.REGISTRAR:
                         if (!servicios.thisUserExist(usuario)) {
-                            
+
                             if (servicios.userReadyToWorkInsert(usuario)) {
-                                
+
                                 usuario = servicios.generatePasswordAndActivationCode(usuario);
-                                
+
                                 if (servicios.insertUser(usuario)) {
-                                    
-                                    messageToUser = (servicios.buildAndSendEmail(request, usuario)) ? Constantes.MESSAGE_USER_REGISTER_SUBMIT_EMAIL : Constantes.MESSAGE_USER_REGISTER_SUBMIT_EMAIL_FAIL;
-                                    
+
+                                    messageToUser = (servicios.buildAndSendEmail(request, usuario))
+                                            ? Constantes.MESSAGE_USER_REGISTER_SUBMIT_EMAIL : Constantes.MESSAGE_USER_REGISTER_SUBMIT_EMAIL_FAIL;
+
                                 } else {
                                     messageToUser = Constantes.MESSAGE_USER_ERROR_INSERT;
                                 }
-                                
+
                             } else {
                                 messageToUser = Constantes.MESSAGE_USER_MISSING_FIELDS;
                             }
@@ -75,23 +76,23 @@ public class RegistroServlet extends HttpServlet {
                         } else {
                             messageToUser = Constantes.MESSAGE_USER_EXIST;
                         }
-                        
+
                         break;
-                        
+
                     case Constantes.VALIDATE:
                         if (servicios.userReadyToWorkValidate(usuario)) {
-                            
+
                             usuario = servicios.checkCredentials(usuario);
-                            
+
                             if (usuario != null) {
                                 if (servicios.isOnTimeValidEmail(usuario)) {
-                                    
+
                                     messageToUser = (servicios.activateAccount(usuario)) ? Constantes.MESSAGE_USER_VALIDATE_OK : Constantes.MESSAGE_USER_VALIDATE_FAIL;
                                 } else {
-                                    
+
                                     messageToUser = Constantes.MESSAGE_USER_VALIDATE_EMAIL_TIME_OUT;
                                 }
-                                
+
                             } else {
                                 messageToUser = Constantes.MESSAGE_USER_VALIDATE_EMAIL_FAIL_ID;
                             }
@@ -99,22 +100,21 @@ public class RegistroServlet extends HttpServlet {
                         } else {
                             messageToUser = Constantes.MESSAGE_USER_VALIDATE_EMAIL_FAIL;
                         }
-                        
+
                         break;
-                        
+
                 }
-                                                             
+
             }
-            
+
             if (messageToUser != null) {
                 paramentrosPlantilla.put(Constantes.MESSAGE_TO_USER, messageToUser);
             }
-            
-            
-            paramentrosPlantilla.put(Constantes.LOGIN_ON, usuario);           
-            
+
+            paramentrosPlantilla.put(Constantes.LOGIN_ON, usuario);
+
             Template plantilla = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.REGISTRO_TEMPLATE);
-            plantilla.process(paramentrosPlantilla, response.getWriter());    
+            plantilla.process(paramentrosPlantilla, response.getWriter());
         } catch (TemplateException ex) {
             Logger.getLogger(RegistroServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

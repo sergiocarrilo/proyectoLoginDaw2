@@ -99,8 +99,8 @@ public class LoginServlet extends HttpServlet {
                 paramentrosPlantilla.put(Constantes.MESSAGE_TO_USER, messageToUser);
             }
 
-            paramentrosPlantilla.put(Constantes.LOGIN_ON, usuario);
             if (session.getAttribute(Constantes.LOGIN_ON) != null && usuario != null) {
+                paramentrosPlantilla.put(Constantes.LOGIN_ON, usuario);
                 freeMarker.setSharedVariable(Constantes.LOGIN_ON, usuario);
                 freeMarker.setSharedVariable(Constantes.LEVEL_ACCESS, levelAccessUser);
             }

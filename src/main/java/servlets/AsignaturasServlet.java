@@ -79,7 +79,7 @@ public class AsignaturasServlet extends HttpServlet {
                     Curso cursoUp = servicios.toCurso(asignaturaCurso);
                     int filasUp = servicios.updateCursodbUtils(cursoUp);
 
-                    messageToUser = (filasUp > 0) ? Constantes.MESSAGE_QUERY_ASIGNATURA_UPDATED : Constantes.MESSAGE_QUERY_ASIGNATURA_UPDATE_FAILED;
+                    messageToUser = (filasUp > 0) ? Constantes.MESSAGE_QUERY_CURSO_UPDATED : Constantes.MESSAGE_QUERY_CURSO_UPDATE_FAILED;
 
                     break;
                 case Constantes.INSERT:
@@ -93,14 +93,7 @@ public class AsignaturasServlet extends HttpServlet {
                     }
 
                     break;
-                case Constantes.INSERT_ASIGNATURA:
-//
-//                    asignaturaCurso = servicios.tratarParametros(parametros);
-//                    Asignatura asignaturaIn = servicios.toAsignatura(asignaturaCurso);
-//                    messageToUser = (servicios.insertAsignaturadbUtils(asignaturaIn))
-//                            ? Constantes.messageQueryAsignaturaInserted : Constantes.messageQueryAsignaturaInsertFailed;
-
-                    break;
+               
                 case Constantes.INSERT_CURSO:
 
                     asignaturaCurso = servicios.tratarParametros(parametros);
@@ -119,11 +112,9 @@ public class AsignaturasServlet extends HttpServlet {
                     }
                     if (deleted == ConstantesError.CodeErrorClaveForanea) {
 
-                        asignaturaCurso = servicios.tratarParametros(parametros);
-
                         messageToUser = Constantes.MESSAGE_QUERY_ASIGNATURA_DELETED_FAIL;
 
-                    } else if (deleted > 0 && deleted < ConstantesError.CodeErrorClaveForanea) {
+                    } else if (deleted > 0 && deleted != ConstantesError.CodeErrorClaveForanea) {
                         messageToUser = Constantes.MESSAGE_QUERY_ASIGNATURA_DELETED;
                     }
                     break;
@@ -135,13 +126,14 @@ public class AsignaturasServlet extends HttpServlet {
                         deletedAs = servicios.deleteAsignaturadbUtils(IdAs);
 
                     }
+                    if (deletedAs == 1) {
+                        messageToUser = Constantes.MESSAGE_QUERY_ASIGNATURA_DELETED;
+                    }
                     if (deletedAs == ConstantesError.CodeErrorClaveForanea) {
-
-                        asignaturaCurso = servicios.tratarParametros(parametros);
 
                         messageToUser = Constantes.MESSAGE_QUERY_ASIGNATURA_DELETED_FAIL;
 
-                    } else if (deletedAs > 0 && deletedAs < ConstantesError.CodeErrorClaveForanea) {
+                    } else if (deletedAs > 0 && deletedAs != ConstantesError.CodeErrorClaveForanea) {
                         messageToUser = Constantes.MESSAGE_QUERY_ASIGNATURA_DELETED;
                     }
                     break;
@@ -153,14 +145,15 @@ public class AsignaturasServlet extends HttpServlet {
                         deletedCu = servicios.deleteCursodbUtils(IdCu);
 
                     }
+                    if (deletedCu == 1) {
+                        messageToUser = Constantes.MESSAGE_QUERY_CURSO_DELETED;
+                    }
                     if (deletedCu == ConstantesError.CodeErrorClaveForanea) {
 
-                        asignaturaCurso = servicios.tratarParametros(parametros);
+                        messageToUser = Constantes.MESSAGE_QUERY_CURSO_DELETED_FAIL;
 
-                        messageToUser = Constantes.MESSAGE_QUERY_ASIGNATURA_DELETED_FAIL;
-
-                    } else if (deletedCu > 0 && deletedCu < ConstantesError.CodeErrorClaveForanea) {
-                        messageToUser = Constantes.MESSAGE_QUERY_ASIGNATURA_DELETED;
+                    } else if (deletedCu > 0 && deletedCu != ConstantesError.CodeErrorClaveForanea) {
+                        messageToUser = Constantes.MESSAGE_QUERY_CURSO_DELETED;
                     }
                     break;
 

@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.User;
 import servicios.NotasServicios;
 import utils.Constantes;
@@ -46,8 +47,10 @@ public class NotasAlumnoServlet extends HttpServlet {
             NotasServicios servicios = new NotasServicios();
             HashMap paramentrosPlantilla = new HashMap();
             String messageToUser = null;
-            User alumno = (User) request.getSession().getAttribute(Constantes.LOGIN_ON);
-            Long levelAccess = (Long) ((HttpServletRequest) request).getSession().getAttribute(Constantes.LEVEL_ACCESS);
+            HttpSession session = request.getSession();
+            
+            User alumno = (User) session.getAttribute(Constantes.LOGIN_ON);
+            Long levelAccess = (Long) session.getAttribute(Constantes.LEVEL_ACCESS);
 
             if (alumno != null && levelAccess != null) {
                 if (levelAccess.intValue() == LevelAccessUser.ALUMNO.ordinal()) {

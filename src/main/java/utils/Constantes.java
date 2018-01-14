@@ -65,9 +65,13 @@ public class Constantes {
     public static final String  MESSAGE_QUERY_ASIGNATURA_INSERTED = "Asignatura fue insertado en la lista";
     public static final String  MESSAGE_QUERY_ASIGNATURA_INSERT_FAILED = "Asignatura no agregada a la base de datos";
     public static final String  MESSAGE_QUERY_ASIGNATURA_UPDATED = "Asignatura actualizada correctamente";
+    public static final String  MESSAGE_QUERY_CURSO_UPDATED = "Curso actualizado correctamente";
     public static final String  MESSAGE_QUERY_ASIGNATURA_UPDATE_FAILED = "Error en la actualización de Asignatura";
+    public static final String  MESSAGE_QUERY_CURSO_UPDATE_FAILED = "Error en la actualización del Curso";
     public static final String  MESSAGE_QUERY_ASIGNATURA_DELETED = "Asignatura eliminada correctamente";
-    public static final String  MESSAGE_QUERY_ASIGNATURA_DELETED_FAIL = "Cuidado! Tienes alumnos que estan cursando esta asignatura. Estás Seguro?";
+    public static final String  MESSAGE_QUERY_CURSO_DELETED = "Curso eliminado correctamente";
+    public static final String  MESSAGE_QUERY_ASIGNATURA_DELETED_FAIL = "Cuidado! Tienes alumnos que estan cursando esta asignatura. No podemos borrarla";
+    public static final String  MESSAGE_QUERY_CURSO_DELETED_FAIL = "Cuidado! Este curso no esta vacío. No podemos borrarlo";
     public static final String  MESSAGE_QUERY_ASIGNATURA_DELETED_FAILED_AGAIN = "Problemas graves, no pudimos borrar la Asignatura";
     public static final String  ASIGNATURA_RESULT = "asignaturaResult";
     public static final String  RESULTADO_QUERY = "resultado";    

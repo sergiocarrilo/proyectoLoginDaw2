@@ -78,9 +78,9 @@ public class RecuperarContraseñaServlet extends HttpServlet {
         
 
             Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.RECUPERARTEMPLATE);
-            UrlService urlServicios = new UrlService();
+            
             plantilla.put(Constantes.MESSAGE_TO_USER, messageToUser);
-            plantilla.putAll(urlServicios.addConstantsEndPoints(request));
+            
             temp.process(plantilla, response.getWriter());
 
         
