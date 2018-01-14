@@ -15,6 +15,7 @@ import model.Administrador;
 import model.User;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import utils.SqlQuery;
@@ -198,42 +199,44 @@ public class AdministradorDAO {
     }
     
     public long comprobarUser(Administrador admin){
-        long user= 0;
+        long usuario= 0;
         Connection con = null;
         try {
             con = DBConnection.getInstance().getConnection();
 
             QueryRunner qr = new QueryRunner();
-            ScalarHandler<Long> scalar = new ScalarHandler<>();
-            user = qr.query(con, SqlQuery.QUERYCOMPUSER, scalar, admin.getNombre());
-
-        } catch (Exception ex) {
-            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+            ResultSetHandler<Administrador> handler
+                    = new BeanHandler<>(Administrador.class);
+            admin = qr.query(con, SqlQuery.QUERYCOMPUSER, handler, admin.getNombre());
             
+        } catch (Exception ex) {
+            Logger.getLogger(AdministradorDAO.class.getName()).log(Level.SEVERE, null, ex);
+             return usuario;
         } finally {
             DBConnection.getInstance().cerrarConexion(con);
             
         }
-        return user;
+        return admin.getId();
     }
     
     public long comprobarCorreo(Administrador admin){
-        long user= 0;
+        long usuario= 0;
         Connection con = null;
         try {
             con = DBConnection.getInstance().getConnection();
 
             QueryRunner qr = new QueryRunner();
-            ScalarHandler<Long> scalar = new ScalarHandler<>();
-            user = qr.query(con, SqlQuery.QUERYCOMPCORREO, scalar, admin.getNombre());
-
-        } catch (Exception ex) {
-            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+            ResultSetHandler<Administrador> handler
+                    = new BeanHandler<>(Administrador.class);
+            admin = qr.query(con, SqlQuery.QUERYCOMPCORREO, handler, admin.getEmail());
             
+        } catch (Exception ex) {
+            Logger.getLogger(AdministradorDAO.class.getName()).log(Level.SEVERE, null, ex);
+             return usuario;
         } finally {
             DBConnection.getInstance().cerrarConexion(con);
             
         }
-        return user;
+        return admin.getId();
     }
 }

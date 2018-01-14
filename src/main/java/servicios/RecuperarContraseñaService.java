@@ -31,9 +31,11 @@ public class RecuperarContraseñaService {
             
             String beforeHash = randomAlphaNumeric(10);
             String passHash = PasswordHash.getInstance().createHash(beforeHash);
-            user.setPassword(passHash);
+            user.setPassword(beforeHash);
             MandarMail mail = new MandarMail();
             RecuperarContraseñaDAO dao = new RecuperarContraseñaDAO();
+            
+            user.setId(this.conseguirId(user));
             int comprestablecer = dao.restablecerPassword(user);
 
             if(comprestablecer == 0) {
@@ -58,9 +60,9 @@ public class RecuperarContraseñaService {
         RecuperarContraseñaDAO dao = new RecuperarContraseñaDAO();
         long comprobacion = dao.comprobarUser(user);
         if(comprobacion == 0){
-            return true;
-        }else{
             return false;
+        }else{
+            return true;
          }
     }
     
@@ -68,11 +70,16 @@ public class RecuperarContraseñaService {
         RecuperarContraseñaDAO dao = new RecuperarContraseñaDAO();
         long comprobacion = dao.comprobarCorreo(user);
         if(comprobacion == 0){
-            return true;
-        }else{
             return false;
+        }else{
+            return true;
          }
     }
+    public long conseguirId(User user) {
+        RecuperarContraseñaDAO dao = new RecuperarContraseñaDAO();
+        return dao.conseguirId(user);
+    }
+    
     
      public User recogerParametros(Map<String, String[]> parametros) throws UnsupportedEncodingException {
         User user = null;

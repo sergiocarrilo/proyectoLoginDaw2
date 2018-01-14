@@ -51,7 +51,7 @@ public class InformeNotaAlumnoDAO {
             QueryRunner qr = new QueryRunner();
             ResultSetHandler<List<InformeNotasAlumnos>> handler
                     = new BeanListHandler<>(InformeNotasAlumnos.class);
-            lista = qr.query(con, SqlQuery.QUERYGETNOTASASIOGNATURA, handler,id_asignatura);
+            lista = qr.query(con, SqlQuery.QUERYGETNOTASASIGNATURA, handler,id_asignatura);
 
         } catch (Exception ex) {
             Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
