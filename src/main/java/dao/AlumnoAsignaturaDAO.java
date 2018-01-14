@@ -87,7 +87,7 @@ public class AlumnoAsignaturaDAO {
                 new Object[]{relacion.getId_alumno(), relacion.getId_asignatura()}, new ResultSetExtractor<Long>() {
             @Override
             public Long extractData(ResultSet rs) throws SQLException, DataAccessException {
-                return rs.next() ? rs.getLong(Constantes.ID) : null;
+                return rs.next() ? rs.getLong(Constantes.ID_ALUMNOS_ASIGNATURAS) : null;
             }
         });
         if (idRelacion != null) {
@@ -100,7 +100,7 @@ public class AlumnoAsignaturaDAO {
     public int deleteAlumnoAsignaturaTemplate(AlumnoAsignatura alumnoAsignatura) {
         JdbcTemplate jtm = new JdbcTemplate(
                 DBConnection.getInstance().getDataSource());
-        int rowsAffected = jtm.update(SqlQuery.DELETE_ALUMNO_ASIGNATURA, alumnoAsignatura.getIdAlumnoAsignatura());
+        int rowsAffected = jtm.update(SqlQuery.DELETE_ALUMNO_ASIGNATURA, alumnoAsignatura.getId());
 
         return rowsAffected;
     }

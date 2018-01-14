@@ -34,11 +34,11 @@ public class AlumnoAsignatura {
     }
  
 
-    public long getIdAlumnoAsignatura() {
+    public long getId() {
         return id;
     }
 
-    public void setIdAlumnoAsignatura(long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

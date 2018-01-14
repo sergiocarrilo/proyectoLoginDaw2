@@ -36,6 +36,8 @@ public class Constantes {
     public static final String FECHA_ACTIVACION = "FECHA_ACTIVACION";
     public static final String EMAIL = "EMAIL";
 
+    //Colummas Alumnos-Asignaturas
+    public static final String ID_ALUMNOS_ASIGNATURAS = "ID_ALUMNOS_ASIGNATURAS";
     //Columnas USER_PERMISOS
     public static final String ID_USER_PERMISO = "ID_USER_PERMISO";
     public static final String ID_USER = "ID_USER";
