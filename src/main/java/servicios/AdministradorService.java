@@ -19,6 +19,7 @@ import java.util.Map;
 import model.Administrador;
 import utils.Constantes;
 import utils.PasswordHash;
+import static utils.Utils.randomAlphaNumeric;
 
 /**
  *
@@ -29,8 +30,9 @@ public class AdministradorService {
 
     public Administrador insertProfesor(Administrador admin) throws SQLException, NoSuchAlgorithmException, InvalidKeySpecException {
         if(this.comprobarUser(admin) && this.comprobarCorreo(admin)){
-            String passHash = PasswordHash.getInstance().createHash(admin.getPassword());
-            admin.setPassword(passHash);
+            String beforeHash = randomAlphaNumeric(10);
+            String passHash = PasswordHash.getInstance().createHash(beforeHash);
+            admin.setPassword(beforeHash);
             MandarMail mail = new MandarMail();
             AdministradorDAO dao = new AdministradorDAO();
             Administrador compadmin = dao.insertProfessor(admin);
@@ -55,8 +57,9 @@ public class AdministradorService {
     
      public Administrador insertAlumno(Administrador admin) throws NoSuchAlgorithmException, InvalidKeySpecException, SQLException {
         if(this.comprobarUser(admin)){
-            String passHash = PasswordHash.getInstance().createHash(admin.getPassword());
-            admin.setPassword(passHash);
+            String beforeHash = randomAlphaNumeric(10);
+            String passHash = PasswordHash.getInstance().createHash(beforeHash);
+            admin.setPassword(beforeHash);
             MandarMail mail = new MandarMail();
             AdministradorDAO dao = new AdministradorDAO();
             Administrador compadmin = dao.insertAlumno(admin);

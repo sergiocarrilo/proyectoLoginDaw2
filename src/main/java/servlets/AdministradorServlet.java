@@ -78,7 +78,6 @@ public class AdministradorServlet extends HttpServlet {
             case Constantes.INSERTARPROFE:
                 admin = service.recogerParametros(parametros);
                 Administrador insertprofe = null;
-                admin.setPassword(Constantes.PASSWORDPROFESOR);
                 insertprofe = service.insertProfesor(admin);
                 lista = service.getAllProfessors(offset);
                 if (String.valueOf(insertprofe.getId()) == null || insertprofe.getId() == 0) {
@@ -94,7 +93,6 @@ public class AdministradorServlet extends HttpServlet {
             case Constantes.INSERTARALUMNO:
                 admin = service.recogerParametros(parametros);
                 Administrador insertalumno = null;
-                admin.setPassword(Constantes.PASSWORDALUMNO);
                 insertalumno = service.insertAlumno(admin);
                 lista = service.getAllAlumnos(offset);
                 if (String.valueOf(insertalumno.getId()) == null || insertalumno.getId()==0) {
