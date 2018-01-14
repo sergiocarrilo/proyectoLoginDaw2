@@ -122,12 +122,12 @@ public class AdministradorDAO {
 
             QueryRunner qr = new QueryRunner();
 
-            BigInteger id = qr.insert(con,
+            Long id = qr.insert(con,
                     SqlQuery.INSERT_ASIGNATURA,
-                    new ScalarHandler<BigInteger>(),
+                    new ScalarHandler<Long>(),
                     admin.getNombre());
 
-            admin.setId(id.intValue());
+            admin.setId(id);
 
         } catch (Exception ex) {
             Logger.getLogger(AsignaturasDAO.class.getName()).log(Level.SEVERE, null, ex);
