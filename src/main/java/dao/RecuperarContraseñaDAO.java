@@ -34,7 +34,11 @@ public class RecuperarContraseñaDAO {
             ResultSetHandler<User> handler
                     = new BeanHandler<>(User.class);
             user = qr.query(con, SqlQuery.QUERYCOMPUSER, handler ,user.getNombre());
-            
+            if(user == null){
+                usuario = 0;
+            }else{
+                usuario = user.getId();
+            }
         } catch (Exception ex) {
             Logger.getLogger(UsersDAO.class.getName()).log(Level.SEVERE, null, ex);
             return usuario;
@@ -42,7 +46,7 @@ public class RecuperarContraseñaDAO {
             DBConnection.getInstance().cerrarConexion(con);
             
         }
-        return user.getId();
+        return usuario;
     }
     
     public long comprobarCorreo(User user){
@@ -55,7 +59,11 @@ public class RecuperarContraseñaDAO {
             ResultSetHandler<User> handler
                     = new BeanHandler<>(User.class);
             user = qr.query(con, SqlQuery.QUERYCOMPCORREO, handler,user.getEmail());
-            
+            if(user == null){
+                usuario = 0;
+            }else{
+                usuario = user.getId();
+            }
         } catch (Exception ex) {
             Logger.getLogger(UsersDAO.class.getName()).log(Level.SEVERE, null, ex);
              return usuario;
@@ -63,7 +71,7 @@ public class RecuperarContraseñaDAO {
             DBConnection.getInstance().cerrarConexion(con);
             
         }
-        return user.getId();
+        return usuario;
     }
 
     public int restablecerPassword(User user) {
