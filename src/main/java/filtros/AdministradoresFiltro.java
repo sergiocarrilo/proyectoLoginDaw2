@@ -16,7 +16,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import model.User;
@@ -30,8 +29,7 @@ import utils.UrlsPaths;
  *
  * @author Gato
  */
-@WebFilter(filterName = FILTRO_ADMIN, urlPatterns = {UrlsPaths.SECURE_ADMINISTRADOR}, initParams = {
-    @WebInitParam(name = "Name", value = "Value")})
+@WebFilter(filterName = FILTRO_ADMIN, urlPatterns = {UrlsPaths.SECURE_ADMINISTRADOR})
 public class AdministradoresFiltro implements Filter {
 
     private static final boolean debug = true;

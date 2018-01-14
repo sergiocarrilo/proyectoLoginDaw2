@@ -173,10 +173,23 @@ public class Constantes {
     public static final String  MESSAGE_USER_LOGIN_FAIL_NOMBRE = "Error en las credenciales, El Usuario no existe";    
     public static final String  MESSAGE_USER_MISSING_FIELDS = "Te faltan campos por rellenar";
     
+    //servlet Cambiar Contraseña
+    public static final String  OLD_PASSWORD = "OLD_PASSWORD";    
+    public static final String  NEW_PASSWORD = "NEW_PASSWORD";    
+    public static final String  NEW_PASSWORD_CONFIRM = "NEW_PASSWORD_CONFIRM";    
+    public static final String  RESET_PASSWORD = "RESET_PASSWORD";    
+    public static final String  CAMBIAR_PASSWORD_TEMPLATE = "cambiarPassword.ftl";    
+    public static final String  EMAIL_SUBJECT_NEW_PASSWORD = "CRUD:  %s - Nueva Contraseña";    
+    public static final String  MESSAGE_USER_NEW_PASSWORD = "%s esta es tu nueva contraseña: %s ";    
+    public static final String MESSAGE_USER_NEW_PASSWORD_EMAIL = "Te acabamos de enviar tu nueva contraseña, revisa tu correo";
+    public static final String MESSAGE_USER_NEW_PASSWORD_EMAIL_FAIL = "Tenemos problemas para enviarte un correo con tu nueva contraseña, pero ya esta cambiada";    
+    public static final String MESSAGE_USER_NEW_PASSWORD_WRONG_COMPARE = "la nueva contraseña, no coincide con sus confirmación";    
+    public static final String MESSAGE_USER_NEW_PASSWORD_WRONG = "No hemos podido cambiar la contraseña, intentalo otra vez";    
+    public static final String  MESSAGE_USER_PASSWORD_FAIL = "Contraseña Actual Errónea";    
     //servlet Registro
-    public static final String  EMAIL_SUBJECT_VALIDATE = "CRUD: Hola %s - Correo de Activación";    
+    public static final String  EMAIL_SUBJECT_VALIDATE = "CRUD: Hola %s - Correo de Activación";        
     public static final String MESSAGE_USER_REGISTER_SUBMIT_EMAIL = "Estás a un paso de completar tu registro, por favor, revisa tu correo";
-    public static final String MESSAGE_USER_REGISTER_SUBMIT_EMAIL_FAIL = "Tenemos problemas para enviarte un correo de confirmación";    
+    public static final String MESSAGE_USER_REGISTER_SUBMIT_EMAIL_FAIL = "Tenemos problemas para enviarte un correo de confirmación";        
     public static final String MESSAGE_USER_EXIST = "Ya tenemos un usuario con un Nombre o Email igual";            
     public static final String MESSAGE_USER_ERROR_INSERT = "Tenemos un problema en el servicio, Intentalo más tarde";    
     public static final String MESSAGE_USER_VALIDATE_EMAIL_FAIL = "Tenemos problemas validando tu Email, enlace de Validación Erróneo, faltan parametros";

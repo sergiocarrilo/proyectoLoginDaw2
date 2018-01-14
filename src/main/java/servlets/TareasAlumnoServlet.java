@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.TareaAlumno;
 import model.User;
 import servicios.TareasServicios;
@@ -49,8 +50,9 @@ public class TareasAlumnoServlet extends HttpServlet {
             TareasServicios servicios = new TareasServicios();
             HashMap paramentrosPlantilla = new HashMap();
             String messageToUser = null;
-            User alumno = (User) request.getSession().getAttribute(Constantes.LOGIN_ON);
-            Long levelAccess = (Long) ((HttpServletRequest) request).getSession().getAttribute(Constantes.LEVEL_ACCESS);
+            HttpSession session = request.getSession();
+            User alumno = (User) session.getAttribute(Constantes.LOGIN_ON);
+            Long levelAccess = (Long) session.getAttribute(Constantes.LEVEL_ACCESS);
 
             if (action != null && !action.isEmpty()) {
                 switch (action) {

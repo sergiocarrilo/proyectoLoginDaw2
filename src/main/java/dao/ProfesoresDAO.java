@@ -40,7 +40,7 @@ public class ProfesoresDAO {
         return lista;
     }
 
-    public List<Profesor> getProfesoresByIdCursodbUtils(long id_curso, long id_asignatura) {
+    public List<Profesor> getProfesoresByIdCursoAndIdAsignaturadbUtils(long id_curso, long id_asignatura) {
         List<Profesor> lista = null;
 
         Connection con = null;

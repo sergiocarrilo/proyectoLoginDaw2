@@ -15,7 +15,7 @@ public class UrlsPaths {
     public static final String SECURE_SUPER_PRIVATE = "/secure/super/*";
     public static final String SECURE_PROFE = "/secure/profe/*";
     public static final String SECURE_ALUMNO = "/secure/alumno/*";
-    public static final String SECURE_ADMINISTRADOR = "/secure/admin/*";
+    public static final String SECURE_ADMINISTRADOR = "/secure/admin/*";    
     //Urls - Servlets
     public static final String ASIGNATURAS = "/secure/admin/asignaturas";
     public static final String NOTAS = "/secure/profe/notas";
@@ -32,5 +32,6 @@ public class UrlsPaths {
     public static final String NOTAS_ALUMNO = "/secure/alumno/notas";
     public static final String TAREAS_PROFESOR = "/secure/profe/tareas-profesor";
     public static final String RECUPERAR_PASSWORD = "/recuperar";
+    public static final String CAMBIAR_PASSWORD = "/cambiar-password";
 
 }//fin clase

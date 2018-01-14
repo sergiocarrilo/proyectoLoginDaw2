@@ -85,11 +85,7 @@ public class AsignaturasServicios {
         AsignaturasDAO dao = new AsignaturasDAO();
         return dao.deleteCursodbUtils(key);
     }
-
-    public boolean deleteAsignaturaForce(int i) throws SQLException {
-        AsignaturasDAO dao = new AsignaturasDAO();
-        return dao.deleteAsignaturadbUtilsForce(i);
-    }
+   
 
     public AsignaturaCurso tratarParametros(Map<String, String[]> parametros) throws UnsupportedEncodingException {
         AsignaturaCurso asignatura = null;

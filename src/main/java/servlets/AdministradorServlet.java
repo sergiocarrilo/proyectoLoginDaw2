@@ -119,12 +119,12 @@ public class AdministradorServlet extends HttpServlet {
         try {
 
             Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.ADMINTEMPLATE);
-            UrlService urlServicios = new UrlService();
+            
             plantilla.put(Constantes.LISTA, lista);
             plantilla.put(Constantes.MESSAGE_TO_USER, messageToUser);
             plantilla.put("actionview", action);
             plantilla.put("offset", offset);
-            plantilla.putAll(urlServicios.addConstantsEndPoints(request));
+            
             temp.process(plantilla, response.getWriter());
         } catch (TemplateException ex) {
             Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);

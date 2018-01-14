@@ -29,6 +29,10 @@
         <filter-name>SuperF</filter-name>
         <url-pattern />
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>CambiarPassF</filter-name>
+        <url-pattern />
+    </filter-mapping>
     <jsp-config>
         <jsp-property-group>
             <url-pattern>*.jsp</url-pattern>

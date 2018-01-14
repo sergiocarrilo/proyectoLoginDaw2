@@ -239,21 +239,9 @@ public class AsignaturasDAO {
         JdbcTemplate jtm = new JdbcTemplate(
                 DBConnection.getInstance().getDataSource());
         int rowsAffected = -1;
-        /* Long resultadoQuery = jtm.query(SqlQuery.SELECT_ALL_ASIGNATURA_CURSO_BY_ID, new Object[]{asignaturaCurso.getId_asignatura(), asignaturaCurso.getId_curso()}, new ResultSetExtractor<Long>() {
-            @Override
-            public Long extractData(ResultSet rs) throws SQLException, DataAccessException {
-                return rs.next() ? rs.getLong(Constantes.ID) : null;
-            }
-        });
-        if (resultadoQuery != null) {*/
+
         rowsAffected = jtm.update(SqlQuery.UPDATE_ASIGNATURA_CURSO, asignaturaCurso.getId_asignatura(), asignaturaCurso.getId_curso(), asignaturaCurso.getId());
 
-        /*}
-
-        if (rowsAffected == 0) {
-            rowsAffected = -1;
-        }
-         */
         return rowsAffected;
     }
 
@@ -381,44 +369,7 @@ public class AsignaturasDAO {
         return filasErased;
     }
 
-    @Deprecated
-    public boolean deleteAsignaturadbUtilsForce(int key) throws SQLException {
-        int filasNota = -1;
-        int filasAsigantura = -1;
-        boolean borrado = Boolean.FALSE;
-
-        Connection con = null;
-
-        try {
-            con = DBConnection.getInstance().getConnection();
-            con.setAutoCommit(Boolean.FALSE);
-            QueryRunner qr = new QueryRunner();
-
-            filasNota = qr.update(con,
-                    SqlQuery.DELETE_NOTA_ASIGNATURA,
-                    key);
-            filasAsigantura = qr.update(con,
-                    SqlQuery.DELETE_ASIGNATURA,
-                    key);
-
-            if (filasNota > 0 && filasAsigantura > 0) {
-                borrado = Boolean.TRUE;
-                con.commit();
-            } else {
-                con.rollback();
-            }
-
-        } catch (Exception ex) {
-            if (con != null) {
-                con.rollback();
-            }
-
-            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            DBConnection.getInstance().cerrarConexion(con);
-        }
-        return borrado;
-    }
+   
 
     public List<AsignaturaCurso> getAllAsignaturasdbUtilsNotas() {
         List<AsignaturaCurso> lista = null;
