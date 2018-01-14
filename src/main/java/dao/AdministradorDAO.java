@@ -201,42 +201,53 @@ public class AdministradorDAO {
     public long comprobarUser(Administrador admin){
         long usuario= 0;
         Connection con = null;
+        User user;
         try {
             con = DBConnection.getInstance().getConnection();
 
             QueryRunner qr = new QueryRunner();
-            ResultSetHandler<Administrador> handler
-                    = new BeanHandler<>(Administrador.class);
-            admin = qr.query(con, SqlQuery.QUERYCOMPUSER, handler, admin.getNombre());
-            
+            ResultSetHandler<User> handler
+                    = new BeanHandler<>(User.class);
+            user = qr.query(con, SqlQuery.QUERYCOMPUSER, handler ,admin.getNombre());
+            if(user == null){
+                usuario = 0;
+            }else{
+                usuario = user.getId();
+            }
+                     
         } catch (Exception ex) {
-            Logger.getLogger(AdministradorDAO.class.getName()).log(Level.SEVERE, null, ex);
-             return usuario;
+            Logger.getLogger(UsersDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return usuario;
         } finally {
             DBConnection.getInstance().cerrarConexion(con);
             
         }
-        return admin.getId();//Null pointer cuando no existe registro en la base de datos
+        return usuario;
     }
     
     public long comprobarCorreo(Administrador admin){
         long usuario= 0;
         Connection con = null;
+        User user = null;       
         try {
             con = DBConnection.getInstance().getConnection();
-
-            QueryRunner qr = new QueryRunner();
-            ResultSetHandler<Administrador> handler
-                    = new BeanHandler<>(Administrador.class);
-            admin = qr.query(con, SqlQuery.QUERYCOMPCORREO, handler, admin.getEmail());
             
+            QueryRunner qr = new QueryRunner();
+            ResultSetHandler<User> handler
+                    = new BeanHandler<>(User.class);
+            user = qr.query(con, SqlQuery.QUERYCOMPCORREO, handler,admin.getEmail());
+            if(user == null){
+                usuario = 0;
+            }else{
+                usuario = user.getId();
+            }
         } catch (Exception ex) {
-            Logger.getLogger(AdministradorDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UsersDAO.class.getName()).log(Level.SEVERE, null, ex);
              return usuario;
         } finally {
             DBConnection.getInstance().cerrarConexion(con);
             
         }
-        return admin.getId();
+        return usuario;
     }
 }
