@@ -82,6 +82,9 @@ public class Constantes {
     public static final String  MESSAGE_TO_USER_OUT_OF_RANGE = "No tienes Acceso al Contenido";
     //Servlet Profesor - si lo hubiese     
     public static final String  LISTA_PROFESORES = "listaProfesores";
+    
+
+    public static final String  LISTA_ALUMNOS = "listaAlumnos";
 
     //Servlet Asignaturas-Profesor     
     public static final String  PROFESOR_ASIGNATURA_TEMPLATE = "profesorAsignaturaTemplate.ftl";    
@@ -90,10 +93,17 @@ public class Constantes {
     public static final String  MESSAGE_QUERY_PROFEASIGNATURA_INSERTED = "Relación agregada correctamente";    
     public static final String  MESSAGE_QUERY_PROFEASIGNATURA_DELETED = "Relación borrada correctamente";    
     public static final String  MESSAGE_QUERY_PROFEASIGNATURA_DELETED_FAIL = "Tenemos problemas borrando esta relación, inténtalo más tarde";
+    
+    //Servlet Asignaturas-Alumno
+    public static final String  ALUMNO_ASIGNATURA_TEMPLATE = "alumnoAsignaturaTemplate.ftl";    
+    public static final String  LISTA_ALUMNOS_ASIGNATURAS = "listaAlumnosAsignaturas";
 
     //modelo Profesor-Asignatura - PLANTILLA
     public static final String  ID_PROFESOR = "id_profesor";
-    public static final String MESSAGE_RELACION_EXIST = "Ya tenemos una relación con esa combinación";            
+    public static final String MESSAGE_RELACION_EXIST = "Ya tenemos una relación con esa combinación";  
+    
+    //modelo Alumno-Asignatura - PLANTILLA
+    public static final String  ID_ALUMNO = "id_alumno";
 
     //Servlet Informe Notas - Asignaturas    
     public static final String  INFORME_NOTAS_ASIGNATURAS = "informeNotasAsignaturas.ftl";    
