@@ -51,7 +51,7 @@
 <#if listaAlumnosAsignaturas??>
             <#list listaAlumnosAsignaturas as alumno_asig>
                         <form action="alumno-asignaturas">         
-                            <#-- <input type="hidden" name="id" id="id" value="${alumno_asig.id}"/> -->
+                            <input type="hidden" name="id" id="id" value="${alumno_asig.id}"/>
                             <input type="hidden" name="ACTION" id="ACTION" value="DELETE"/>
                             <tr>
 
