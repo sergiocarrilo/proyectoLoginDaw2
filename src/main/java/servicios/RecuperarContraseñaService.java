@@ -31,7 +31,7 @@ public class RecuperarContraseñaService {
             
             String beforeHash = randomAlphaNumeric(10);
             String passHash = PasswordHash.getInstance().createHash(beforeHash);
-            user.setPassword(beforeHash);
+            user.setPassword(passHash);
             MandarMail mail = new MandarMail();
             RecuperarContraseñaDAO dao = new RecuperarContraseñaDAO();
             
@@ -43,7 +43,7 @@ public class RecuperarContraseñaService {
 
             } else {
 
-                mail.mandarMail(user.getEmail(), passHash, "CONTRASEÑA");
+                mail.mandarMail(user.getEmail(), beforeHash, "CONTRASEÑA");
                 codigo = 1;
             }
         }else if(!this.comprobarUser(user)){

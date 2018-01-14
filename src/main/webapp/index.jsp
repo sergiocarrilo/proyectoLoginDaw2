@@ -19,8 +19,7 @@
     <body>
         <div class="container">
             <c:redirect url="/index"/>
-            <h2>INDEX</h2>
-            <P>Commit de prueba 3</P>
+            <h2>INDEX</h2>            
         </div>
     </body>
 </html>
