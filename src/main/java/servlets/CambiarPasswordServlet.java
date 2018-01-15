@@ -22,17 +22,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.User;
+import model.UserNewPassword;
 import servicios.LoginServicios;
 import utils.Constantes;
+import static utils.Constantes.RESET_PASSWORD;
 import utils.PasswordHash;
-import utils.UrlsPaths;
+import static utils.UrlsPaths.CAMBIAR_PASSWORD;
 
 /**
  *
  * @author Gato
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {UrlsPaths.INDEX})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "CambiarPasswordServlet", urlPatterns = {CAMBIAR_PASSWORD})
+public class CambiarPasswordServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,38 +47,46 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         try {
+            HttpSession session = request.getSession();
+            User usuarioSession = (User) session.getAttribute(Constantes.LOGIN_ON);
+           
             String action = request.getParameter(Constantes.ACTION_TEMPLATE);
             Map<String, String[]> parametros = request.getParameterMap();
             String messageToUser = null;
             LoginServicios servicios = new LoginServicios();
-            User usuario = servicios.tratarParametro(parametros);
-            long levelAccessUser = -1;
+            UserNewPassword usuarioNewPass = servicios.tratarParametroNewPassword(parametros);
+
             freemarker.template.Configuration freeMarker = Configuration.getInstance().getFreeMarker();
-            HttpSession session = request.getSession();
 
             if (action != null && !action.isEmpty()) {
                 switch (action) {
-                    case Constantes.LOGIN:
-                        if (servicios.userReadyToWorkLogin(usuario)) {
-                            String passwordFromClient = usuario.getPassword();
-                            usuario = servicios.selectLoginUser(usuario);//recupera el hash de DB
+                    case RESET_PASSWORD:
+                        if (servicios.userReadyToWorkChangePassword(usuarioNewPass)) {
+                            String passwordFromClient = usuarioNewPass.getOld_password();
+                            usuarioSession = servicios.selectLoginUser(usuarioSession);//recupera el hash de DB
 
-                            if (usuario != null) {
-                                if (usuario.isActivo()) {
+                            if (usuarioSession != null) {
 
-                                    if (PasswordHash.getInstance().validatePassword(passwordFromClient, usuario.getPassword())) {
+                                if (PasswordHash.getInstance().validatePassword(passwordFromClient, usuarioSession.getPassword())) {//comprueba la contraseña antigua
 
-                                        levelAccessUser = servicios.getIdTipoPermiso(usuario.getId());
-                                        session.setAttribute(Constantes.LOGIN_ON, usuario);
-                                        session.setAttribute(Constantes.LEVEL_ACCESS, levelAccessUser);
+                                    if (servicios.compareNewPassword(usuarioNewPass)) {
+
+                                        if (servicios.changeNewPasword(usuarioNewPass, usuarioSession)) {
+                                            usuarioSession.setPassword(usuarioNewPass.getNew_password());
+                                            messageToUser = (servicios.buildAndSendEmail(request, usuarioSession))
+                                                    ? Constantes.MESSAGE_USER_NEW_PASSWORD_EMAIL : Constantes.MESSAGE_USER_NEW_PASSWORD_EMAIL_FAIL;
+
+                                        } else {
+                                            messageToUser = Constantes.MESSAGE_USER_NEW_PASSWORD_WRONG;
+                                        }
 
                                     } else {
-                                        messageToUser = Constantes.MESSAGE_USER_LOGIN_FAIL_PASSWORD;
+                                        messageToUser = Constantes.MESSAGE_USER_NEW_PASSWORD_WRONG_COMPARE;
                                     }
+
                                 } else {
-                                    messageToUser = Constantes.MESSAGE_USER_LOGIN_FAIL_ACTIVO;
+                                    messageToUser = Constantes.MESSAGE_USER_PASSWORD_FAIL;
                                 }
 
                             } else {
@@ -87,11 +97,7 @@ public class LoginServlet extends HttpServlet {
                         }
 
                         break;
-                    case Constantes.LOGOUT:
-                        session.setAttribute(Constantes.LOGIN_ON, null);
-                        freeMarker.setSharedVariable(Constantes.LOGIN_ON, null);
-                        freeMarker.setSharedVariable(Constantes.LEVEL_ACCESS, null);
-                        break;
+
                 }
             }
             HashMap paramentrosPlantilla = new HashMap();
@@ -99,13 +105,7 @@ public class LoginServlet extends HttpServlet {
                 paramentrosPlantilla.put(Constantes.MESSAGE_TO_USER, messageToUser);
             }
 
-            if (session.getAttribute(Constantes.LOGIN_ON) != null && usuario != null) {
-                paramentrosPlantilla.put(Constantes.LOGIN_ON, usuario);
-                freeMarker.setSharedVariable(Constantes.LOGIN_ON, usuario);
-                freeMarker.setSharedVariable(Constantes.LEVEL_ACCESS, levelAccessUser);
-            }
-
-            Template plantilla = freeMarker.getTemplate(Constantes.INDEX_TEMPLATE);
+            Template plantilla = freeMarker.getTemplate(Constantes.CAMBIAR_PASSWORD_TEMPLATE);
             plantilla.process(paramentrosPlantilla, response.getWriter());
         } catch (TemplateException ex) {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);

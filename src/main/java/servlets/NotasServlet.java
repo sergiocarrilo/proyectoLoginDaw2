@@ -59,8 +59,6 @@ public class NotasServlet extends HttpServlet {
         Map<String, String[]> parametros = request.getParameterMap();
         //recupera el usuario de la session
         User profesor = (User) request.getSession().getAttribute(Constantes.LOGIN_ON);
-        //profesor = new User();//TODO - temporal quitar después
-        //profesor.setId(70);
 
         if (request.getParameter(Constantes.ACTION_TEMPLATE) == null) {
             action = Constantes.VIEW;
@@ -128,7 +126,7 @@ public class NotasServlet extends HttpServlet {
         }
         // getAll siempre se hace
         if (profesor != null) {
-        plantilla.put("asignaturas", asigs.getAllAsignaturasByIdProfesor(profesor.getId()));
+            plantilla.put("asignaturas", asigs.getAllAsignaturasByIdProfesor(profesor.getId()));
         }
         plantilla.put("nomAlu", nomAlu);
         plantilla.put("idAlu", idAlu);

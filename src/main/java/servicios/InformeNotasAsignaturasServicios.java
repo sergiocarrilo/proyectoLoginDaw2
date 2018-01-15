@@ -80,7 +80,7 @@ public class InformeNotasAsignaturasServicios {
 
         ProfesoresDAO dao = new ProfesoresDAO();
 
-        return dao.getProfesoresByIdCursodbUtils(id_curso, id_asignatura);
+        return dao.getProfesoresByIdCursoAndIdAsignaturadbUtils(id_curso, id_asignatura);
 
     }
 

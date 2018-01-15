@@ -5,18 +5,10 @@
  */
 package filtros;
 
-import config.Configuration;
-import freemarker.template.SimpleCollection;
-import freemarker.template.SimpleScalar;
-import freemarker.template.TemplateCollectionModel;
-import freemarker.template.TemplateHashModelEx;
-import freemarker.template.TemplateModel;
-import freemarker.template.TemplateModelException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Map;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -25,16 +17,20 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import model.User;
 import servicios.UrlService;
 import utils.Constantes;
-import static utils.NamesFilters.FILTRO_ENCODE;
+import utils.LevelAccessUser;
+import static utils.NamesFilters.FILTRO_CAMBIAR_PASS;
+import static utils.UrlsPaths.CAMBIAR_PASSWORD;
 
 /**
  *
- * @author daw
+ * @author Gato
  */
-@WebFilter(filterName = FILTRO_ENCODE, urlPatterns = {"/*"})
-public class EncodeUTF8Filtro implements Filter {
+@WebFilter(filterName = FILTRO_CAMBIAR_PASS, urlPatterns = {CAMBIAR_PASSWORD})
+public class CambiarPasswordFiltro implements Filter {
 
     private static final boolean debug = true;
 
@@ -43,13 +39,13 @@ public class EncodeUTF8Filtro implements Filter {
     // configured. 
     private FilterConfig filterConfig = null;
 
-    public EncodeUTF8Filtro() {
+    public CambiarPasswordFiltro() {
     }
 
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("EncodeUTF8Filtro:DoBeforeProcessing");
+            log("CambiarPassword:DoBeforeProcessing");
         }
 
     }
@@ -57,7 +53,7 @@ public class EncodeUTF8Filtro implements Filter {
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("EncodeUTF8Filtro:DoAfterProcessing");
+            log("CambiarPassword:DoAfterProcessing");
         }
 
     }
@@ -76,51 +72,31 @@ public class EncodeUTF8Filtro implements Filter {
             throws IOException, ServletException {
 
         if (debug) {
-            log("EncodeUTF8Filtro:doFilter()");
+            log("CambiarPassword:doFilter()");
         }
 
         doBeforeProcessing(request, response);
 
         Throwable problem = null;
         try {
-            request.setCharacterEncoding(Constantes.DEFAULT_ENCODING);
-            response.setCharacterEncoding(Constantes.DEFAULT_ENCODING);
-            response.setContentType(Constantes.CONTENT_TYPE);
+            HttpSession session = ((HttpServletRequest) request).getSession();
+            User user = (User) session.getAttribute(Constantes.LOGIN_ON);
+            Long levelAccess = (Long) session.getAttribute(Constantes.LEVEL_ACCESS);
 
-            UrlService service = new UrlService();
-            final Map<String, String> resultMap = service.addConstantsEndPoints((HttpServletRequest) request);
-            Configuration.getInstance().getFreeMarker().setAllSharedVariables(new TemplateHashModelEx() {
-                @Override
-                public int size() throws TemplateModelException {
-                    return resultMap.size();
+            if (user != null && levelAccess != null) {
+                if (levelAccess.intValue() == LevelAccessUser.ALUMNO.ordinal()
+                        || levelAccess.intValue() == LevelAccessUser.SUPER_ADMIN.ordinal()
+                        || levelAccess.intValue() == LevelAccessUser.PROFESOR.ordinal()
+                        || levelAccess.intValue() == -1
+                        || levelAccess.intValue() == LevelAccessUser.ADMIN.ordinal()) {
+                    chain.doFilter(request, response);
+                } else {
+                    new UrlService().outOfRangeTemplate(response);
                 }
 
-                @Override
-                public TemplateCollectionModel keys() throws TemplateModelException {
-                    return new SimpleCollection(resultMap.keySet());
-                }
-
-                @Override
-                public TemplateCollectionModel values() throws TemplateModelException {
-                    return new SimpleCollection(resultMap.values());
-                }
-
-                @Override
-                public TemplateModel get(String string) throws TemplateModelException {
-                    String val = resultMap.get(string);
-                    if (val == null) {
-                        return null;
-                    }
-                    return new SimpleScalar(val);
-                }
-
-                @Override
-                public boolean isEmpty() throws TemplateModelException {
-                    return resultMap.isEmpty();
-                }
-            });
-
-            chain.doFilter(request, response);
+            } else {
+                new UrlService().outOfRangeTemplate(response);
+            }
         } catch (Throwable t) {
             // If an exception is thrown somewhere down the filter chain,
             // we still want to execute our after processing, and then
@@ -173,7 +149,7 @@ public class EncodeUTF8Filtro implements Filter {
         this.filterConfig = filterConfig;
         if (filterConfig != null) {
             if (debug) {
-                log("EncodeUTF8Filtro:Initializing filter");
+                log("CambiarPassword:Initializing filter");
             }
         }
     }
@@ -184,9 +160,9 @@ public class EncodeUTF8Filtro implements Filter {
     @Override
     public String toString() {
         if (filterConfig == null) {
-            return ("EncodeUTF8Filtro()");
+            return ("CambiarPassword()");
         }
-        StringBuffer sb = new StringBuffer("EncodeUTF8Filtro(");
+        StringBuffer sb = new StringBuffer("CambiarPassword(");
         sb.append(filterConfig);
         sb.append(")");
         return (sb.toString());

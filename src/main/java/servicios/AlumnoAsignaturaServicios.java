@@ -39,8 +39,8 @@ public class AlumnoAsignaturaServicios {
         AlumnoAsignatura alumnoAsignatura = null;
         if (parametros != null && !parametros.isEmpty()) {
             alumnoAsignatura = new AlumnoAsignatura();
-            if (parametros.get(Constantes.ID_ALUMNOS_ASIGNATURAS.toLowerCase()) != null && !parametros.get(Constantes.ID_ALUMNOS_ASIGNATURAS.toLowerCase())[0].isEmpty()) {
-                alumnoAsignatura.setId(Long.valueOf(parametros.get(Constantes.ID_ALUMNOS_ASIGNATURAS.toLowerCase())[0]));
+            if (parametros.get(Constantes.ID.toLowerCase()) != null && !parametros.get(Constantes.ID.toLowerCase())[0].isEmpty()) {
+                alumnoAsignatura.setId(Long.valueOf(parametros.get(Constantes.ID.toLowerCase())[0]));
             }
             if (parametros.get(Constantes.ID_ALUMNO) != null && !parametros.get(Constantes.ID_ALUMNO)[0].isEmpty()) {
                 alumnoAsignatura.setId_alumno(Long.valueOf(parametros.get(Constantes.ID_ALUMNO)[0]));

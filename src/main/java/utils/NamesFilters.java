@@ -16,5 +16,6 @@ public class NamesFilters {
     public static final String FILTRO_PROFE = "ProfesoresF";
     public static final String FILTRO_ADMIN = "AdministradoresF";
     public static final String FILTRO_SUPER = "SuperF";
+    public static final String FILTRO_CAMBIAR_PASS = "CambiarPassF";
     
 }

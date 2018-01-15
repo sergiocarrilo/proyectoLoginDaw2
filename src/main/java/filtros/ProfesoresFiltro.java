@@ -22,13 +22,18 @@ import model.User;
 import servicios.UrlService;
 import utils.Constantes;
 import utils.LevelAccessUser;
+import static utils.NamesFilters.FILTRO_PROFE;
 import utils.UrlsPaths;
 
 /**
  *
  * @author Gato
  */
-@WebFilter(filterName = "ProfesoresFiltro", urlPatterns = {"/pruebA"/*UrlsPaths.SECURE_PROFE*/})
+
+
+
+@WebFilter(filterName = FILTRO_PROFE, urlPatterns = {UrlsPaths.SECURE_PROFE})
+
 public class ProfesoresFiltro implements Filter {
 
     private static final boolean debug = true;
