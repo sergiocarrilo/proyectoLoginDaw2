@@ -32,6 +32,8 @@ import utils.UrlsPaths;
 
 
 
+
+
 @WebFilter(filterName = FILTRO_PROFE, urlPatterns = {UrlsPaths.SECURE_PROFE})
 
 public class ProfesoresFiltro implements Filter {
