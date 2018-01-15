@@ -5,8 +5,6 @@
  */
 package dao;
 
-import dao.AlumnosDAO;
-import dao.DBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

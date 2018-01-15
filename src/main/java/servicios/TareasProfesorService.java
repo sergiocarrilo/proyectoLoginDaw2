@@ -7,11 +7,9 @@ package servicios;
 
 import dao.TareasProfesorDAO;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import model.TareaAlumno;
 import model.TareasProfesor;
 import utils.Constantes;
 

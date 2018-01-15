@@ -7,11 +7,9 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.TareaAlumno;
 import model.AlumnoAsignatura;
 import model.TareasProfesor;
 import org.apache.commons.dbutils.QueryRunner;

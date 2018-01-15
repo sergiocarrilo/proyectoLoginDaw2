@@ -9,7 +9,6 @@ import config.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,12 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Alumno;
 import model.Nota;
-import model.Profesor;
-import model.User;
 import servicios.InformeAlumnoNotasServicios;
-import servicios.InformeNotasAlumnosService;
-import servicios.UrlService;
-import utils.Constantes;
 import utils.UrlsPaths;
 
 /**
@@ -48,66 +42,51 @@ public class InformeAlumnoNotasServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        InformeAlumnoNotasServicios ns= new InformeAlumnoNotasServicios();
-        InformeAlumnoNotasServicios nss= new InformeAlumnoNotasServicios();
-        
+        InformeAlumnoNotasServicios ns = new InformeAlumnoNotasServicios();
+        InformeAlumnoNotasServicios nss = new InformeAlumnoNotasServicios();
+
         List<Alumno> list = null;
-        
+
         String action = request.getParameter("ACTION");
-        
+
         String idalumnillo = request.getParameter("idalumno");
-        
+
         HashMap plantilla = new HashMap();
-        
+
         String messageToUser = null;
-        
+
         Alumno alumno = new Alumno();
-        
+
         Nota n = new Nota();
-        
+
         Map<String, String[]> parametros = request.getParameterMap();
         if (action != null) {
             switch (action) {
                 case "VIEW":
                     if (idalumnillo != null) {
-                        
+
                         n.setIdAlumno(Long.parseLong(idalumnillo));
                         //Nota notita = ns.verAlumnos(parametros);
-                        plantilla.put("notas",ns.verAlumnos(n.getIdAlumno()));
-                        /**
-                        if (n != null) {
-                            filas = 1;
-                            if (nota != ""){
-                                n.setNota(Integer.parseInt(nota));
-                                n = ns.guardarNota(n);
-                                if (n != null) {
-                                    filas = 1;
-                                }
-                                plantilla.put("nota",n);
-                            }
-                            else {
-                                plantilla.put("mensaje", "ERROR AL SELECCIONAR");
-                            }
-                        }
-                        * */
+                        plantilla.put("notas", ns.verAlumnos(n.getIdAlumno()));
+
+                    } else {
+                        plantilla.put("mensaje", "ERROR AL SELECCIONAR");
                     }
-                    else {
-                        plantilla.put("mensaje", "ERROR AL SELECCIONAR");   
-                    }
-                break;
+                    break;
             }
-            
+
         }
         try {
-                Template temp = Configuration.getInstance().getFreeMarker().getTemplate("informeAlumnoNotas.ftl");
-                
-                plantilla.put("alumnos",nss.getAllAlumnos());
-                
-                temp.process(plantilla, response.getWriter());
-            } catch (TemplateException ex) {
-                Logger.getLogger(InformeNotasAlumnosServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            Template temp = Configuration.getInstance().getFreeMarker().getTemplate("informeAlumnoNotas.ftl");
+
+            plantilla.put("alumnos", nss.getAllAlumnos());
+
+            temp.process(plantilla, response.getWriter());
+        } catch (TemplateException ex) {
+            Logger.getLogger(InformeNotasAlumnosServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

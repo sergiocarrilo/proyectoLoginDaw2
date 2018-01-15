@@ -9,7 +9,6 @@ import config.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,9 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.InformeNotasAlumnos;
 import model.Profesor;
 import model.User;
-import servicios.AsignaturasServicios;
 import servicios.InformeNotasAlumnosService;
-import servicios.UrlService;
 import utils.Constantes;
 import utils.UrlsPaths;
 
@@ -48,18 +45,16 @@ public class InformeNotasAlumnosServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         InformeNotasAlumnosService service = new InformeNotasAlumnosService();
-        List<InformeNotasAlumnos> list = null;
+
         String action;
         HashMap plantilla = new HashMap();
-        String messageToUser = null;
+
         Profesor profesor = new Profesor();
         Map<String, String[]> parametros = request.getParameterMap();
-        
-       
-            User user = (User) request.getSession().getAttribute(Constantes.LOGIN_ON);
-            profesor.setId(user.getId());
-        
-        
+
+        User user = (User) request.getSession().getAttribute(Constantes.LOGIN_ON);
+        profesor.setId(user.getId());
+
         if (request.getParameter(Constantes.ACTION_TEMPLATE) == null) {
             action = Constantes.VIEW;
         } else {
@@ -77,10 +72,9 @@ public class InformeNotasAlumnosServlet extends HttpServlet {
         }
         try {
             Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.INFORMEALUMNONOTAS);
-            
+
             plantilla.put("asignaturas", service.getAsignaturasProfe(profesor.getId()));
-            
-           
+
             temp.process(plantilla, response.getWriter());
         } catch (TemplateException ex) {
             Logger.getLogger(InformeNotasAlumnosServlet.class.getName()).log(Level.SEVERE, null, ex);

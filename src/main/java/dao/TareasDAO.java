@@ -46,7 +46,7 @@ public class TareasDAO {
 
         JdbcTemplate jtm = new JdbcTemplate(
                 DBConnection.getInstance().getDataSource());
-        
+
         int rowsAffected = jtm.update(SqlQuery.UPDATE_TAREA_BY_ID_TAREAS_ALUMNOS, tarea.isHecho(), tarea.getId_tareas_alumnos());
 
         return rowsAffected;

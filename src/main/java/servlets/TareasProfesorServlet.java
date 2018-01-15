@@ -6,9 +6,7 @@
 package servlets;
 
 import config.Configuration;
-import freemarker.template.Template;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import freemarker.template.Template;
@@ -35,7 +33,7 @@ import utils.UrlsPaths;
  * @author DAW
  */
 @WebServlet(name = "TareasProfesorServlet", urlPatterns = {UrlsPaths.TAREAS_PROFESOR})
-public class TareasProfesorServlet extends HttpServlet {   
+public class TareasProfesorServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -56,49 +54,45 @@ public class TareasProfesorServlet extends HttpServlet {
         String messageToUser = null;
         Profesor profesor = new Profesor();
         Map<String, String[]> parametros = request.getParameterMap();
-        
-        
-            User user = (User) request.getSession().getAttribute(Constantes.LOGIN_ON);
-            profesor.setId(user.getId());
-        
-        
+
+        User user = (User) request.getSession().getAttribute(Constantes.LOGIN_ON);
+        profesor.setId(user.getId());
+
         if (request.getParameter(Constantes.ACTION_TEMPLATE) == null) {
             action = Constantes.VIEW;
         } else {
             action = request.getParameter(Constantes.ACTION_TEMPLATE);
         }
-        
+
         switch (action) {
             case Constantes.VIEW:
                 break;
             case Constantes.PONERTAREA:
                 tareas = service.recogerParametros(parametros);
                 TareasProfesor tarea = service.insertarTarea(tareas);
-                if(String.valueOf(tarea.getId_tarea())==null || tarea.getId_tarea() == 0){
+                if (String.valueOf(tarea.getId_tarea()) == null || tarea.getId_tarea() == 0) {
                     messageToUser = Constantes.MESSAGETAREAFAIL;
-                }else{
+                } else {
                     messageToUser = Constantes.MESSAGETAREAPUESTA;
                 }
                 break;
             case Constantes.VIEWTABLA:
                 tareas = service.recogerParametros(parametros);
                 plantilla.put("tareas", service.getAllTareas(tareas.getId_asignatura()));
-                plantilla.put("nombreTarea",tareas.getNombre());
+                plantilla.put("nombreTarea", tareas.getNombre());
                 break;
         }
         try {
             Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.TAREASPROFESOR);
-            UrlService urlServicios = new UrlService();
+
             plantilla.put("asignaturas", asignaturasprofe.getAsignaturasProfe(profesor.getId()));
             plantilla.put(Constantes.MESSAGE_TO_USER, messageToUser);
-            plantilla.putAll(urlServicios.addConstantsEndPoints(request));
+
             temp.process(plantilla, response.getWriter());
         } catch (TemplateException ex) {
             Logger.getLogger(InformeNotasAlumnosServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-       
-       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

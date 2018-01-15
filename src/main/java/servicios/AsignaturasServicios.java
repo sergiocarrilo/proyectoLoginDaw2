@@ -7,7 +7,6 @@ package servicios;
 
 import dao.AsignaturasDAO;
 import java.io.UnsupportedEncodingException;
-import java.sql.SQLException;
 
 import java.util.Iterator;
 import java.util.List;

@@ -32,7 +32,7 @@ public class AdministradorService {
         if(this.comprobarUser(admin) && this.comprobarCorreo(admin)){
             String beforeHash = randomAlphaNumeric(10);
             String passHash = PasswordHash.getInstance().createHash(beforeHash);
-            admin.setPassword(beforeHash);
+            admin.setPassword(passHash);
             MandarMail mail = new MandarMail();
             AdministradorDAO dao = new AdministradorDAO();
             Administrador compadmin = dao.insertProfessor(admin);
@@ -42,7 +42,7 @@ public class AdministradorService {
 
             } else {
 
-                mail.mandarMail(admin.getEmail(), Constantes.PASSWORDPROFESOR, "CONTRASEÑA");
+                mail.mandarMail(admin.getEmail(), beforeHash, "CONTRASEÑA");
                 return compadmin;
             }
         }else if(!this.comprobarCorreo(admin)){
@@ -59,7 +59,7 @@ public class AdministradorService {
         if(this.comprobarUser(admin)){
             String beforeHash = randomAlphaNumeric(10);
             String passHash = PasswordHash.getInstance().createHash(beforeHash);
-            admin.setPassword(beforeHash);
+            admin.setPassword(passHash);
             MandarMail mail = new MandarMail();
             AdministradorDAO dao = new AdministradorDAO();
             Administrador compadmin = dao.insertAlumno(admin);
@@ -67,7 +67,7 @@ public class AdministradorService {
             if (String.valueOf(compadmin.getId()) == null || compadmin.getId() == 0) {
                 return compadmin;
             } else {
-                mail.mandarMail(admin.getEmail(), Constantes.PASSWORDALUMNO, "CONTRASEÑA");
+                mail.mandarMail(admin.getEmail(), beforeHash, "CONTRASEÑA");
                 return compadmin;
             }
         }else if(!this.comprobarCorreo(admin)){

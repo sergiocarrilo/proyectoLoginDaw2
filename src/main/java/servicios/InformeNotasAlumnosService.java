@@ -6,12 +6,9 @@
 package servicios;
 
 import java.util.List;
-import model.Asignatura;
 import dao.InformeNotaAlumnoDAO;
-import java.sql.Date;
 import java.util.Iterator;
 import java.util.Map;
-import model.Administrador;
 import model.InformeNotasAlumnos;
 import utils.Constantes;
 /**

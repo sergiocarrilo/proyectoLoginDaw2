@@ -9,13 +9,7 @@ import config.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,7 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 import model.Superuser;
 import utils.Constantes;
 import servicios.SuperuserService;
-import servicios.UrlService;
 import utils.UrlsPaths;
 
 /**
@@ -99,8 +92,7 @@ public class SuperuserServlet extends HttpServlet {
             plantilla.put("usuarios", service.getAllUsers(offset));
             plantilla.put("offset", offset);
             plantilla.put(Constantes.MESSAGE_TO_USER, messageToUser);
-            UrlService urlServicios = new UrlService();
-            plantilla.putAll(urlServicios.addConstantsEndPoints(request));
+            
             Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.SUPERUSERTEMPLATE);
             temp.process(plantilla, response.getWriter());
         } catch (TemplateException ex) {

@@ -10,7 +10,6 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -23,7 +22,6 @@ import model.User;
 import servicios.AlumnosServicios;
 import servicios.AsignaturasServicios;
 import servicios.NotasServicios;
-import servicios.UrlService;
 import utils.Constantes;
 import utils.UrlsPaths;
 
@@ -56,7 +54,7 @@ public class NotasServlet extends HttpServlet {
         String action = request.getParameter(Constantes.ACTION_TEMPLATE);
         String messageToUser = null;
         HashMap plantilla = new HashMap();
-        Map<String, String[]> parametros = request.getParameterMap();
+        
         //recupera el usuario de la session
         User profesor = (User) request.getSession().getAttribute(Constantes.LOGIN_ON);
 
@@ -137,8 +135,7 @@ public class NotasServlet extends HttpServlet {
         }
         plantilla.put("offset", offset);
         plantilla.put(Constantes.MESSAGE_TO_USER, messageToUser);
-        UrlService urlServicios = new UrlService();
-        plantilla.putAll(urlServicios.addConstantsEndPoints(request));
+       
         Template temp = Configuration.getInstance().getFreeMarker().getTemplate(Constantes.NOTASTEMPLATE);
         temp.process(plantilla, response.getWriter());
     }
