@@ -58,7 +58,7 @@ public class AdministradorDAO {
         } catch (Exception ex) {
             if (con != null) {
                 Logger.getLogger(AsignaturasDAO.class.getName()).log(Level.SEVERE, null, ex);
-                //con.rollback();
+                con.rollback();
             }
         } finally {
 

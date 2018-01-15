@@ -10,14 +10,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <#include "/libreria.ftl">
         <script>
-                 function cogerDatosAsig(){
-                    var id = document.getElementById("id_asig_lista").value;
-                    document.getElementById("idasignatura").value = id; 
-                    document.getElementById("ACTION").value="PONERTAREA";
-                    
+                 
+                function mostrarTareas(){
+                    document.getElementById("ACTIONTABLA").value="VIEWTABLA";
+                    var id = document.getElementById("lista_id_asig").value;
+                    var text = document.getElementById("lista_id_asig").options[document.getElementById('lista_id_asig').selectedIndex].text;
+                    document.getElementById("nombretarea").value = text; 
+                    document.getElementById("idtabla").value = id; 
+                    document.getElementById("formtabla").submit();
                 }
-                    
-                    function crearTarea(){
+                function crearTarea(){
+                        var id = document.getElementById("id_asig_lista").value;
+                        document.getElementById("idasignatura").value = id; 
+                        document.getElementById("ACTION").value="PONERTAREA";
                         document.getElementById("formtarea").submit(); 
                     }
         </script>
@@ -31,60 +36,78 @@
                 <div class="col-sm-9">
                     <h2>Tareas - Asignar tareas de una asignatura</h2>
                     <h5>Por favor Selecciona la asignatura en la cual desea asignar tarea:</h5>
-                    <form action="" id="form">
-                        <select name="id_asig" id="id_asig_lista" onchange="mostrarListaAlumno()" >
+                    <form action="" id="formtarea">
+                        <select name="id_asig" id="id_asig_lista" onchange="" >
                             <option disabled selected value> -- selecciona una Asignatura -- </option>
                 <#list asignaturas as asignatura>
                             <option id ="asignatura.id_asignatura" value="${asignatura.id_asignatura}">${asignatura.nombre}</option>
                  </#list>                
                             </select> 
+                        <br>
+                        <label for="recipient-name" class="col-form-label">Nombre Tarea:</label>
+                        <input type="text" name="name" class="form-control" id="tarea">
+                                        
+                        <label for="recipient-name" class="col-form-label">Fecha de Entrega:</label>
+                        <input type="date" name="fecha_entrega" class="form-control" id="fechaentrega">
                         
-                        
-                       
+                        <input type="hidden" name="ACTION" class="form-control" id="ACTION" value="VIEW">   
+                        <input type="hidden" name="idasignatura" id="idasignatura" />
+                        </br>
+                        <button type="button" onclick="crearTarea();" class="btn btn-primary">INSERTAR</button>
                     </form>   
             </br>
-            <button type="button" class="btn btn-primary" onclick="cogerDatosAsig();" data-toggle="modal" data-target="#modalTarea">Insertar Asignatura</button>
-                    <div class="modal fade" id="modalTarea" tabindex="-1" role="dialog" aria-labelledby="modalTarea" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" >Insertar Tarea</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form id="formtarea" action="">
-                                        <div class="form-group">
-                                            <label for="recipient-name" class="col-form-label">Nombre Tarea:</label>
-                                            <input type="text" name="name" class="form-control" id="tarea">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="recipient-name" class="col-form-label">Fecha de Entrega:</label>
-                                            <input type="date" name="fecha_entrega" class="form-control" id="fechaentrega">
-                                        </div>
-                                        <div>
-                                            <input type="hidden" name="ACTION" class="form-control" id="ACTION" value="VIEW">   
-                                            <input type="hidden" name="idasignatura" id="idasignatura" />
-                                        </div>
-                                    <div class="modal-footer">
-                                        <div class="form-group">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                            <button type="button" onclick="crearTarea();" class="btn btn-primary">INSERTAR</button>
-                                        </div>
-                                    </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                      
+                                  
                     <br>
                     <#if messageToUser??>
                         <div class="alert alert-primary" role="alert">
                             ${messageToUser?js_string}    
                         </div>
                         </br>
+                    </#if>
+                        
+                    </br>
+                    
+                    <h2>Vista de tareas</h2>
+                    <form action="" id="formtabla">
+                        <select name="lista_id_asig" id="lista_id_asig" onchange="mostrarTareas()" >
+                            <option disabled selected value> -- selecciona una Asignatura para ver sus tareas -- </option>
+                            <#list asignaturas as asignatura>
+                                        <option id ="asignatura.id_asignatura" value="${asignatura.id_asignatura}">${asignatura.nombre}</option>
+                             </#list>                
+                        </select> 
+                        <input type="hidden" name="ACTION" class="form-control" id="ACTIONTABLA" value=""/>  
+                        <input type="hidden" name="idasignatura" class="form-control" id="idtabla" value=""/>  
+                        <input type="hidden" name="name" class="form-control" id="nombretarea" value=""/>
+                    </form>
+                    </br>
+                    <#if nombreTarea??>
+                        <div>
+                            <h5>
+                                ${nombreTarea}
+                           </h5>
+                        </div>
+                    </#if>
+                    </br>
+                    <#if tareas??>
+                        <table  class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                       
+                                <th>Nombre</th>                          
+                                <th>Fecha de entrega</th>
+                            </thead>
+                            <#list tareas as tarea>  
+                                <tr>
+                                    <td>
+                                        ${tarea.nombre}
+                                    </td> 
+                                    <td>
+                                        ${tarea.fecha_entrega?string["dd-MM-yyyy"]}
+                                    </td>
+                                </tr>
+                            </#list>
+                        </table>
                     </#if>
                 </div>
             </div>

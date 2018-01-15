@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -46,7 +47,7 @@ public class TareasProfesorServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         InformeNotasAlumnosService asignaturasprofe = new InformeNotasAlumnosService();
         TareasProfesorService service = new TareasProfesorService();
         TareasProfesor tareas = null;
@@ -56,13 +57,10 @@ public class TareasProfesorServlet extends HttpServlet {
         Profesor profesor = new Profesor();
         Map<String, String[]> parametros = request.getParameterMap();
         
-        if (request.getSession().getAttribute(Constantes.LOGIN_ON) == null) {
-            //para realizar pruebas
-            profesor.setId(70);
-        } else {
+        
             User user = (User) request.getSession().getAttribute(Constantes.LOGIN_ON);
             profesor.setId(user.getId());
-        }
+        
         
         if (request.getParameter(Constantes.ACTION_TEMPLATE) == null) {
             action = Constantes.VIEW;
@@ -81,6 +79,11 @@ public class TareasProfesorServlet extends HttpServlet {
                 }else{
                     messageToUser = Constantes.MESSAGETAREAPUESTA;
                 }
+                break;
+            case Constantes.VIEWTABLA:
+                tareas = service.recogerParametros(parametros);
+                plantilla.put("tareas", service.getAllTareas(tareas.getId_asignatura()));
+                plantilla.put("nombreTarea",tareas.getNombre());
                 break;
         }
         try {
@@ -110,7 +113,11 @@ public class TareasProfesorServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(TareasProfesorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -124,7 +131,12 @@ public class TareasProfesorServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(TareasProfesorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

@@ -55,13 +55,10 @@ public class InformeNotasAlumnosServlet extends HttpServlet {
         Profesor profesor = new Profesor();
         Map<String, String[]> parametros = request.getParameterMap();
         
-        if (request.getSession().getAttribute(Constantes.LOGIN_ON) == null) {
-            //para realizar pruebas
-            profesor.setId(70);
-        } else {
+       
             User user = (User) request.getSession().getAttribute(Constantes.LOGIN_ON);
             profesor.setId(user.getId());
-        }
+        
         
         if (request.getParameter(Constantes.ACTION_TEMPLATE) == null) {
             action = Constantes.VIEW;

@@ -6,10 +6,12 @@
 package servicios;
 
 import dao.TareasProfesorDAO;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import model.TareaAlumno;
 import model.TareasProfesor;
 import utils.Constantes;
 
@@ -20,7 +22,7 @@ import utils.Constantes;
 public class TareasProfesorService {
     
 
-    public TareasProfesor insertarTarea(TareasProfesor tareas) {
+    public TareasProfesor insertarTarea(TareasProfesor tareas) throws SQLException {
         TareasProfesorDAO dao = new TareasProfesorDAO();
         return dao.insertarTarea(tareas);
     }
@@ -41,7 +43,7 @@ public class TareasProfesorService {
                     if (Constantes.IDASIGNATURA.equalsIgnoreCase(key)) {
                         tarea.setId_asignatura(Long.valueOf(values[0]));
                     }else  if (Constantes.NAME.equalsIgnoreCase(key)) {
-                        tarea.setTarea(String.valueOf(values[0]));
+                        tarea.setNombre(String.valueOf(values[0]));
                     }else  if (Constantes.FECHA_ENTREGA.equalsIgnoreCase(key)) {
                         tarea.setFecha_entrega(java.sql.Date.valueOf(values[0]));
                     }
@@ -50,5 +52,9 @@ public class TareasProfesorService {
         
         }
         return tarea;
+    }
+    public List<TareasProfesor> getAllTareas(long id_asignatura) {
+        TareasProfesorDAO dao = new TareasProfesorDAO();
+        return dao.getAllTareas(id_asignatura);
     }
 }

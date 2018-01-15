@@ -14,7 +14,7 @@ import java.util.Date;
 public class TareasProfesor {
      private long id_asignatura;
     private long id_tarea;
-    private String tarea;
+    private String nombre;
     private Date fecha_entrega;
 
     public long getId_asignatura() {
@@ -33,12 +33,12 @@ public class TareasProfesor {
         this.id_tarea = id_tarea;
     }
 
-    public String getTarea() {
-        return tarea;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setTarea(String tarea) {
-        this.tarea = tarea;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public Date getFecha_entrega() {

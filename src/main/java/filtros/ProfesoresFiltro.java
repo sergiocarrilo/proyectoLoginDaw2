@@ -28,7 +28,7 @@ import utils.UrlsPaths;
  *
  * @author Gato
  */
-@WebFilter(filterName = "ProfesoresFiltro", urlPatterns = {UrlsPaths.SECURE_PROFE})
+@WebFilter(filterName = "ProfesoresFiltro", urlPatterns = {"/pruebA"/*UrlsPaths.SECURE_PROFE*/})
 public class ProfesoresFiltro implements Filter {
 
     private static final boolean debug = true;
